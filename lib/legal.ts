@@ -570,8 +570,7 @@ export const MODALIDADES = legal(
  */
 export const ACTIVIDADES_PRIORITARIAS = legal(
   [
-    "Las llevadas a cabo por el Instituto Cervantes para la promocion y difusion de la lengua espanola y de la cultura mediante redes telematicas, nuevas tecnologias y otros medios.",
-    "Las actividades llevadas a cabo por el Museo Nacional del Prado para la consecucion de sus fines establecidos en la Ley 46/2003, de 25 de noviembre, reguladora del Museo Nacional del Prado y en el Real Decreto 433/2004, de 12 de marzo, por el que se aprueba el Estatuto del Museo Nacional del Prado.",
+    "Las llevadas a cabo por el Instituto Cervantes para la promocion y difusion de la lengua espanola y de la cultura mediante redes telematicas, nuevas tecnologias y otros medios.",    "Las actividades llevadas a cabo por el Museo Nacional del Prado para la consecucion de sus fines establecidos en la Ley 46/2003, de 25 de noviembre, reguladora del Museo Nacional del Prado y en el Real Decreto 433/2004, de 12 de marzo, por el que se aprueba el Estatuto del Museo Nacional del Prado.",
     "Las actividades llevadas a cabo por el Museo Nacional Centro de Arte Reina Sofia en cumplimiento de los fines establecidos por la Ley 34/2011, de 4 de octubre, reguladora del Museo Nacional Centro de Arte Reina Sofia y por el Real Decreto 188/2013, de 15 de marzo, por el que se aprueba el Estatuto del Museo Nacional Centro de Arte Reina Sofia.",
     "Las llevadas a cabo por la Biblioteca Nacional de Espana en cumplimiento de los fines y funciones de caracter cultural y de investigacion cientifica establecidos por la Ley 1/2015, de 24 de marzo, reguladora de la Biblioteca Nacional de Espana, y por el Real Decreto 640/2016, de 9 de diciembre, por el que se aprueba el Estatuto de la Biblioteca Nacional de Espana.",
     "Las llevadas a cabo por la Fundacion Deporte Joven en colaboracion con el Consejo Superior de Deportes en el marco del proyecto «Espana Compite: en la Empresa como en el Deporte» con la finalidad de contribuir al impulso y proyeccion de las PYMES espanolas en el ambito interno e internacional, la potenciacion del deporte y la promocion del empresario como motor de crecimiento asociado a los valores del deporte.",
@@ -590,7 +589,7 @@ export const ACTIVIDADES_PRIORITARIAS = legal(
     "Los programas dirigidos a la erradicacion de la violencia de genero que hayan sido objeto de subvencion por parte de las Administraciones Publicas o se realicen en colaboracion con estas.",
     "Las llevadas a cabo por el Fondo de Becas Soledad Cazorla para Hurfanos de la violencia de genero (Fundacion Mujeres).",
     "Las llevadas a cabo por las Universidades Publicas en cumplimiento de los fines y funciones de caracter educativo, cientifico, tecnologico, cultural y de transferencia del conocimiento, establecidos por la Ley Organica 6/2001, de 21 de diciembre, de Universidades.",
-  ],
+  ].map((texto) => ({ texto })),
   "F18",
 );
 

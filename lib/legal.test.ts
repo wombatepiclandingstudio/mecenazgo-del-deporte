@@ -72,5 +72,9 @@ describe("contenido legal", () => {
 
   it("la relacion de actividades prioritarias trae los 20 puntos de la DA 57a", () => {
     expect(legal.ACTIVIDADES_PRIORITARIAS).toHaveLength(20);
+    for (const a of legal.ACTIVIDADES_PRIORITARIAS) {
+      expect(typeof a.texto).toBe("string");
+      expect(a.texto.length).toBeGreaterThan(20);
+    }
   });
 });
