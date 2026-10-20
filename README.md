@@ -1,5 +1,7 @@
 # Mecenazgo del deporte — Ley 49/2002
 
+[![CI](https://github.com/wombatepiclandingstudio/mecenazgo-del-deporte/actions/workflows/ci.yml/badge.svg)](https://github.com/wombatepiclandingstudio/mecenazgo-del-deporte/actions/workflows/ci.yml)
+
 Aplicación web con tres rutas:
 
 - `/` **Portada**: dos puertas, según lo que quieras hacer. «Quiero aportar» y «Quiero recibir
