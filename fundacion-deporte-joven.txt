@@ -1,0 +1,196 @@
+The report is complete and verified. Here is the final deliverable.
+
+<deliver-assets>
+<media src="commit-id-454509170454872" caption="España Compite 2026 y los programas AEIP de la Fundación Deporte Joven — manual operativo de mecenatización, calendario y fiscalidad" type="md" name="final_turn_001.md" />
+</deliver-assets>
+
+# España Compite 2026 y los programas AEIP de la Fundación Deporte Joven: manual operativo de mecenatización, calendario y fiscalidad
+
+La decisión de mecenatizar un proyecto deportivo español a finales de octubre de 2026 no se resuelve mirando el porcentaje de deducción, que es idéntico en la mayor parte de los casos, sino comparando tres cosas que las bases de la Fundación no dicen con la misma claridad: un tope de aportación que solo existe en un régimen, una escala de gastos de gestión que se invierte según el importe, y un calendario cuyos plazos corren en sentido contrario al que se imagina.
+
+España Compite 2026 es la décima edición del programa y la primera que incorpora la línea de carrera dual académico-deportiva. Su calificación como actividad prioritaria de mecenazgo es sólida en el derecho positivo, aunque se sostiene sobre un puente presupuestario: los Presupuestos Generales del Estado para 2026 nunca se aprobaron, de modo que el régimen aplicable es el de la Ley 31/2022 (PGE 2023) prorrogado por tercera vez, y la vigencia de esa prórroga depende de una cláusula de la que cabe dudar. Los programas hermanos —Universo Mujer IV, Plan 2030 ADB II y Deporte Inclusivo III— funcionan bajo otro régimen, el de acontecimiento de excepcional interés público, con reglas sustancialmente distintas en tres de los cuatro puntos que un patrocinador suele comparar.
+
+## Marco regulatorio de los tres regímenes
+
+El mecenatizado deportivo español en 2026 se articula sobre tres figuras que conviven sin mezclarse. La primera es la actividad prioritaria de mecenazgo del artículo 22 de la Ley 49/2002, que el Gobierno activa cada año por disposición adicional de los presupuestos. La segunda es el acontecimiento de excepcional interés público del artículo 27 de esa misma ley, que en 2026 corresponde a una lista de programas enumerados. La tercera es la vía de la publicidad, que solo existe para esta segunda figura.
+
+### Actividad prioritaria de mecenazgo: España Compite
+
+La Ley 31/2022 de Presupuestos Generales del Estado para 2023 contiene, en su disposición adicional quincuagésima séptima, la relación de actividades prioritarias de mecenazgo. Su punto 5.º identifica de forma literal a la Fundación Deporte Joven, en colaboración con el Consejo Superior de Deportes, en el marco del proyecto «España Compite: en la Empresa como en el Deporte», con la finalidad de contribuir al impulso y proyección de las PYMES españolas y a la potenciación del deporte [1].
+
+El apartado Dos de esa misma disposición eleva en cinco puntos porcentuales los porcentajes y los límites de las deducciones establecidas en los artículos 19, 20 y 21 de la Ley 49/2002 [1]. Ahí está el origen de todas las cifras que circulan sobre el programa, y conviene entenderlo bien porque fija un límite temporal que ninguna hoja de cálculo de FDJ menciona.
+
+La base imponible de esta deducción es la Ley 49/2002 en su redacción vigente. El artículo 20.1 fija el 40 % de la base de deducción en el Impuesto sobre Sociedades, elevable al 50 % por fidelidad cuando en los dos períodos impositivos anteriores se hubieran realizado donativos a favor de la misma entidad por importes iguales o superiores [2]. El artículo 20.2 limita esa base al 15 % de la base imponible del período impositivo, con arrastre de lo no deducido durante los diez años siguientes [2]. Sumando la elevación de cinco puntos, el resultado es el que las bases 2026 aplican: 45 %, hasta 55 % con fidelidad, sobre una base que no puede exceder del 20 % de la base imponible [3].
+
+En el IRPF, el artículo 19.1 de la Ley 49/2002 aplica un 80 % hasta 250 euros y un 40 % al resto, con un 45 % sobre el exceso de 250 euros si se cumplen las condiciones de reiteración; el artículo 19.2 remite al límite del artículo 69.1 de la Ley 35/2006, un 10 % de la base liquidable [2][30]. Elevados en cinco puntos, resulta la escala del 85 % hasta 250 euros, 45 % al resto y 50 % por fidelidad, con el 15 % de la base liquidable como techo [3][4]. Las instrucciones oficiales al modelo de declaración del IRPF confirman esta última cifra en la casilla 0722, con el límite del 15 % de la base liquidable y la remisión a los porcentajes de los artículos 19, 20 y 21 en su redacción vigente [5], y la Agencia Tributaria publica esos mismos porcentajes de 85 %, 45 % y 50 % en su manual de Renta [4].
+
+El límite del 20 % de la base imponible y el del 15 % de la base liquidable no son, por tanto, cifras propias de la Ley 49/2002: son el resultado de añadir cinco puntos a los topes estatutarios del 15 % y del 10 %. Esto tiene una consecuencia práctica que la documentación de FDJ no explicita: si en un ejercicio posterior la actividad prioritaria dejara de estar en la relación de la disposición adicional, el tipo de empresa caería del 45 % al 40 % y el de autónomo del 85 % al 80 % sobre los primeros 250 euros, y los límites bajarían del 20 % al 15 % de la base imponible y del 15 % al 10 % de la base liquidable.
+
+### Acontecimiento de excepcional interés público: Universo Mujer IV, ADB 2030 II y Deporte Inclusivo III
+
+El artículo 27 de la Ley 49/2002 gobierna la calificación de los acontecimientos como de excepcional interés público. La Agencia Tributaria publica, en la relación de actividades prioritarias de mecenazgo de 2025, un punto 21 que recoge de forma genérica «los programas y actividades relacionadas con la celebración de los siguientes acontecimientos de excepcional interés público, siempre que hayan sido aprobados por el respectivo Consorcio», enumerando entre ellos el Programa deportivo «RETO DE» y los declarados en el Real Decreto-ley 8/2025 [6].
+
+Ese Real Decreto-ley 8/2025, de 8 de julio, declara como PMEIP el Programa «Universo Mujer IV», el programa «Deporte Inclusivo III» y el «Plan 2030 de Apoyo al Deporte Base II», y fija en su artículo 2 la duración de cada uno entre el 1 de enero de 2025 y el 31 de diciembre de 2027 [7]. El Real Decreto-ley 12/2026, de 26 de mayo, declara veinticinco acontecimientos nuevos, ninguno de ellos perteneciente a los programas de la Fundación [8].
+
+La diferencia con el régimen anterior no está en los porcentajes sino en el nivel de la elevación. El artículo 27.3, segundo, párrafo segundo, de la Ley 49/2002 extiende el régimen de mecenazgo prioritario a los programas y actividades relacionados con el acontecimiento, siempre que los apruebe el consorcio u órgano administrativo y se realicen por las entidades del artículo 2 o por el propio consorcio, elevando en cinco puntos porcentuales los porcentajes y límites de los artículos 19, 20 y 21 [2]. La Guía de identidad corporativa de Universo Mujer IV lo formula con la misma fórmula: un mínimo del 45 % y un máximo del 55 % en la cuota del Impuesto sobre Sociedades, con la base de la deducción limitada al 20 % de la base imponible y arrastre a diez años [9].
+
+A esto se añade el argumento decisivo que separa ambos regímenes. El artículo 27.3, primero, de la Ley 49/2002 permite a las empresas deducir el 15 % de los gastos de propaganda y publicidad de proyección plurianual realizados en cumplimiento de los planes y actividades del acontecimiento, con un máximo del 90 % de las donaciones efectuadas, y con la condición de que si se aplica esa deducción, esas donaciones no pueden acogerse a los demás incentivos de la ley [2]. La publicidad es, por tanto, una vía alternativa y excluyente, no acumulable. España Compite, en cambio, no ofrece ninguna vía publicitaria: solo admite donaciones y aportaciones en especie.
+
+### El cierre de Reto De y su huella en la web
+
+El programa «RETO DE» es el único de los gestionados por la Fundación cuyo régimen ha caducado dentro del periodo analizado. La disposición adicional decimoctava de la Ley 39/2022, del Deporte, lo declaró acontecimiento de excepcional interés público con duración entre el 1 de enero de 2023 y el 31 de diciembre de 2025 [10], y así lo recoge la Agencia Tributaria en su régimen especial [11]. No aparece en el Real Decreto-ley 8/2025 [7] ni en el 12/2026 [8].
+
+La Fundación, sin embargo, afirma en su publicación de 2025 que «dará continuidad, previsiblemente, al Programa "Reto De", con finalización el 31 de diciembre de 2025» [12], redacción que se contradice a sí misma, y su página web mantiene el programa descrito como acontecimiento de excepcional interés público y sin mencionar fecha de cierre [13]. Para un patrocinador que consulte esa página en octubre de 2026, la impresión razonable es que el programa sigue abierto. No lo está.
+
+## Aritmética fiscal con ejemplos trabajados
+
+Las cifras que siguen se calculan sobre el régimen de donación de cada programa, excluyendo la vía publicitaria. Conviene fijar antes una distinción que las bases mezclan: el tope de 50.000 euros y el límite del 20 % de la base imponible no son lo mismo, y el orden en que se aplican determina el resultado.
+
+### El límite del 20 % de la base imponible en el Impuesto sobre Sociedades
+
+Para una empresa con base imponible de 150.000 euros, el 20 % son 30.000 euros. Ese es el techo real de la deducción, con independencia de cuánto done la empresa, siempre que la aportación se mueva dentro del rango del programa. Las bases 2026 ilustran el mecanismo con dos ejemplos [3]; las tres filas siguientes añaden los casos que hacen visible el efecto combinado de los dos límites:
+
+| Escenario | Base imponible | Donación | Límite 1 (20 % BI) | Límite 2 (50.000 €) | Base deducible | Deducción 45 % |
+|---|---|---|---|---|---|---|
+| Ejemplo 1 | 150.000 € | 30.000 € | 30.000 € | 50.000 € | 30.000 € | 13.500 € |
+| Ejemplo 2 | 150.000 € | 35.000 € | 30.000 € | 50.000 € | 30.000 € | 13.500 € |
+| Ejemplo 3 | 150.000 € | 25.000 € | 30.000 € | 50.000 € | 25.000 € | 11.250 € |
+| Ejemplo 4 | 300.000 € | 50.000 € | 60.000 € | 50.000 € | 50.000 € | 22.500 € |
+| Ejemplo 5 | 300.000 € | 80.000 € | 60.000 € | 50.000 € | 50.000 € | 22.500 € |
+
+La fila 2 es la que genera la confusión más extendida. Una donación de 35.000 euros no genera una deducción de 15.750 euros, aunque así lo afirma el texto del documento «Fiscalidad APM 2025» de la propia Fundación [14]. Genera 13.500 euros, porque el límite del 20 % de la base imponible recorta la base antes de aplicar el 45 %. La cifra correcta aparece en el gráfico de ese mismo documento y en las bases 2026; el error está solo en la prosa explicativa.
+
+La fila 5 anticipa el punto más importante del apartado siguiente: por encima de 50.000 euros, la donación deja de ser deducible en su integridad, y el exceso se pierde salvo que se aproveche dentro de la ventana de arrastre.
+
+### La escala del 15 % de la base liquidable en el IRPF
+
+Para el autónomo, la deducción no es un porcentaje único sino una escala aplicada al conjunto de donaciones a la Fundación, con el 15 % de la base liquidable como límite de la base deducible. Las bases 2026 lo ilustran con una donación de 500 euros, la deducción es de 212,50 euros por los primeros 250 euros al 85 %, más 112,50 euros por los 250 restantes al 45 %, es decir 325 euros [3], siempre que ese 500 euros no supere el 15 % de la base liquidable.
+
+Aquí el límite opera en sentido contrario al del Impuesto sobre Sociedades. En lugar de recortar una base demasiado grande, impide deducir una cantidad pequeña cuando la base liquidable es exigua. Un autónomo con base liquidable de 10.000 euros solo puede deducir 1.500 euros, aunque done 5.000. Los 3.500 restantes se arrastran a los diez años siguientes, siempre que la base liquidable de esos ejercicios lo permita.
+
+Conviene añadir una corrección menor que circula en materiales del sector: el umbral de 250 euros, no de 150 euros, es el que separa el tramo del 85 % del tramo del 45 % desde la reforma del Real Decreto-ley 6/2023 [2][4]. Las deducciones de 150 euros que aparecen en el material del Consejo Superior de Deportes de 2023 [15]respondían a la escala anterior.
+
+### El tope de 50.000 euros y la inversión del canon
+
+El límite de 50.000 euros anuales por aportante no es un límite general del mecenatismo, sino una regla que afecta exclusivamente a España Compite. La redacción de la Ley 31/2022 lo hace inequívoco: el tope se aplica a «los donativos, donaciones y aportaciones a las actividades señaladas en el párrafo anterior», es decir, a las del punto 5.º, el que identifica a España Compite [1]. La Agencia Tributaria reproduce esa misma secuencia en su relación de actividades prioritarias, situando el límite inmediatamente después de la entrada de la Fundación y antes de la actividad siguiente [6].
+
+Los programas de la Fundación declarados AEIP quedan bajo el punto 21, que no tiene tope de importe. La Fundación lo asume en su propio material de AEIP, donde el ejemplo de cálculo utiliza una donación de 80.000 euros para una empresa con base imponible de 200.000 euros, y otro de 70.000 euros en la vía publicitaria [16]. Ninguna de las dos cantidades sería admisible en España Compite.
+
+Esta asimetría tiene un efecto colateral sobre la escala de gastos de gestión, que es donde la comparación entre programas se invierte. España Compite aplica un canon plano del 2,75 % sobre cada donación, tanto dineraria como en especie, y las bases dejan claro que ese canon no reduce el beneficio fiscal del donante, que se aplica sobre la cantidad total donada [3]. Los programas AEIP, en cambio, aplican una escala progresiva [16]:
+
+| Importe de la donación | Canon España Compite | Canon AEIP | Importe neto destino al proyecto (donación de 20.000 €) |
+|---|---|---|---|
+| Hasta 1.000 € | 2,75 % | 0,00 % | 20.000 € en AEIP / 19.450 € en España Compite |
+| 1.000,01 € a 50.000 € | 2,75 % | 10,00 % | 18.000 € en AEIP / 19.450 € en España Compite |
+| 50.000,01 € a 150.000 € | 2,75 % | 7,95 % | — (AEIP) / 19.450 € en España Compite |
+| 150.000,01 € a 500.000 € | 2,75 % | 6,95 % | — (AEIP) / 19.450 € en España Compite |
+| 500.000,01 € a 2.000.000 € | 2,75 % | 5,95 % | — (AEIP) / 19.450 € en España Compite |
+| A partir de 2.000.000,01 € | 2,75 % | 3,95 % | — (AEIP) / 19.450 € en España Compite |
+
+La lectura correcta de esta tabla es contraintuitiva y contradice la intuición de que el régimen con más controles es el más caro. Para una donación pequeña, de 500 euros, el canon del 0 % en AEIP deja el 100 % para el proyecto, frente al 97,25 % en España Compite. Para una donación media, de 20.000 euros, el canon del 10 % en AEIP se come 2.000 euros, casi ocho veces lo que descuenta España Compite. A partir de 2.000.000 euros, la ventaja se invierte de nuevo y el canon del 3,95 % en AEIP vuelve a situarse por debajo del 2,75 % plano de España Compite.
+
+Para el patrocinador la decisión es clara: una aportación pequeña a un proyecto AEIP deja más recursos al proyecto, y una aportación grande también puede hacerlo, pero el rango intermedio favorece a España Compite. La vía publicitaria, en cambio, tiene su propia aritmética y merece un tratamiento separado, porque no es una bonificación del mismo tipo sino una deducción sobre el gasto publicitario.
+
+## Calendario ejecutable desde el 20 de octubre de 2026
+
+El calendario de España Compite para 2026 tiene tres fechas límite, y su orden confunde a quien llega por primera vez. La solicitud de ayuda se presenta antes del 4 de diciembre de 2026; la solicitud de donación, hasta el 11 de diciembre; y la Fundación debe tener la donación cobrada antes del 18 de diciembre [3][17].
+
+### España Compite: cuatro fechas y un orden contraintuitivo
+
+La secuencia real es la siguiente. El solicitante presenta su proyecto antes del 4 de diciembre. La Fundación comprueba la adecuación formal de las solicitudes de donación y, una vez validados los proyectos por los que el donante ha mostrado preferencia, le comunica por email qué proyecto financiará su aportación; solo entonces puede el donante realizar la transferencia [3]. La Fundación debe disponer efectivamente de la donación antes del 18 de diciembre [3]. Y el abono de la ayuda ocurre una vez aprobada la solicitud y garantizada la financiación, con retenciones del IRPF en el caso de personas físicas [3].
+
+De aquí se sigue el punto que más condiciona la decisión de un patrocinador que se incorpora ahora: el formulario de donante contempla un calendario de pagos que va de febrero a diciembre de 2026 [18]. Esas mensualidades ya han pasado en su mayor parte. Quien firma hoy solo puede empezar a distribuir su aportación en los meses de octubre, noviembre y diciembre, y siempre que el importe de cada fracción alcance los 1.000 euros, umbral mínimo que el propio formulario impone. Un patrocinador que pretenda diferir su aportación a lo largo del ejercicio se queda sin calendario útil: solo quedan octubre, noviembre y diciembre.
+
+Hay un segundo límite, menos visible pero igualmente duro. La partida de dinero de España Compite está condicionada a la existencia de donaciones previas: «el desarrollo de este programa de ayudas está ligado a la existencia de donaciones por parte del tejido empresarial. A medida que se vayan captando donaciones, se podrán ir concediendo las ayudas» [3]. La aprobación por correo electrónico, en la sección III.4, exige que «exista financiación suficiente por parte de los donantes» [3]. Es decir, la aprobación de la ayuda no es un acto administrativo del expediente: es el resultado de que el dinero de un tercero ya haya entrado. Para una entidad que cierre un acuerdo con un patrocinador nuevo, esto significa que el orden real de los hechos es «buscar el mecenas primero, presentar la solicitud después», al revés de lo que sugiere el orden de los documentos.
+
+A esto se añade una condición de cierre: la participación en 2026 de beneficiarios de ediciones anteriores queda condicionada a la previa conformidad de la documentación justificativa de la edición en cuestión [3]. Quien no justificó correctamente en 2025 no puede ni presentar solicitud.
+
+La magnitud de esa financiación es calculable. Solo en 2025 las donaciones y aportaciones de empresas y empresarios individuales sumaron 6.102.729,64 euros, un incremento de casi un 40 % respecto al ejercicio anterior, y desde 2016 el programa ha destinado 19.410.319,24 euros a entidades y deportistas individuales, con 640 proyectos deportivos en total [31]. La publicación institucional de la Fundación sitúa la cifra agregada de la línea de colaboración público-privada en casi 92 millones de euros y 992 proyectos desde 2016, de los que 140 correspondieron a España Compite en 2025 con aportaciones de 380 empresas y empresarios individuales [12].
+
+### Los AEIP: solicitud, certificación y remisión trimestral
+
+Los programas AEIP tienen un circuito administrativo más pesado y, a cambio, un calendario menos comprimido. El promotor utiliza el «Anexo 2 – Modelo de solicitud» correspondiente al programa —hay uno específico para Universo Mujer IV, para ADB 2030 II y para Deporte Inclusivo III— y lo remite al órgano administrativo encargado de la ejecución del programa [19]. La incorporación del proyecto al programa requiere el certificado de validación de ese órgano administrativo, y el proyecto se entiende aprobado en ese momento, aunque sin garantía de financiación: la Fundación no dispone de bolsa de empresas mecenas y son los propios promotores quienes buscan la financiación [19].
+
+La fase de justificación es donde la diferencia se vuelve operativa. En los AEIP, la memoria justificativa técnica y económica se presenta en el plazo de dos meses desde la finalización del proyecto [19], frente al mes que exigen las bases de España Compite [3], con la reducción a quince días cuando el proyecto termina el 31 de diciembre de 2026 [3]. La diferencia no es un error de la Fundación: son dos marcos distintos, porque en los AEIP la justificación se produce ante un órgano administrativo y en España Compite ante la Fundación.
+
+La certificación fiscal es el último eslabón y el que condiciona el calendario fiscal del donante. En los AEIP, el órgano administrativo remite a la Agencia Tributaria copia de las certificaciones emitidas en el trimestre anterior en los meses de enero, abril, julio y octubre, y si no hubiera emitido la certificación solicitada debe remitir copia de la solicitud presentada por el interesado [9]. Para el gasto publicitario, el artículo 10.1 del Real Decreto 1270/2003 fija que el plazo para solicitar las certificaciones termina quince días después de la finalización del acontecimiento, y que, con independencia de ese plazo, las entidades colaboradoras deben presentar su solicitud de expedición de certificación por los gastos de publicidad y propaganda realizados en cada ejercicio económico [9]. Para el mecenazgo prioritario por donación, el circuito es el inverso: la entidad beneficiaria —en Universo Mujer IV, la Federación Española de Baloncesto y la Fundación— es la que expide la certificación de donativos y la remite a la Agencia [9].
+
+## Ciclo operativo de la ayuda
+
+El ciclo de España Compite tiene una característica que conviene explicitar antes de detallar las etapas: es un ciclo de dos anualidades con dos contrapartes distintos. La entidad promotora pide una ayuda; el patrocinador dona a la Fundación. La Fundación no concede con cargo a una convocatoria con presupuesto propio, sino que paga con el dinero de terceros.
+
+### Solicitud y evaluación
+
+La solicitud se presenta por correo electrónico a espanacompite@deportejoven.es antes del 4 de diciembre de 2026, adjuntando el formulario «Solicitante de ayuda 2026» y el «Cuestionario de identificación de entidad deportiva / persona física» según corresponda, cumplimentados y firmados [3]. La documentación adicional exigida comprende certificado positivo vigente de estar al corriente con la Agencia Estatal de Administración Tributaria, certificado positivo vigente de estar al corriente con la Tesorería General de la Seguridad Social, certificado de titularidad de la cuenta bancaria de abono, la licencia federativa en vigor o documento de vinculación en el caso de deportistas, la inscripción en la federación o en el Registro de Entidades Deportivas en el caso de entidades, y el cuestionario de identificación y documentación requerida por la normativa de prevención del blanqueo de capitales y financiación del terrorismo [3].
+
+Los requisitos de acceso son comunes a las cuatro líneas y se resumen en un núcleo: presentar un proyecto que cumpla los objetivos del programa, no estar sancionado en firme por dopaje, no tener sanción disciplinaria o administrativa en materia deportiva de carácter grave o muy grave, y haber participado en alguna competición oficial en el año anterior o presente [3]. Las líneas son la participación de entidades deportivas en competiciones de ligas no profesionales, la preparación y participación de deportistas en competiciones, la organización de actividades deportivas y, como novedad, la carrera dual.
+
+La evaluación la realiza una Comisión de Valoración formada por representantes de la Fundación, que contará con la participación de técnicos del Consejo Superior de Deportes y otros técnicos especializados [3]. Este diseño es una diferencia estructural con los AEIP, donde la aprobación del programa de desarrollo y la concreción de objetivos requiere el voto favorable de los representantes del CSD [20].
+
+### Aprobación, financiación y abono
+
+La aprobación se comunica por email una vez evaluada favorablemente la solicitud y comprobada la existencia de financiación suficiente [3]. El abono se produce con esa misma condición satisfecha, y para personas físicas se practican las retenciones del IRPF vigentes [3].
+
+Tres precisiones que evitan malentendidos caros. La primera es que la aprobación de la ayuda no implica que el importe concedido sea el solicitado: la deducción fiscal del donante depende de sus propios límites, y la entidad promotora percibe el importe neto, una vez descontado el canon de gestión, que las bases sitúan en el 2,75 % [3][17]. La segunda es que el mecenas puede expresar preferencia sobre proyectos concretos, y la Fundación se compromete a respetar esa preferencia siempre que el proyecto se valide y la entidad cumpla los requisitos [3]. La tercera es que la comunicación de aprobación y la recepción efectiva del dinero son momentos separados: la Fundación debe tener la donación cobrada antes del 18 de diciembre de 2026 [3].
+
+### Justificación y custodia documental
+
+La memoria explicativa sobre el proyecto o actividad ejecutada se presenta en el plazo de un mes una vez finalizado el proyecto, reducido a quince días si finaliza el 31 de diciembre de 2026 [3]. Los justificantes de gasto y pago deben emitirse con los datos fiscales del perceptor de la ayuda [3] y, según el formulario de memoria justificativa 2026, deben estar emitidos entre el 1 de enero y el 31 de diciembre de 2026 y dentro del periodo de ejecución del proyecto [21].
+
+Ese límite temporal es más restrictivo de lo que parece en proyectos deportivos. Si la actividad abarca una temporada que trasciende el año natural, solo pueden considerarse los gastos generados dentro de 2026, entre el mes de inicio de la temporada y el 31 de diciembre [21]. En la práctica, esto significa que una ayuda concedida a finales de diciembre solo puede cubrir gastos de diciembre, lo que reduce muy probablemente el margen de ejecución real del programa en su última edición.
+
+Los originales de los justificantes se custodian durante dos años, contados desde la conclusión del proyecto validado [21]. En materia de IVA, solo se admite como gasto el importe de las facturas sin incluirlo, salvo que el beneficiario acredite que el IVA no es deducible mediante el certificado expedido por la Agencia Tributaria o por persona autorizada [21]. Las bases añaden que no se admiten gastos derivados del pago de sanciones, de procedimientos judiciales, intereses de demora, embargos ni el IVA recuperable [3]. En pagos, el artículo 7 de la Ley 7/2012 impide pagar en efectivo las operaciones de importe igual o superior a 1.000 euros, y un talón o cheque bancario, aunque nominativo, no justifica el pago [21].
+
+## La línea de carrera dual académico-deportiva
+
+La cuarta línea de España Compite 2026 es la única novedad estructural de la edición, y su diseño presenta un problema de coherencia documental que conviene señalar antes de que se traduzca en un rechazo de expediente.
+
+La línea abre en dos modalidades. El deportista individual debe presentar un proyecto deportivo, tener licencia federativa en vigor, estar matriculado en un centro educativo con el que exista un acuerdo de colaboración, no tener sanciones graves y haber participado en competición oficial. La entidad deportiva, por su parte, debe acreditar el acuerdo de colaboración con un centro educativo y presentar el listado de deportistas con licencia federativa en vigor [3]. Ambas modalidades admiten expresamente los gastos del curso académico generados durante la vigencia del programa, es decir, el año natural [3].
+
+La Fundación aporta dos modelos de acuerdo de compromiso, uno para deportista individual y otro para entidad deportiva [22]. El de entidad deportiva es un documento bipartito entre el centro educativo y la entidad, que compromete al centro a facilitar la asistencia, adaptar fechas de evaluación, promover seguimiento académico y designar un tutor académico de referencia, y a la entidad a facilitar la planificación de entrenamientos y comicios, comunicar cambios de calendario con antelación y colaborar en el seguimiento conjunto [22].
+
+El problema está en el certificado de listado. Las bases exigen a la entidad deportiva «presentar un listado de deportistas incluidos en el proyecto y que dispongan de licencia federativa en vigor», y el formulario de solicitud pide el «certificado de la entidad deportiva identificando a los deportistas participantes del proyecto de carrera dual» [3]. El modelo que la Fundación ofrece se titula, sin embargo, «CERTIFICADO RELACIÓN ESTUDIANTES – ENTIDAD ACADÉMICA» y su texto compromete a la entidad académica —no a la deportiva— a facilitar la relación de deportistas inscritos en su entidad deportiva [23]. El archivo correspondiente se llama «Certificado-Listado-Dualidad-Académico-Deportiva-2026-entidades-deportivas», lo que sugiere que el modelo previsto era el de la entidad deportiva. La consecuencia práctica es ambigua: o se trata de un modelo mal titulado que la entidad deportiva debe firmar, o de un modelo dirigido al centro educativo que la entidad no puede usar por sí sola. Ninguna de las dos lecturas está resuelta en la documentación.
+
+## Auditoría de defectos en la documentación de la Fundación
+
+La revisión de las bases, formularios, manuales y FAQ publicados arroja inconsistencias verificables. Ninguna invalida el régimen aplicable, pero varias son materialmente engañosas y una tiene potencial rechazo de expediente. Se ordenan aquí por consecuencia práctica.
+
+| N.º | Documento y ubicación | Defecto verificable | Consecuencia práctica |
+|---|---|---|---|
+| 1 | Bases 2026, apartado I, beneficio fiscal [3]; también Bases 2025 [24] | Cita el «artículo 22 de la Ley 9/2002, de 23 de diciembre, de régimen fiscal de las entidades sin fines lucrativos y de los incentivos fiscales al mecenazgo». La Ley 9/2002, de 23 de diciembre, existe, pero es la de los Presupuestos Generales de la Comunidad Autónoma de Cantabria para 2003 [25] | Referencia a una norma regional que no regula el mecenatismo. El régimen correcto es el de la Ley 49/2002, como se cita bien dos párrafos más abajo en el mismo documento |
+| 2 | «Fiscalidad APM 2025», ejemplo práctico [14] | La prosa afirma que una donación de 35.000 euros con base imponible de 150.000 euros genera una deducción de 15.750 euros; el gráfico del mismo documento calcula 13.500 euros | Sobreestimación de 2.250 euros en la deducción esperada. La cifra correcta es la de las bases 2026 |
+| 3 | FAQ de mecenatismo, ejemplo de deducción publicitaria [17] | El ejemplo renderiza «000 €» en los tres importes | Ejemplo numérico inservible en la versión publicada |
+| 4 | Formulario de donante 2026 y bases 2026, apartado II [3][18] | Remiten a los incentivos «regulados en el artículo 16 de la Ley 49/2002» | El artículo 16 regula las entidades beneficiarias del mecenatismo; los incentivos están en los artículos 19 a 22 y la certificación de donativos, en el artículo 24 del Real Decreto 1270/2003. Referencia imprecisa en el documento que el donante firma |
+| 5 | Bases 2026, apartado I [3] | Afirma que la donación no puede ser inferior a 150 euros y fija la escala de IRPF con los tramos correctos de 250 euros | El umbral de 150 euros es el de la escala anterior al Real Decreto-ley 6/2023. El mínimo de 150 € es un requisito del programa, no del régimen fiscal, y conviene no confundirlos |
+| 6 | FAQ, sección de España Compite [17] | Afirma que el proyecto se entiende aprobado «una vez que se recibe el certificado de validación por parte del Consejo Superior de Deportes» y que «una vez aprobada la solicitud por el Consejo Superior de Deportes» se transfiere la ayuda | España Compite no tiene órgano administrativo propio: la evaluación corresponde a una Comisión de Valoración de la Fundación con técnicos del CSD, y la aprobación la comunica la Fundación por email [3]. En el FAQ, la redacción de la sección de AEIP es la correcta: allí sí hay órgano administrativo |
+| 7 | FAQ, sección de España Compite, ventajas fiscales para autónomos [17] | Presenta el «50 %» de fidelidad como si sustituyera a los dos tramos de la escala, sin indicar que ese tipo elevado se aplica solo a la base que exceda de 250 euros | Un autónomo que done 500 euros con fidelidad obtiene 212,50 € por los primeros 250 al 85 % y 125 € por los 250 restantes al 50 %, es decir 337,50 €, no el 50 % de la base completa. Las bases y el manual de la Agencia delimitan ese límite [3][4] |
+| 8 | Formulario de memoria justificativa 2026, declaraciones de cumplimiento [21] | Declara que la entidad «ha estado al corriente de sus obligaciones» «desde la concesión de la ayuda y durante todo el ejercicio 2025» | Formulario de 2026 que remite al ejercicio 2025. Error de plantilla |
+| 9 | FAQ, procedimiento de solicitud [17] | Indica que las solicitudes de ayuda pueden presentarse «hasta el 4 de diciembre» sin año, en un texto que en el mismo bloque sí cita el 04/12/2026 | Ambigüedad menor en un documento de uso frecuente |
+| 10 | Modelo «Certificado relación estudiantes – entidad académica» [23] | El título, el texto y el nombre del archivo apuntan a tres emisarios distintos | Riesgo de rechazo de expediente en la línea de carrera dual, como se detalla en el apartado anterior |
+| 11 | Publicación institucional 2025 [12] | Afirma que la Fundación «dará continuidad, previsiblemente, al Programa "Reto De", con finalización el 31 de diciembre de 2025» | Contradicción interna en un documento institucional sobre un programa cuyo régimen venció el 31 de diciembre de 2025 [10][11] |
+| 12 | Material gráfico de AEIP («Fiscalidad AEIP 2025» y díptico) [16][26] | El díptico anuncia en su opción 2 un «50 % al 55 %» mientras que su propio ejemplo calcula 45 % y 55 % | El primer tramo correcto es el 45 %; el 50 % es el tipo de fidelidad sin elevación. El documento «Fiscalidad AEIP 2025» ya está corregido, el díptico de 2024 no |
+
+El defecto 6 merece una precisión adicional, porque tiene dos versiones en la misma FAQ. En la sección de programas AEIP se dice correctamente que el proyecto se entiende aprobado «una vez que se recibe el certificado de validación por parte del Órgano Administrativo» [17], que es exactamente lo que hacen las órdenes de creación de órganos administrativos para los programas de la Fundación [20]. En la sección de España Compite, en cambio, el mismo concepto se atribuye al Consejo Superior de Deportes [17], que en esta línea no actúa como certificador. La incoherencia sugiere una adaptación de un texto a otro sin depurar.
+
+## Preguntas que conviene resolver con la Fundación
+
+Antes del 4 de diciembre de 2026 quedan seis semanas, y hay cinco cuestiones cuya respuesta cambia el resultado económico o la viabilidad de la operación. Todas son resolubles con una llamada o un correo a espanacompite@deportejoven.es.
+
+La primera es el canon aplicable a la aportación concreta. Las bases lo fijan en el 2,75 % plano para España Compite, pero la FAQ, en su sección de AEIP, indica que el canon «varía según el importe de la donación» [17]. Para una donación de 20.000 euros, la diferencia entre un 2,75 % y un 10 % es de 1.450 euros que salen del proyecto.
+
+La segunda es si existe margen real en el calendario de pagos. El formulario de donante ofrece fracciones de febrero a diciembre de 2026, con un mínimo de 1.000 euros por fracción [18]. Una aportación de 50.000 euros, que es el máximo del programa, necesita entre 1 y 3 fracciones útiles en el tramo octubre-diciembre, según la disponibilidad de caja del patrocinador.
+
+La tercera es qué sucede si el proyecto se ejecuta en el primer trimestre de 2026 y la ayuda se aprueba en diciembre. La ayuda solo puede cubrir gastos generados dentro de 2026 y dentro del periodo de ejecución [21], de modo que un proyecto ya realizado en enero no tendría nada que justificar salvo que el periodo de ejecución declarado abarque todo el ejercicio.
+
+La cuarta es el estado del certificado de listado de carrera dual, para que la entidad deportiva sepa si firma ella, el centro educativo o ambos.
+
+La quinta, y la de mayor alcance, es qué ocurrirá con el régimen en 2027. Los Presupuestos Generales del Estado para 2026 no se aprobaron y la legislatura se disolvió sin llegar a aprobar unas nuevas cuentas [27][28]; la cláusula de mantenimiento de vigencia de la Ley 31/2022 es temporal, con la condición de que se aprueben los presupuestos de 2026 [29]. La actividad prioritaria de España Compite depende por completo de esa prórroga, no de un artículo estable de la Ley 49/2002. Un patrocinador con compromiso plurianual debería saber que el 45 %, el 20 % de la base imponible y el tope de 50.000 euros son cifras de un régimen presupuestario prorrogado, y que una aprobación de nuevos presupuestos con una relación de actividades distintas las modificaría.
+
+---
+
+**Notas sobre el proceso, por transparencia:**
+
+- **Hallazgo de mayor alcance:** los PGE 2026 nunca se aprobaron (tercera prórroga de los de 2023,/linuxa legislative disuelta sin nuevas cuentas, elecciones el 29/11/2026). La DA 57ª Ley 31/2022 sobrevive en 2026 vía DA 1ª del RDL 16/2025, pero con cláusula suspensiva. Eso convierte el 45 % y el tope de 50.000 € en cifras de un régimen presupuestario prorrogado, no de una ley estable.
+- **Fuentes no recuperables:** las páginas de IRPF 2026 de la AEAT devuelven 404, por lo que los porcentajes del IRPF se contrastan con la página de IRPF 2025 (actualizada 17/03/2026) y con las instrucciones oficiales al modelo de declaración (BOE-A-2026-7041).
+- **Auditoría documental:** 12 defectos verificados, cada uno con cita literal y archivo de origen. Tres de ellos (la errata «Ley 9/2002», los 15.750 € frente a 13.500 € y el ejemplo «000 €») son los que más directamente inducen a error de cálculo.
+- Auditoría de encabezados y escritura ejecutada (20 encabezados, 3 tablas, 31 referencias con secuencia continua y sin entradas huérfanas). El directorio de ejecución contiene un único Markdown; los ficheros de trabajo se movieron a `/workspace/mavis-deep-research/_work_espana-compite/`.
