@@ -27,6 +27,10 @@ export const FUENTES: Record<string, { titulo: string; url: string }> = {
     titulo: "Actividades prioritarias de mecenazgo (AEAT, Manual del IS 2025)",
     url: "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/manual-sociedades-2025/capitulo-06-liquidacion-is-determinacion-tributaria/cuota-liquida-casilla-00592/deducc-donac-entid-sin-fines-2002/deduccion-donaciones-actividades-prioritarias-mecenazgo/actividades-prioritarias-mecenazgo.html",
   },
+  F6: {
+    titulo: "Real Decreto-ley 3/2026, de 3 de febrero (BOE)",
+    url: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-2548",
+  },
   F11: {
     titulo: "Entidades acreedoras del mecenazgo (AEAT, Manual del IRPF 2025)",
     url: "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/c16-deducciones-generales-cuota/deducciones-donativos-otras-aportaciones/donativos-realizados-entidades-incluidas/general-donativos-donaciones-entidades-beneficiarias-mecenazgo/entidades-beneficiarias-mecenazgo.html",
