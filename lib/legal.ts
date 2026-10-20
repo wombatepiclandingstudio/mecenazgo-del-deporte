@@ -37,7 +37,7 @@ export const FUENTES: Record<string, { titulo: string; url: string }> = {
   },
   F12: {
     titulo: "Entidades sin fines lucrativos, modelo 036 (AEAT)",
-    url: "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/guia-practica-cumplimentacion-modelo-censal-036/capitulo-08-regimen-fiscal-especial/entidades-sin-fines-lucrativos.html",
+    url: "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/guia-practica-cumplimentacion-modelo-censal-036/capitulo-08-regimen-fiscal-especial.html",
   },
   F13: {
     titulo: "Contenido de la certificacion (AEAT, Manual del IRPF 2025)",

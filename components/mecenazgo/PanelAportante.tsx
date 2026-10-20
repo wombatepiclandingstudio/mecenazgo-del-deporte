@@ -23,7 +23,6 @@ import {
   calcular,
   euros,
   type Perfil,
-  type Regimen,
   type DestinoNavarra,
 } from "@/lib/mecenazgo";
 import type { EstadoApp } from "@/lib/estado";

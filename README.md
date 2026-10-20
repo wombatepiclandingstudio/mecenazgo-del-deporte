@@ -29,10 +29,17 @@ npm run dev      # http://localhost:3000
 Comprobaciones:
 
 ```bash
-npm run typecheck
+npm run check          # lint + tipos + tests, lo mismo que el hook de commit
+npm run lint           # ESLint (formato plano, eslint-config-next)
+npm run typecheck      # tsc --noEmit
+npm test               # Vitest
+npm run check:fuentes  # comprueba que los enlaces de docs/fuentes.md siguen vivos
 npm run build
-npm test          # Vitest
 ```
+
+Cada commit pasa por el hook de Husky (`.husky/pre-commit`), que corre el linter sobre los
+ficheros modificados, los tipos y los tests. GitHub Actions corre lo mismo en cada push y pull
+request (`.github/workflows/ci.yml`).
 
 ## Despliegue en Vercel
 

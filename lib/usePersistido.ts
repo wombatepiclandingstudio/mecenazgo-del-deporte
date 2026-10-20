@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CLAVE_ALMACEN, conFecha, type EstadoApp } from "./estado";
 
 /**
@@ -14,13 +14,13 @@ import { CLAVE_ALMACEN, conFecha, type EstadoApp } from "./estado";
 export function usePersistido(inicial: () => EstadoApp) {
   const [estado, setEstado] = useState<EstadoApp>(inicial);
   const [listo, setListo] = useState(false);
-  const primeraCarga = useRef(true);
 
   // Recuperar lo guardado.
   useEffect(() => {
     try {
       const crudo = window.localStorage.getItem(CLAVE_ALMACEN);
       const guardado = crudo ? (JSON.parse(crudo) as Partial<EstadoApp>) : {};
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- en el servidor no hay almacenamiento: leerlo durante el render romperia la hidratacion, asi que se lee despues de montar.
       setEstado((actual) =>
         conFecha({
           cumplimiento: {
@@ -37,20 +37,20 @@ export function usePersistido(inicial: () => EstadoApp) {
     } catch {
       // Almacenamiento lleno, bloqueado o con contenido corrupto: seguimos con el estado inicial.
     } finally {
-      primeraCarga.current = false;
       setListo(true);
     }
   }, []);
 
-  // Guardar cuando cambia.
+  // Guardar cuando cambia. Hasta que lo guardado no este aplicado, guardar
+  // escribiria el estado inicial encima de lo que el usuario tenia.
   useEffect(() => {
-    if (primeraCarga.current) return;
+    if (!listo) return;
     try {
       window.localStorage.setItem(CLAVE_ALMACEN, JSON.stringify(estado));
     } catch {
       // Sin espacio o en modo privado: la app sigue funcionando en memoria.
     }
-  }, [estado]);
+  }, [estado, listo]);
 
   const borrar = useCallback(() => {
     try {

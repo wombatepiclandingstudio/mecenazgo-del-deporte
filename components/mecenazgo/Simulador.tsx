@@ -34,6 +34,7 @@ export function Simulador() {
   // La portada enlaza a una puerta concreta: #aportante o #entidad.
   useEffect(() => {
     const h = window.location.hash.replace("#", "");
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- el hash solo existe en el navegador: leerlo durante el render romperia la hidratacion.
     if ((PESTANAS as readonly string[]).includes(h)) setPestana(h);
   }, []);
 

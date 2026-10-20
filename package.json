@@ -7,8 +7,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check:fuentes": "node scripts/check-fuentes.mjs",
+    "check": "npm run lint && npm run typecheck && npm test",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": ["eslint --fix"]
   },
   "dependencies": {
     "@chakra-ui/react": "^3.37.0",
@@ -21,10 +29,17 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/node": "^22.10.5",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
+    "eslint": "^10.13.0",
+    "eslint-config-next": "^16.4.2",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
     "typescript": "^5.7.3",
+    "typescript-eslint": "^8.72.0",
     "vitest": "^4.1.12"
   }
 }
