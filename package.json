@@ -14,6 +14,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "check:fuentes": "node scripts/check-fuentes.mjs",
+    "manual": "node --no-warnings scripts/generate-manual.mjs",
     "check": "npm run lint && npm run typecheck && npm test",
     "prepare": "husky"
   },

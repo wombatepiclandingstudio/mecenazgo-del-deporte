@@ -45,6 +45,7 @@ npm run lint           # ESLint (formato plano, eslint-config-next)
 npm run typecheck      # tsc --noEmit
 npm test               # Vitest
 npm run check:fuentes  # comprueba que los enlaces de docs/fuentes.md siguen vivos
+npm run manual         # regenera MANUAL-OPERATIVO.md desde lib/legal.ts
 npm run build
 ```
 
@@ -111,6 +112,7 @@ lib/
 components/pdf/           Codigo de pdfcn copiado del registry (no se revisa con las reglas del proyecto)
 types/                    Tipos del tema de pdfcn
 scripts/copiar-wasm.mjs  Copia el binario de Takumi a public/
+MANUAL-OPERATIVO.md       Manual operativo para asistentes de IA, generado desde lib/legal.ts
 .scratch/fdj-2026/       Spec y tickets del trabajo de los programas de 2026
 docs/
   fuentes.md              Catalogo de fuentes primarias y secundarias
