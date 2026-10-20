@@ -1,6 +1,6 @@
 # Casa: GLOSSARY, README, CODING_STANDARDS y CI
 
-Status: ready-for-agent
+Status: resolved
 Type: task
 
 - `CODING_STANDARDS.md`: regla de cifras de programa y de PDF en borrador.

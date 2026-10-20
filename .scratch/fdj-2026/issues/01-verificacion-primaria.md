@@ -1,6 +1,6 @@
 # VerificaciÃ³n primaria de las fuentes de los programas 2026
 
-Status: ready-for-agent
+Status: resolved
 Type: research
 
 Contrastar con fuente primaria cada cifra que se vaya a publicar: canon, topes,

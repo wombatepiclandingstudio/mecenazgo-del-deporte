@@ -1,6 +1,6 @@
 # PanelAportante: programa, vÃ­a, tope y canon
 
-Status: ready-for-agent
+Status: resolved
 Type: task
 
 - Selector de programa: EspaÃ±a Compite, Universo Mujer IV, ADB 2030 II, Deporte

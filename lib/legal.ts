@@ -94,8 +94,13 @@ export const FUENTES: Record<string, { titulo: string; url: string }> = {
   },
   F28: {
     titulo:
-      "Ley 7/2012, de 27 de noviembre, de pagos en efectivo (BOE)",
-    url: "https://www.boe.es/eli/es/l/2012/11/27/7/con",
+      "Ley 7/2012, de 29 de octubre, limite a los pagos en efectivo, art. 7 (BOE)",
+    url: "https://www.boe.es/buscar/act.php?id=BOE-A-2012-13416",
+  },
+  F29: {
+    titulo:
+      "Ley 11/2021, de 9 de julio, que baja el limite de pagos en efectivo a 1.000 euros (BOE)",
+    url: "https://www.boe.es/buscar/act.php?id=BOE-A-2021-11473",
   },
 };
 
@@ -1082,8 +1087,9 @@ export const CALENDARIO_2026 = legal<Hito>(
     {
       hito: "Pagos en efectivo",
       plazo: "Prohibidos a partir de 1.000 €",
-      nota: "Un talon o un cheque bancario, aunque nominativo, no justifica el pago.",
-      fuente: "F28",
+      nota:
+        "El limite general lo fijo la Ley 11/2021, que lo bajo desde el 1 de enero de 2022. Quedan fuera los pagos con cheque o pagare al portador.",
+      fuente: "F29",
     },
   ],
   "F24",

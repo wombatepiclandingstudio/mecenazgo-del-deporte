@@ -319,7 +319,9 @@ function calcularEstatal(p: Parametros): Resultado {
   if (p.perfil === "is") {
     baseDed = Math.min(importe, limite);
     deduccion = (tipo / 100) * baseDed;
-    pendiente = excesoTope + (importe - baseDed);
+    // El exceso del tope del programa no se traslada: no es una limitacion de
+    // la deduccion, es una regla del programa. El aviso lo explica.
+    pendiente = importe - baseDed;
   } else {
     // El cubo de 250 euros es unico del contribuyente en todo el ejercicio:
     // lo consumen primero las demas aportaciones.
@@ -329,7 +331,8 @@ function calcularEstatal(p: Parametros): Resultado {
     const total = importe + otras;
     const exceso = Math.max(0, total - limite);
     baseDed = total - exceso;
-    pendiente = exceso + excesoTope;
+    // Igual que en el IS: el exceso del tope del programa no se traslada.
+    pendiente = exceso;
     const bruta =
       (enCubo * tipoMicromecenazgo(p.prioritaria) + resto * tipo) / 100;
     deduccion = total > 0 ? (bruta * baseDed) / total : 0;
@@ -392,7 +395,7 @@ function calcularEstatal(p: Parametros): Resultado {
           topeAportacion,
         )}. Los ${euros(
           excesoTope,
-        )} que exceden no entran en la base deducible de este ejercicio.`,
+        )} que exceden no entran en la base deducible, y no se trasladan a los ejercicios siguientes: el tope es una regla del programa.`,
         destacados: [euros(topeAportacion), euros(excesoTope)],
       });
     }

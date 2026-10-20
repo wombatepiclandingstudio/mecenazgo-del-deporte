@@ -1,6 +1,6 @@
 # PanelEntidad: roles, lÃ­neas y carrera dual
 
-Status: ready-for-agent
+Status: resolved
 Type: task
 
 - Conmutador de rol: entidad deportiva, deportista individual, promotor AEIP.

@@ -1,6 +1,6 @@
 # PanelLey: programas, defectos, preguntas y Reto De
 
-Status: ready-for-agent
+Status: resolved
 Type: task
 
 - Tabla de programas 2026: rÃ©gimen, tope anual, canon, vÃ­a publicitaria y fuente.

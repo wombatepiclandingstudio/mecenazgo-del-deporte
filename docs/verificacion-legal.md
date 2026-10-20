@@ -626,6 +626,147 @@ Consultado el 20/10/2026.
 
 ---
 
+## 11. Programas de mecenazgo de la Fundación Deporte Joven (2026)
+
+Contraste del 20 y 21 de octubre de 2026. Todas las citas son literales del texto
+consolidado en el BOE.
+
+### 11.1 Vía publicitaria: artículo 27.3 de la Ley 49/2002 (F1)
+
+> Primero.-Los sujetos pasivos del Impuesto sobre Sociedades, los contribuyentes
+> del Impuesto sobre la Renta de las Personas Físicas que realicen actividades
+> económicas en régimen de estimación directa y los contribuyentes del Impuesto
+> sobre la Renta de no Residentes que operen en territorio español mediante
+> establecimiento permanente podrán deducir de la cuota íntegra del impuesto el
+> 15 por 100 de los gastos que, en cumplimiento de los planes y programas de
+> actividades establecidos por el consorcio o por el órgano administrativo
+> correspondiente, realicen en la propaganda y publicidad de proyección
+> plurianual que sirvan directamente para la promoción del respectivo
+> acontecimiento.
+>
+> El importe de esta deducción no puede exceder del 90 por 100 de las donaciones
+> efectuadas al consorcio, entidades de titularidad pública o entidades a que se
+> refiere el artículo 2 de esta Ley, encargadas de la realización de programas y
+> actividades relacionadas con el acontecimiento. De aplicarse esta deducción,
+> dichas donaciones no podrán acogerse a cualquiera de los incentivos fiscales
+> previstos en esta Ley.
+>
+> Cuando el contenido del soporte publicitario se refiera de modo esencial a la
+> divulgación del acontecimiento, la base de la deducción será el importe total
+> del gasto realizado. En caso contrario, la base de la deducción será el 25 por
+> 100 de dicho gasto.
+
+Consecuencias para la aplicación: el 25 % de la publicidad no esencial está en el
+propio artículo 27.3 y no en el Real Decreto 1270/2003, como afirmaba el plan de
+referencia; el tope es del 90 % de las donaciones efectuadas; la vía es
+alternativa y excluyente; y no alcanza al IRPF que no hace actividades económicas
+en régimen de estimación directa.
+
+### 11.2 Prioridad de los programas AEIP: artículo 27.3, segundo (F1)
+
+> El régimen de mecenazgo prioritario previsto en el artículo 22 de esta Ley será
+> de aplicación a los programas y actividades relacionados con el acontecimiento,
+> siempre que sean aprobados por el consorcio u órgano administrativo encargado de
+> su ejecución y se realicen por las entidades a que se refiere el artículo 2 de
+> esta Ley o por el citado consorcio, elevándose en cinco puntos porcentuales los
+> porcentajes y límites de las deducciones establecidas en los artículos 19, 20 y
+> 21 de esta Ley.
+
+### 11.3 Tope de 50.000 euros por aportante (F18)
+
+La DA 57ª de la Ley 31/2022 lo dice así, y el texto está copiado en
+`docs/actividades-prioritarias.md`:
+
+> Los donativos, donaciones y aportaciones a las actividades señaladas en el
+> párrafo anterior que, de conformidad con el apartado Dos de esta disposición
+> adicional, pueden beneficiarse de la elevación en cinco puntos porcentuales de
+> los porcentajes y límites de las deducciones establecidas en los artículos 19, 20
+> y 21 de la citada Ley 49/2002 tendrán el límite de 50.000 euros anuales para
+> cada aportante.
+
+El tope cuelga del punto 5.º, el de la Fundación. Los programas declarados
+acontecimientos en el artículo 27 no entran en esa relación.
+
+### 11.4 Programas declarados en 2025 (F22)
+
+Real Decreto-ley 8/2025, de 8 de julio («BOE» núm. 164, de 9 de julio de 2025,
+páginas 91229 a 91237).
+
+> t) El Programa «Universo Mujer IV». ... v) El programa «Deporte Inclusivo III».
+> ... w) El «Plan 2030 de Apoyo al Deporte Base II».
+
+Artículo 2:
+
+> t) La celebración del «Programa Universo Mujer IV»: desde el 1 de enero de 2025
+> al 31 de diciembre de 2027. ... v) La celebración del programa «Deporte
+> Inclusivo III»: desde el 1 de enero de 2025 al 31 de diciembre de 2027. ...
+> w) El «Plan 2030 de Apoyo al Deporte de Base II»: desde el 1 de enero de 2025 al
+> 31 de diciembre de 2027.
+
+Artículo 1.2:
+
+> Los beneficios fiscales de todas estas iniciativas serán los máximos establecidos
+> en el artículo 27.3 de la Ley 49/2002.
+
+Corrección: el plan de referencia situaba este real decreto-ley el 8 de febrero.
+La fecha es 8 de julio, que es la que ya tenía el repositorio.
+
+### 11.5 Prórroga presupuestaria de 2026 (F6)
+
+Real Decreto-ley 3/2026, de 3 de febrero («BOE» núm. 31, de 4 de febrero de 2026),
+preámbulo, I:
+
+> la falta de aprobación de la Ley de Presupuestos Generales del Estado para el
+> año 2026 determina la prórroga automática de la Ley 31/2022, de 23 de diciembre,
+> de Presupuestos Generales del Estado para el año 2023 hasta la aprobación de la
+> nueva ley.
+
+El mismo preámbulo deja constancia de que el Real Decreto-ley 16/2025, de 23 de
+diciembre, «ante su no convalidación por el Congreso de los Diputados ha sido
+derogada con fecha 28 de enero de 2026». La DA 1ª de ese real decreto-ley, que
+aludía a la prórroga, ya no está vigente: hoy la prórroga es la automática del
+artículo 134.4 de la Constitución, que constata el preámbulo del RDL 3/2026.
+
+### 11.6 Reto De (F27)
+
+Ley 39/2022, de 30 de diciembre, del Deporte, disposición adicional decimoctava:
+
+> El programa deportivo «RETO DE» tendrá la consideración de acontecimiento de
+> excepcional interés público a los efectos de lo dispuesto en el artículo 27 de
+> la Ley 49/2002, de 23 de diciembre, de régimen fiscal de las entidades sin fines
+> lucrativos y de los incentivos fiscales al mecenazgo.
+
+> La duración del programa de apoyo a este acontecimiento abarcará desde el 1 de
+> enero de 2023 hasta el 31 de diciembre de 2025.
+
+Está cerrado. La página web de la Fundación lo sigue mostrando como abierto.
+
+### 11.7 Pagos en efectivo (F28, F29)
+
+Ley 7/2012, de 29 de octubre, artículo 7.Uno.1:
+
+> No podrán pagarse en efectivo las operaciones, en las que alguna de las partes
+> intervinientes actúe en calidad de empresario o profesional, con un importe
+> igual o superior a 1.000 euros o su contravalor en moneda extranjera.
+
+La Ley 11/2021, de 9 de julio, bajó el límite general de 2.500 a 1.000 euros con
+efectos desde el 1 de enero de 2022.
+
+Corrección: la Ley 7/2012 es de 29 de octubre, no de 27 de noviembre.
+
+### 11.8 Lo que sigue sin verificar
+
+- El canon de los programas AEIP: el material de la Fundación usa las dos
+  lecturas, marginal o plano. Se aplica el tipo del tramo sobre toda la
+  aportación y la duda queda planteada.
+- El plazo de certificación de los gastos de publicidad (quince días tras la
+  celebración) y la remisión trimestral de certificaciones están en el artículo
+  10 del Real Decreto 1270/2003: no se ha localizado el identificador BOE del
+  real decreto, así que se cita el manual del programa y la cita literal queda
+  pendiente.
+- La Agencia Tributaria publica la relación de actividades prioritarias de 2025,
+  no una de 2026.
+
 ## Discrepancias detectadas
 
 Resumen de todo lo que la app (código, README y `docs/informe-mecenazgo.md`) afirma y queda

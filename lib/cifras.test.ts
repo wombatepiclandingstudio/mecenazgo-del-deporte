@@ -47,15 +47,16 @@ function codigo(dir: string): string[] {
 }
 
 /**
- * Ficheros que se revisan: la interfaz y el modulo de programas.
- *
- * `lib/mecenazgo.ts` queda fuera por ahora: su texto lleva cifras escritas a
- * mano desde antes de este trabajo. Es deuda conocida y esta en el ticket 52.
+ * Ficheros que se revisan: la interfaz y el dominio, menos `lib/legal.ts`, que
+ * es la fuente, y `lib/mecenazgo.ts`, que arrastra cifras escritas a mano desde
+ * antes de este trabajo (deuda conocida, ticket 52).
  */
 const ficheros = [
   ...codigo("components"),
   ...codigo("app"),
-  ...codigo("lib").filter((f) => f.endsWith("programas.ts")),
+  ...codigo("lib").filter(
+    (f) => !f.endsWith("legal.ts") && !f.endsWith("mecenazgo.ts"),
+  ),
 ];
 
 describe("las cifras de la ley no se duplican fuera de lib/legal.ts", () => {

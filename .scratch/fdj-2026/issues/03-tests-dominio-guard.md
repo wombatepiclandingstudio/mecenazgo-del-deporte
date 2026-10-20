@@ -1,6 +1,6 @@
 # Tests de dominio y guard de cifras
 
-Status: ready-for-agent
+Status: resolved
 Type: task
 
 - `lib/programas.test.ts`: fixtures de la investigaciÃ³n (35.000 â†’ 13.500;

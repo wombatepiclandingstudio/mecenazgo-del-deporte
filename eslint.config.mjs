@@ -2,7 +2,21 @@ import next from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
 const configuracion = [
-  { ignores: [".next/**", "node_modules/**", "out/**", "next-env.d.ts"] },
+  {
+    // El codigo de pdfcn se copia del registry y se versiona tal cual: no se
+    // revisa con nuestras reglas, que son del proyecto, no del componente.
+    ignores: [
+      ".next/**",
+      "node_modules/**",
+      "out/**",
+      "next-env.d.ts",
+      "components/pdf/**",
+      "lib/pdf-primitives.tsx",
+      "lib/pdf-svg.tsx",
+      "lib/pdf-themes/**",
+      "types/**",
+    ],
+  },
   ...next,
   ...nextTs,
   {

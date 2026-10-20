@@ -1,6 +1,6 @@
 # Spike de pdfcn/Takumi en Next.js (puerta de decisiÃ³n)
 
-Status: ready-for-agent
+Status: resolved
 Type: prototype
 
 Vendorizar los componentes `@pdfcn/takumi/*` y resolver tres puntos:

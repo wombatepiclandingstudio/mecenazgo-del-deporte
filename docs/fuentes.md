@@ -37,7 +37,8 @@ Excepción con nombre propio: las reglas de un programa (canon de gestión, cale
 | F25 | Preguntas frecuentes de mecenatismo de la Fundación, y errores publicados en sus bases | Fundación Deporte Joven, FAQ de mecenatismo deportivo | https://deportejoven.es/programas-de-mecenazgo-deportivo-guia-de-consultas/ |
 | F26 | Escala de canon de gestión, plazos de justificación y remisión de certificaciones de los programas AEIP | Fundación Deporte Joven y Consejo Superior de Deportes, Fiscalidad AEIP 2025 | https://deportejoven.es/programas-de-mecenazgo-deportivo-guia-de-consultas/ |
 | F27 | Programa «RETO DE» como acontecimiento de excepcional interés público, desde el 1 de enero de 2023 hasta el 31 de diciembre de 2025 | Ley 39/2022, de 30 de diciembre, del Deporte, disposición adicional decimoctava | https://www.boe.es/eli/es/l/2022/12/30/39/con |
-| F28 | Prohibición de los pagos en efectivo a partir de 1.000 euros | Ley 7/2012, de 27 de noviembre, de pagos en efectivo, artículo 7 | https://www.boe.es/eli/es/l/2012/11/27/7/con |
+| F28 | Prohibición de los pagos en efectivo en operaciones de 1.000 euros o más | Ley 7/2012, de 29 de octubre, de modificación de la normativa tributaria y presupuestaria, artículo 7 | https://www.boe.es/buscar/act.php?id=BOE-A-2012-13416 |
+| F29 | Límite general de pagos en efectivo de 1.000 euros vigente desde 2022 | Ley 11/2021, de 9 de julio, de medidas de prevención y lucha contra el fraude fiscal, artículo 18 | https://www.boe.es/buscar/act.php?id=BOE-A-2021-11473 |
 
 ## secundarias y de contexto
 

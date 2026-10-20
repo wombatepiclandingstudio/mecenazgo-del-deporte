@@ -1,6 +1,6 @@
 # Worker Takumi, hook de render y tema FDJ
 
-Status: ready-for-agent
+Status: resolved
 Type: task
 
 - `lib/pdf/render.worker.ts`: protocolo JSON, nunca elementos React.

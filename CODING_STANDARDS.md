@@ -12,6 +12,11 @@ en `npm run check`: linter, tipos y tests. Aquí van los que dependen de criteri
   tests y por último la interfaz.
 - **Toda cifra que la ley fija, con su articulo**: un porcentaje, un tope o un importe que aparece
   en pantalla tiene que salir de `lib/legal.ts` o de `FIGURAS`. `lib/cifras.test.ts` lo comprueba.
+- **Las reglas de un programa, con su fuente**: el canon, los topes y los plazos de los programas
+  de la Fundación no los fija una norma, los fija el documento del programa. Viven igualmente en
+  `lib/legal.ts`, con la fuente que los respalda (F24 a F26), y `lib/programas.ts` solo los combina.
+- **Una cifra del programa no se deduce de otra**: si el tope limita la base, el aviso tiene que
+  decir que lo que excede no se traslada, porque es regla del programa y no límite de deducción.
 - **Vocabulario**: la interfaz usa las palabras de la ley —entidad acreedora, donante, donativo,
   aportación, mecenazgo prioritario— y `GLOSSARY.md` manda sobre cualquier sinónimo.
 
@@ -31,6 +36,21 @@ en `npm run check`: linter, tipos y tests. Aquí van los que dependen de criteri
 - **Estructura**: las listas son listas (`ul`/`li`), las tablas llevan `caption` y encabezados de
   fila y columna, y la información que solo existe en píxeles tiene su equivalente en texto.
 - **Decorativo, decorado**: lo que no aporta información lleva `aria-hidden="true"`.
+
+## PDF
+
+- **Documento de trabajo, no oficial**: el informe de cálculo y el certificado del art. 24.3 son
+  documentos que prepara el usuario. No reproducen ningún formulario oficial de la Fundación: a
+  esos se enlaza, para que el usuario use el impreso que ella publica.
+- **Un solo stack**: el PDF nuevo se genera con Takumi en un worker (`lib/pdf/`). El certificado
+  antiguo sigue con `react-pdf` hasta que se migre (ticket 11). No se mezclan: cada documento
+  tiene su generador.
+
+## Código de terceros
+
+- **`components/pdf/`, `types/` y `lib/pdf-themes/` vienen del registry de pdfcn**: se versionan
+  tal cual, no se editan a mano y no se revisan con las reglas del proyecto. Para actualizarlos se
+  vuelve a copiar el registry y se commitea.
 
 ## Proceso
 

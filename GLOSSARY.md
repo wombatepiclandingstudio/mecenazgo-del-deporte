@@ -13,8 +13,28 @@ Contrapartida publicitaria que una empresa paga a una entidad o deporte. No es m
 _Avoid_: mecenazgo, patrocinio.
 
 **Simulador**:
-Herramienta de cálculo de la aplicación. Cubre **solo aportaciones en dinero** (donativo o aportación a entidad acreedora), en IRPF e IS, en el régimen estatal y en el foral navarro. No cubre convenio de colaboración, gastos en actividades de interés general, programas de acontecimientos, patrocinio publicitario ni IRNR con establecimiento permanente.
+Herramienta de cálculo de la aplicación. Cubre **solo aportaciones en dinero** (donativo o aportación a entidad acreedora), en IRPF e IS, en el régimen estatal y en el foral navarro. Desde 2026 cubre también los programas de la Fundación Deporte Joven: su tope anual, su canon de gestión, su calendario y la vía publicitaria del artículo 27.3. No cubre convenio de colaboración, gastos en actividades de interés general, patrocinio publicitario ni IRNR con establecimiento permanente.
 _Avoid_: calculadora fiscal, estimador.
+
+**Programa**:
+Convocatoria de mecenazgo deportivo con reglas propias. En 2026: «España Compite» y los tres programas declarados acontecimientos de excepcional interés público. Cada uno tiene su régimen, su canon y sus plazos.
+_Avoid_: convocatoria, convocatoria de ayudas (es lo mismo, pero el término del programa es «programa»).
+
+**Canon de gestión**:
+Porcentaje que la Fundación descuenta de la aportación y que no llega al proyecto. Es regla del programa, no del régimen fiscal: no reduce la deducción del donante, que se calcula sobre el importe total aportado.
+_Avoid_: comisión, comisión de gestión, tarifa.
+
+**Vía publicitaria**:
+Deducción del 15 % de los gastos de propaganda y publicidad del artículo 27.3, con el tope del 90 % de las donaciones. Es alternativa y excluyente: si se aplica, la donación no puede acogerse a los demás incentivos. Solo existe para los acontecimientos de excepcional interés público.
+_Avoid_: patrocinio (que no deduce), publicidad (la vía).
+
+**Tope anual**:
+Límite por aportante y ejercicio de las aportaciones a una actividad prioritaria. Solo «España Compite» lo tiene, y recorta la base deducible antes de aplicar el tipo; lo que excede no se traslada a otros ejercicios.
+_Avoid_: límite de donación, tope de deducción.
+
+**Línea de carrera dual**:
+Modalidad de «España Compite» que combina el deporte con los estudios. Es la novedad de la edición de 2026.
+_Avoid_: doble licencia, proyecto dual.
 
 ## Personas
 

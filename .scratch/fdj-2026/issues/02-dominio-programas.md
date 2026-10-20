@@ -1,6 +1,6 @@
 # Capa de dominio de los programas FDJ 2026
 
-Status: ready-for-agent
+Status: resolved
 Type: task
 
 Nuevo `lib/programas.ts` (puro, sin React ni DOM) y ampliaciÃ³n de `lib/legal.ts`.

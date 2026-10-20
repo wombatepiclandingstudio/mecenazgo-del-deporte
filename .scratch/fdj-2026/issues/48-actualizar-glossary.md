@@ -1,6 +1,6 @@
 # Actualizar GLOSSARY.md
 
-Status: ready-for-agent
+Status: resolved
 Type: task
 
 AÃ±adir programa, canon de gestiÃ³n, vÃ­a publicitaria, lÃ­nea de carrera dual y

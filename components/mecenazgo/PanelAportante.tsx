@@ -34,6 +34,8 @@ import {
   repartoDe,
   resultadoPrograma,
 } from "@/lib/programas";
+import { usePdfRenderer, descargar } from "@/lib/pdf/usePdfRenderer";
+import { modeloInforme } from "@/lib/pdf/informe";
 import {
   AVISO_PRESUPUESTO,
   CALENDARIO_2026,
@@ -193,6 +195,22 @@ export function PanelAportante({ estado, onCambiar, onPrograma }: Props) {
 
   /** Avisos del calculo general y del programa, juntos. */
   const avisos = rp ? [...r.avisos, ...rp.avisos] : r.avisos;
+
+  /** Informe en PDF: se genera en un worker y se descarga. */
+  const { renderPdf, isRendering } = usePdfRenderer();
+  const [errorPdf, setErrorPdf] = useState<string | null>(null);
+
+  const bajarInforme = async () => {
+    setErrorPdf(null);
+    try {
+      const bytes = await renderPdf(modeloInforme(estado));
+      descargar(bytes, "informe-calculo-mecenazgo.pdf");
+    } catch (error) {
+      setErrorPdf(
+        error instanceof Error ? error.message : "no se pudo generar el PDF",
+      );
+    }
+  };
 
   const actualizarNumero = (
     campo:
@@ -963,6 +981,26 @@ export function PanelAportante({ estado, onCambiar, onPrograma }: Props) {
                   ))}
                 </List.Root>
               </Box>
+            )}
+
+            <HStack mt={5} gap={3} alignItems="center" flexWrap="wrap">
+              <Button
+                size="sm"
+                variant="outline"
+                colorPalette="brand"
+                onClick={bajarInforme}
+                disabled={isRendering}
+              >
+                {isRendering ? "Generando el PDF..." : "Informe de calculo (PDF)"}
+              </Button>
+              <Text fontSize="xs" color="fg.muted">
+                Documento de trabajo, no es una declaracion ni un certificado.
+              </Text>
+            </HStack>
+            {errorPdf && (
+              <Text fontSize="xs" color="fg.muted" mt={2}>
+                {errorPdf}
+              </Text>
             )}
           </Card.Body>
         </Card.Root>

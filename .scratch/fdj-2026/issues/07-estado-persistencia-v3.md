@@ -1,6 +1,6 @@
 # Estado de la aplicaciÃ³n y clave de almacenamiento v3
 
-Status: ready-for-agent
+Status: resolved
 Type: task
 
 - `lib/estado.ts`: aÃ±adir programa, vÃ­a, rol, lÃ­nea y reparto en fracciones.

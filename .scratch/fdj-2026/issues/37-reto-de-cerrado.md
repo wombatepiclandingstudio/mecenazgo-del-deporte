@@ -1,6 +1,6 @@
 # Reto De cerrado el 31/12/2025
 
-Status: needs-info
+Status: resolved
 Type: research
 
 La web de la FundaciÃ³n lo sigue mostrando como abierto. Contrastar la DA 18Âª de

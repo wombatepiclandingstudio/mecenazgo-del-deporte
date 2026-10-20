@@ -10,16 +10,25 @@ Aplicación web con tres rutas:
   Entidades acreedoras, base de deducción, datos del certificado, y las reglas que mencionan
   expresamente al deporte (artículo 2 y disposición adicional decimosegunda). Incluye el régimen
   foral de Navarra y su mecenazgo deportivo, y la relación vigente de actividades prioritarias.
+  Al final, los **programas de mecenazgo de la Fundación Deporte Joven de 2026**: comparativa,
+  calendario, los errores verificados en su material publicado y las preguntas que quedan
+  planteadas a la Fundación.
 - `/simulador` **El simulador**: las tres herramientas encadenadas:
 
 - **Entidad acreedora**: checklist de los requisitos de los artículos 2, 3 y 16, con medidor de
-  cumplimiento, y el generador del certificado que exige el artículo 24.3.
+  cumplimiento, solicitud de ayuda por rol (entidad, deportista o promotor AEIP) con los
+  requisitos de la convocatoria, y el generador del certificado que exige el artículo 24.3.
 - **Donante**: simulador del efecto fiscal de la aportación en el IRPF y en el Impuesto sobre
-  Sociedades, con los tipos, los topes sobre la base y el arrastre de diez años.
+  Sociedades, con los tipos, los topes sobre la base y el arrastre de diez años. Si la aportación
+  va a un programa de la Fundación, se aplican su tope anual, su canon de gestión y su
+  calendario, y se puede descargar el informe de cálculo en PDF.
 - **Certificado**: genera el certificado en PDF (A4, texto seleccionable) listo para firmar.
 
 Los datos que introduce el usuario se guardan **solo en su navegador** (`localStorage`). No hay
 backend, ni base de datos, ni analítica: nada sale del dispositivo.
+
+**Aviso**: la clave de almacenamiento ha subido a mecenazgo:datos:v3 al añadir los programas.
+Lo que había guardado el navegador antes se descarta y hay que volver a introducirlo.
 
 ## Puesta en marcha
 
@@ -90,11 +99,19 @@ components/
 lib/
   mecenazgo.ts            Calculo fiscal, funcion pura y sin dependencias
   mecenazgo.test.ts       Tests del calculo fiscal
+  programas.ts            Reglas de los programas de la Fundacion: canon, tope, publicidad, calendario
+  programas.test.ts       Tests de esas reglas
   legal.ts                Contenido legal de la Ley 49/2002, con su fuente
   legal.test.ts           Tests de la disciplina de verificacion
+  cifras.test.ts          Guard: ninguna cifra de la ley fuera de lib/legal.ts
   estado.ts               Estado de la aplicacion
   usePersistido.ts        Hook de persistencia en localStorage
-  certificado.tsx         Documento PDF y descarga
+  certificado.tsx         Documento PDF y descarga (react-pdf)
+  pdf/                    Informe de calculo en PDF: worker de Takumi, tema y documento
+components/pdf/           Codigo de pdfcn copiado del registry (no se revisa con las reglas del proyecto)
+types/                    Tipos del tema de pdfcn
+scripts/copiar-wasm.mjs  Copia el binario de Takumi a public/
+.scratch/fdj-2026/       Spec y tickets del trabajo de los programas de 2026
 docs/
   fuentes.md              Catalogo de fuentes primarias y secundarias
   verificacion-legal.md   Contraste de cada afirmacion con la fuente primaria

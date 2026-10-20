@@ -57,10 +57,13 @@ describe("tope anual de España Compite", () => {
     const r = calcular(
       empresa({ importe: 80000, base: 300000, topeAportacion: 50000 }),
     );
-    expect(r.pendiente).toBe(30000);
-    expect(
-      r.avisos.some((a) => a.texto.includes("tope anual por aportante")),
-    ).toBe(true);
+    // El tope es una regla del programa: lo que excede no se traslada.
+    expect(r.pendiente).toBe(0);
+    const aviso = r.avisos.find((a) =>
+      a.texto.includes("tope anual por aportante"),
+    );
+    expect(aviso).toBeDefined();
+    expect(aviso?.texto).toContain("30.000");
   });
 
   it("no toca el calculo cuando el programa no tiene tope", () => {

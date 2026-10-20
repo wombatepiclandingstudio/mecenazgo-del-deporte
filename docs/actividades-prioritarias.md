@@ -88,6 +88,7 @@ Situación actual (ejercicio 2026):
   - ELI: https://www.boe.es/eli/es/rdl/2026/02/03/3
   - Su preámbulo, apartado I, hace constar que «la falta de aprobación de la Ley de Presupuestos Generales del Estado para el año 2026 determina la prórroga automática de la Ley 31/2022, de 23 de diciembre, de Presupuestos Generales del Estado para el año 2023 hasta la aprobación de la nueva ley». Su disposición adicional primera mantiene la vigencia de los títulos IV y VIII de la Ley 31/2022 y de las disposiciones adicionales concordantes, con efectos desde el 1 de enero de 2026.
   - Nota: la DA 57ª está en «Disposiciones adicionales», fuera de los títulos IV y VIII, por lo que su vigencia en 2026 deriva de la prórroga automática del artículo 134.4 CE, no de la disposición adicional primera del real decreto-ley.
+- **El Real Decreto-ley 16/2025, de 23 de diciembre, está derogado.** Su preámbulo, apartado I, lo hace constar: no fue convalidado por el Congreso de los Diputados y «ha sido derogada con fecha 28 de enero de 2026». Por tanto, la referencia a su disposición adicional primera que aparece en algunos análisis sobre la prórroga de 2026 está caduca: la norma que hoy deja constancia de la prórroga automática es el preámbulo del Real Decreto-ley 3/2026.
 
 Cadena de prórroga y de actualización:
 
@@ -99,6 +100,8 @@ Cadena de prórroga y de actualización:
 | 2026 | Prórroga | Real Decreto-ley 3/2026, de 3 de febrero (BOE-A-2026-2548). Acontecimientos de excepcional interés público de 2026: Real Decreto-ley 12/2026, de 26 de mayo (BOE-A-2026-11397), https://www.boe.es/buscar/doc.php?id=BOE-A-2026-11397 |
 
 Los real decreto-ley de 2025 y 2026 no tocan la DA 57ª: declaran «acontecimientos de excepcional interés público» al amparo del artículo 27 de la Ley 49/2002. Por el artículo 27 de esa ley, los programas y actividades de esos acontecimientos quedan dentro del «régimen de mecenazgo prioritario» del artículo 22. La Agencia Tributaria, en su Manual práctico del IRPF 2025, añade por eso esos acontecimientos como un elemento adicional (el número 21) junto a los 20 puntos de la DA 57ª.
+
+Un programa declarado en 2025 ya no está en vigor: el «RETO DE», declarado acontecimiento de excepcional interés público por la disposición adicional decimoctava de la Ley 39/2022, de 30 de diciembre, del Deporte, con duración «desde el 1 de enero de 2023 hasta el 31 de diciembre de 2025». La página web de la Fundación lo sigue mostrando como abierto. Los tres programas vivos de la Fundación en 2026 son «Universo Mujer IV», el «Plan 2030 de Apoyo al Deporte Base II» y «Deporte Inclusivo III», declarados por el Real Decreto-ley 8/2025, de 8 de julio, y vigentes del 1 de enero de 2025 al 31 de diciembre de 2027.
 
 ## Ley 49/2002, artículo 22 (texto literal)
 

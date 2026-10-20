@@ -1,6 +1,6 @@
 # Quitar pdf-lib declarada y sin usar
 
-Status: ready-for-agent
+Status: wontfix
 Type: task
 
 `package.json` declara `pdf-lib` y ningÃºn fichero la importa. Depende del

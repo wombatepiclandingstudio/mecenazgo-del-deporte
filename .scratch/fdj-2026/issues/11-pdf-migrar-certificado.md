@@ -1,6 +1,6 @@
 # Migrar el certificado al stack Takumi
 
-Status: needs-triage
+Status: ready-for-agent
 Type: task
 
 Portar `lib/certificado.tsx` al stack Takumi y borrar `@react-pdf/renderer` y
