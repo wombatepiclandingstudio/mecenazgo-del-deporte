@@ -1,16 +1,18 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   Box,
   Button,
   Card,
   Checkbox,
+  Collapsible,
   Field,
   Grid,
   Heading,
   HStack,
   Input,
+  List,
   NativeSelect,
   Stack,
   Table,
@@ -106,6 +108,7 @@ function Barras() {
 
 export function PanelAportante({ estado, onCambiar }: Props) {
   const p = estado.aportante;
+  const [ajustesAbiertos, setAjustesAbiertos] = useState(false);
 
   /** Regla que aplica al destino foral elegido, segun el articulo que la fija. */
   const destinoTexto =
@@ -144,58 +147,57 @@ export function PanelAportante({ estado, onCambiar }: Props) {
           <Card.Title>Datos de la aportacion</Card.Title>
         </Card.Header>
         <Card.Body>
-          <Box mb={5}>
-            <Text
-              fontSize="xs"
-              fontWeight="bold"
-              letterSpacing="0.1em"
-              textTransform="uppercase"
-              color="brand.fg"
-              mb={2}
-            >
-              Regimen aplicable
-            </Text>
-            <HStack gap={2}>
-              <Button
-                size="sm"
-                flex="1"
-                variant={p.regimen === "estatal" ? "subtle" : "ghost"}
-                colorPalette="brand"
-                onClick={() => onCambiar({ regimen: "estatal" })}
-              >
-                Estatal
-              </Button>
-              <Button
-                size="sm"
-                flex="1"
-                variant={p.regimen === "navarra" ? "subtle" : "ghost"}
-                colorPalette="brand"
-                onClick={() => onCambiar({ regimen: "navarra" })}
-              >
-                Foral de Navarra
-              </Button>
-            </HStack>
-            <Text fontSize="xs" color="fg.muted" mt={2}>
-              {p.regimen === "estatal"
-                ? "Ley 49/2002, de 23 de diciembre, de regimen fiscal de las entidades sin fines lucrativos y de los incentivos fiscales al mecenazgo."
-                : "Decreto Foral Legislativo 2/2023, de 24 de mayo. No es el mismo regimen que el estatal: aqui la aportacion es partida deducible en la base, no una deduccion del 40-55% de la cuota."}
-            </Text>
-          </Box>
-
-          <Tabs.Root
-            value={p.perfil}
-            onValueChange={(e) => onCambiar({ perfil: e.value as Perfil })}
-            variant="subtle"
-            colorPalette="brand"
-            mb={5}
-          >
-            <Tabs.List>
-              <Tabs.Trigger value="is">Empresa (IS)</Tabs.Trigger>
-              <Tabs.Trigger value="irpf">Persona fisica (IRPF)</Tabs.Trigger>
-            </Tabs.List>
-          </Tabs.Root>
-
           <Stack gap={4}>
+            <Tabs.Root
+              value={p.perfil}
+              onValueChange={(e) => onCambiar({ perfil: e.value as Perfil })}
+              variant="subtle"
+              colorPalette="brand"
+            >
+              <Tabs.List>
+                <Tabs.Trigger value="is">Empresa (IS)</Tabs.Trigger>
+                <Tabs.Trigger value="irpf">Persona fisica (IRPF)</Tabs.Trigger>
+              </Tabs.List>
+            </Tabs.Root>
+
+            <Box>
+              <Text
+                fontSize="xs"
+                fontWeight="bold"
+                letterSpacing="0.1em"
+                textTransform="uppercase"
+                color="brand.fg"
+                mb={2}
+              >
+                Regimen aplicable
+              </Text>
+              <HStack gap={2}>
+                <Button
+                  size="sm"
+                  flex="1"
+                  variant={p.regimen === "estatal" ? "subtle" : "ghost"}
+                  colorPalette="brand"
+                  onClick={() => onCambiar({ regimen: "estatal" })}
+                >
+                  Estatal
+                </Button>
+                <Button
+                  size="sm"
+                  flex="1"
+                  variant={p.regimen === "navarra" ? "subtle" : "ghost"}
+                  colorPalette="brand"
+                  onClick={() => onCambiar({ regimen: "navarra" })}
+                >
+                  Foral de Navarra
+                </Button>
+              </HStack>
+              <Text fontSize="xs" color="fg.muted" mt={2}>
+                {p.regimen === "estatal"
+                  ? "Ley 49/2002, de 23 de diciembre, de regimen fiscal de las entidades sin fines lucrativos y de los incentivos fiscales al mecenazgo."
+                  : "Decreto Foral Legislativo 2/2023, de 24 de mayo. No es el mismo regimen que el estatal: aqui la aportacion es partida deducible en la base, no una deduccion del 40-55% de la cuota."}
+              </Text>
+            </Box>
+
             <Field.Root>
               <Field.Label htmlFor="importe">
                 Importe de la aportacion
@@ -228,42 +230,225 @@ export function PanelAportante({ estado, onCambiar }: Props) {
               />
             </Field.Root>
 
-            {p.regimen === "navarra" && (
-              <>
-                <Field.Root>
-                  <Field.Label htmlFor="destino-navarra">
-                    Tipo de mecenazgo foral
-                  </Field.Label>
-                  <NativeSelect.Root>
-                    <NativeSelect.Field
-                      id="destino-navarra"
-                      value={p.destinoNavarra}
-                      onChange={(e) =>
-                        onCambiar({
-                          destinoNavarra: e.target.value as DestinoNavarra,
-                        })
-                      }
-                    >
-                      <option value="deportivo">
-                        Deportivo - actividad declarada de interes social (arts.
-                        39 a 42)
-                      </option>
-                      <option value="cultural">
-                        Cultural - proyecto declarado de interes social
-                      </option>
-                      <option value="social">
-                        Social - entidad reconocida por el Gobierno de Navarra
-                      </option>
-                      <option value="medioambiental">
-                        Medioambiental - entidad con reconocimiento previo
-                      </option>
-                    </NativeSelect.Field>
-                    <NativeSelect.Indicator />
-                  </NativeSelect.Root>
-                  <Field.HelperText>{destinoTexto}</Field.HelperText>
-                </Field.Root>
+            <Collapsible.Root
+              open={ajustesAbiertos}
+              onOpenChange={(e) => setAjustesAbiertos(e.open)}
+            >
+              <Collapsible.Trigger asChild>
+                <Button variant="outline" w="full" justifyContent="space-between">
+                  {ajustesAbiertos ? "Ocultar ajustes" : "Afinar el calculo"}
+                  <Collapsible.Indicator
+                    aria-hidden="true"
+                    display="inline-flex"
+                    transition="transform .2s ease"
+                    css={{ "&[data-state=open]": { transform: "rotate(180deg)" } }}
+                  >
+                    &#9662;
+                  </Collapsible.Indicator>
+                </Button>
+              </Collapsible.Trigger>
+              <Collapsible.Content>
+                <Stack gap={4} pt={4}>
+                  <Text fontSize="xs" color="fg.muted">
+                    Con la base y el importe ya tienes una cifra. Estos datos la
+                    afinan: tipo impositivo, otras aportaciones, destino foral y
+                    donativos repetidos.
+                  </Text>
 
-                {p.destinoNavarra === "deportivo" && (
+                  {p.perfil === "is" && (
+                    <Field.Root>
+                      <Field.Label htmlFor="tipo">Tipo impositivo</Field.Label>
+                      <NativeSelect.Root>
+                        <NativeSelect.Field
+                          id="tipo"
+                          value={p.tipoImpositivo}
+                          onChange={(e) =>
+                            onCambiar({ tipoImpositivo: Number(e.target.value) })
+                          }
+                        >
+                          <option value={25}>25% - tipo general</option>
+                          <option value={21}>21% - reducida</option>
+                          <option value={19}>19% - microempresa</option>
+                        </NativeSelect.Field>
+                        <NativeSelect.Indicator />
+                      </NativeSelect.Root>
+                    </Field.Root>
+                  )}
+
+                  {p.perfil === "irpf" && p.regimen === "estatal" && (
+                    <Field.Root>
+                      <Field.Label htmlFor="otras">
+                        Otras aportaciones de este ejercicio
+                      </Field.Label>
+                      <Input
+                        id="otras"
+                        type="number"
+                        min={0}
+                        step={50}
+                        inputMode="numeric"
+                        value={p.otrasAportaciones}
+                        onChange={(e) =>
+                          actualizarNumero("otrasAportaciones", e.target.value)
+                        }
+                      />
+                      <Field.HelperText>
+                        Los 250 euros del micro-mecenazgo son un unico cubo por
+                        contribuyente y ano: lo que consuman otras aportaciones
+                        resta a esta.
+                      </Field.HelperText>
+                    </Field.Root>
+                  )}
+
+                  {p.regimen === "navarra" && (
+                    <>
+                      <Field.Root>
+                        <Field.Label htmlFor="destino-navarra">
+                          Tipo de mecenazgo foral
+                        </Field.Label>
+                        <NativeSelect.Root>
+                          <NativeSelect.Field
+                            id="destino-navarra"
+                            value={p.destinoNavarra}
+                            onChange={(e) =>
+                              onCambiar({
+                                destinoNavarra: e.target.value as DestinoNavarra,
+                              })
+                            }
+                          >
+                            <option value="deportivo">
+                              Deportivo - actividad declarada de interes social
+                              (arts. 39 a 42)
+                            </option>
+                            <option value="cultural">
+                              Cultural - proyecto declarado de interes social
+                            </option>
+                            <option value="social">
+                              Social - entidad reconocida por el Gobierno de
+                              Navarra
+                            </option>
+                            <option value="medioambiental">
+                              Medioambiental - entidad con reconocimiento previo
+                            </option>
+                          </NativeSelect.Field>
+                          <NativeSelect.Indicator />
+                        </NativeSelect.Root>
+                        <Field.HelperText>{destinoTexto}</Field.HelperText>
+                      </Field.Root>
+
+                      {p.perfil === "is" && (
+                        <Field.Root>
+                          <Field.Label htmlFor="cifra">
+                            Importe neto de la cifra de negocios
+                          </Field.Label>
+                          <Input
+                            id="cifra"
+                            type="number"
+                            min={0}
+                            step={10000}
+                            inputMode="numeric"
+                            value={p.cifraNegocios}
+                            onChange={(e) =>
+                              actualizarNumero("cifraNegocios", e.target.value)
+                            }
+                          />
+                          <Field.HelperText>
+                            El tope de la partida deducible es el mayor entre el
+                            30% de la base imponible y el 3 por mil de este
+                            importe.
+                          </Field.HelperText>
+                        </Field.Root>
+                      )}
+                    </>
+                  )}
+
+                  {p.regimen === "estatal" && (
+                    <>
+                      <Checkbox.Root
+                        checked={p.prioritaria}
+                        onCheckedChange={(e) =>
+                          onCambiar({ prioritaria: !!e.checked })
+                        }
+                        colorPalette="accent"
+                        alignItems="flex-start"
+                      >
+                        <Checkbox.HiddenInput />
+                        <Checkbox.Control mt="2px" />
+                        <Checkbox.Label>
+                          Va dirigida a una actividad prioritaria de mecenazgo
+                          <Text
+                            as="span"
+                            display="block"
+                            fontSize="xs"
+                            color="fg.muted"
+                            mt="1px"
+                          >
+                            Sube el tipo 5 puntos y el limite otros 5
+                          </Text>
+                        </Checkbox.Label>
+                      </Checkbox.Root>
+
+                      <Checkbox.Root
+                        checked={p.reiterada}
+                        onCheckedChange={(e) =>
+                          onCambiar({ reiterada: !!e.checked })
+                        }
+                        colorPalette="accent"
+                        alignItems="flex-start"
+                      >
+                        <Checkbox.HiddenInput />
+                        <Checkbox.Control mt="2px" />
+                        <Checkbox.Label>
+                          Hay donativos a esta misma entidad en los 2 periodos
+                          anteriores y en este
+                          <Text
+                            as="span"
+                            display="block"
+                            fontSize="xs"
+                            color="fg.muted"
+                            mt="1px"
+                          >
+                            Por importe igual o superior al de hace dos años, y
+                            durante 3 años seguidos
+                          </Text>
+                        </Checkbox.Label>
+                      </Checkbox.Root>
+                    </>
+                  )}
+                </Stack>
+              </Collapsible.Content>
+            </Collapsible.Root>
+
+            <Box pt={2}>
+              <Text
+                fontSize="xs"
+                fontWeight="bold"
+                letterSpacing="0.1em"
+                textTransform="uppercase"
+                color="brand.fg"
+                mb={2}
+              >
+                Condiciones
+              </Text>
+              <Stack gap={2}>
+                {p.regimen === "navarra" && (
+                  <Box
+                    p={3}
+                    borderRadius="md"
+                    bg="accent.muted"
+                    borderWidth="1px"
+                    borderColor="accent.300"
+                  >
+                    <Text fontSize="sm">
+                      En el regimen foral no se aplican los topes del articulo
+                      20 ni el incremento por donativos reiterados. El Decreto
+                      Foral Legislativo 2/2023 fija su propio regimen: una
+                      partida deducible en la base mas una deduccion sobre la
+                      cuota liquida, que cambia segun el destino.
+                    </Text>
+                  </Box>
+                )}
+
+                {p.regimen === "navarra" && p.destinoNavarra === "deportivo" && (
                   <Checkbox.Root
                     checked={p.interesSocial}
                     onCheckedChange={(e) =>
@@ -289,159 +474,6 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                       </Text>
                     </Checkbox.Label>
                   </Checkbox.Root>
-                )}
-
-                {p.perfil === "is" && (
-                  <Field.Root>
-                    <Field.Label htmlFor="cifra">
-                      Importe neto de la cifra de negocios
-                    </Field.Label>
-                    <Input
-                      id="cifra"
-                      type="number"
-                      min={0}
-                      step={10000}
-                      inputMode="numeric"
-                      value={p.cifraNegocios}
-                      onChange={(e) =>
-                        actualizarNumero("cifraNegocios", e.target.value)
-                      }
-                    />
-                    <Field.HelperText>
-                      El tope de la partida deducible es el mayor entre el 30%
-                      de la base imponible y el 3 por mil de este importe.
-                    </Field.HelperText>
-                  </Field.Root>
-                )}
-              </>
-            )}
-
-            {p.perfil === "irpf" && p.regimen === "estatal" && (
-              <Field.Root>
-                <Field.Label htmlFor="otras">
-                  Otras aportaciones de este ejercicio
-                </Field.Label>
-                <Input
-                  id="otras"
-                  type="number"
-                  min={0}
-                  step={50}
-                  inputMode="numeric"
-                  value={p.otrasAportaciones}
-                  onChange={(e) =>
-                    actualizarNumero("otrasAportaciones", e.target.value)
-                  }
-                />
-                <Field.HelperText>
-                  Los 250 euros del micro-mecenazgo son un unico cubo por
-                  contribuyente y ano: lo que consuman otras aportaciones resta
-                  a esta.
-                </Field.HelperText>
-              </Field.Root>
-            )}
-
-            {p.perfil === "is" && (
-              <Field.Root>
-                <Field.Label htmlFor="tipo">Tipo impositivo</Field.Label>
-                <NativeSelect.Root>
-                  <NativeSelect.Field
-                    id="tipo"
-                    value={p.tipoImpositivo}
-                    onChange={(e) =>
-                      onCambiar({ tipoImpositivo: Number(e.target.value) })
-                    }
-                  >
-                    <option value={25}>25% - tipo general</option>
-                    <option value={21}>21% - reducida</option>
-                    <option value={19}>19% - microempresa</option>
-                  </NativeSelect.Field>
-                  <NativeSelect.Indicator />
-                </NativeSelect.Root>
-              </Field.Root>
-            )}
-
-            <Box pt={2}>
-              <Text
-                fontSize="xs"
-                fontWeight="bold"
-                letterSpacing="0.1em"
-                textTransform="uppercase"
-                color="brand.fg"
-                mb={2}
-              >
-                Condiciones
-              </Text>
-              <Stack gap={2}>
-                {p.regimen === "navarra" && (
-                  <Box
-                    p={3}
-                    borderRadius="md"
-                    bg="accent.muted"
-                    borderWidth="1px"
-                    borderColor="accent.300"
-                  >
-                    <Text fontSize="sm">
-                      En el regimen foral no se aplican los topes del articulo
-                      20 ni el incremento por donativos reiterados. El
-                      Decreto Foral Legislativo 2/2023 fija su propio regimen:
-                      una partida deducible en la base mas una deduccion sobre
-                      la cuota liquida, que cambia segun el destino.
-                    </Text>
-                  </Box>
-                )}
-
-                {p.regimen === "estatal" && (
-                  <>
-                    <Checkbox.Root
-                      checked={p.prioritaria}
-                      onCheckedChange={(e) =>
-                        onCambiar({ prioritaria: !!e.checked })
-                      }
-                      colorPalette="accent"
-                      alignItems="flex-start"
-                    >
-                      <Checkbox.HiddenInput />
-                      <Checkbox.Control mt="2px" />
-                      <Checkbox.Label>
-                        Va dirigida a una actividad prioritaria de mecenazgo
-                        <Text
-                          as="span"
-                          display="block"
-                          fontSize="xs"
-                          color="fg.muted"
-                          mt="1px"
-                        >
-                          Sube el tipo 5 puntos y el limite otros 5
-                        </Text>
-                      </Checkbox.Label>
-                    </Checkbox.Root>
-
-                    <Checkbox.Root
-                      checked={p.reiterada}
-                      onCheckedChange={(e) =>
-                        onCambiar({ reiterada: !!e.checked })
-                      }
-                      colorPalette="accent"
-                      alignItems="flex-start"
-                    >
-                      <Checkbox.HiddenInput />
-                      <Checkbox.Control mt="2px" />
-                      <Checkbox.Label>
-                        Hay donativos a esta misma entidad en los 2 periodos
-                        anteriores y en este
-                        <Text
-                          as="span"
-                          display="block"
-                          fontSize="xs"
-                          color="fg.muted"
-                          mt="1px"
-                        >
-                          Por importe igual o superior al de hace dos años, y
-                          durante 3 años seguidos
-                        </Text>
-                      </Checkbox.Label>
-                    </Checkbox.Root>
-                  </>
                 )}
 
                 <Checkbox.Root
@@ -514,22 +546,31 @@ export function PanelAportante({ estado, onCambiar }: Props) {
           </Card.Header>
           <Card.Body>
             <Table.Root size="sm" variant="line" interactive={false}>
+              <Table.Caption captionSide="top">
+                Calculo de la deduccion aplicable y del coste neto
+              </Table.Caption>
               <Table.Body>
                 <Table.Row>
-                  <Table.Cell>Tipo de deduccion aplicable</Table.Cell>
+                  <Table.Cell as="th" scope="row" fontWeight="normal">
+                    Tipo de deduccion aplicable
+                  </Table.Cell>
                   <Table.Cell textAlign="end" fontWeight="bold">
                     {r.tipoEtiqueta}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.Cell>Articulo que lo fija</Table.Cell>
+                  <Table.Cell as="th" scope="row" fontWeight="normal">
+                    Articulo que lo fija
+                  </Table.Cell>
                   <Table.Cell textAlign="end" fontWeight="bold">
                     {r.articulo}
                   </Table.Cell>
                 </Table.Row>
                 {p.regimen === "estatal" ? (
                   <Table.Row>
-                    <Table.Cell>Base de la deduccion</Table.Cell>
+                    <Table.Cell as="th" scope="row" fontWeight="normal">
+                      Base de la deduccion
+                    </Table.Cell>
                     <Table.Cell textAlign="end" fontWeight="bold">
                       {euros(r.base)}
                     </Table.Cell>
@@ -537,7 +578,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                 ) : (
                   r.lineas.map((l) => (
                     <Table.Row key={l.concepto}>
-                      <Table.Cell>
+                      <Table.Cell as="th" scope="row" fontWeight="normal">
                         <Text fontWeight="semibold">{l.concepto}</Text>
                         <Text fontSize="xs" color="fg.muted">
                           {l.detalle}
@@ -550,7 +591,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                   ))
                 )}
                 <Table.Row>
-                  <Table.Cell bg="brand.subtle">
+                  <Table.Cell as="th" scope="row" bg="brand.subtle">
                     <Text fontWeight="semibold" color="brand.fg">
                       {p.regimen === "estatal"
                         ? "Deduccion en la cuota"
@@ -565,7 +606,12 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                 </Table.Row>
                 {p.regimen === "estatal" && (
                   <Table.Row>
-                    <Table.Cell color="fg.muted">
+                    <Table.Cell
+                      as="th"
+                      scope="row"
+                      fontWeight="normal"
+                      color="fg.muted"
+                    >
                       Pendiente para los 10 anos siguientes
                     </Table.Cell>
                     <Table.Cell textAlign="end" color="fg.muted">
@@ -574,7 +620,9 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                   </Table.Row>
                 )}
                 <Table.Row>
-                  <Table.Cell fontWeight="semibold">Coste neto real</Table.Cell>
+                  <Table.Cell as="th" scope="row" fontWeight="semibold">
+                    Coste neto real
+                  </Table.Cell>
                   <Table.Cell textAlign="end" fontWeight="bold">
                     {euros(r.neto)}
                   </Table.Cell>
@@ -583,11 +631,17 @@ export function PanelAportante({ estado, onCambiar }: Props) {
             </Table.Root>
 
             <Box mt={5}>
-              <Box display="flex" h="34px" borderRadius="md" overflow="hidden">
+              <Box
+                display="flex"
+                h="34px"
+                borderRadius="md"
+                overflow="hidden"
+                aria-hidden="true"
+              >
                 <Box
                   w={`${r.descuento}%`}
-                  bg="accent.solid"
-                  color="#2b2320"
+                  bg="accent.700"
+                  color="accent.contrast"
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
@@ -640,10 +694,16 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                     ? "Revisa antes de continuar"
                     : "Notas"}
                 </Heading>
-                <Stack gap={2}>
+                <List.Root gap={2} m={0} p={0} listStyle="none">
                   {r.avisos.map((a, i) => (
-                    <HStack key={i} gap={2} alignItems="flex-start">
+                    <List.Item
+                      key={i}
+                      display="flex"
+                      gap={2}
+                      alignItems="flex-start"
+                    >
                       <Box
+                        aria-hidden="true"
                         mt="8px"
                         w="5px"
                         h="5px"
@@ -654,9 +714,9 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                       <Text fontSize="sm">
                         <TextoAviso texto={a.texto} destacados={a.destacados} />
                       </Text>
-                    </HStack>
+                    </List.Item>
                   ))}
-                </Stack>
+                </List.Root>
               </Box>
             )}
           </Card.Body>
@@ -701,9 +761,9 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                   </Grid>
                 ))}
                 <Text fontSize="xs" color="fg.muted" mt={2}>
-                  La ley foral permite que un Acuerdo de Gobierno eleve hasta 5
-                  puntos los porcentajes de las actividades prioritarias. No se
-                  aplica en este cálculo.
+                  El Decreto Foral Legislativo 2/2023 fija sus propios
+                  porcentajes y no recoge el incremento por actividades
+                  prioritarias. No se aplica en este cálculo.
                 </Text>
               </Stack>
             ) : p.perfil === "is" ? (
@@ -740,19 +800,28 @@ export function PanelAportante({ estado, onCambiar }: Props) {
             </Text>
             {p.regimen === "estatal" && (
               <Table.Root size="sm" variant="line" mt={2} interactive={false}>
+                <Table.Caption captionSide="top">
+                  Porcentajes aplicables a actividades prioritarias de mecenazgo
+                </Table.Caption>
                 <Table.Header>
                   <Table.Row>
-                    <Table.ColumnHeader>Concepto</Table.ColumnHeader>
-                    <Table.ColumnHeader textAlign="end">
+                    <Table.ColumnHeader scope="col">
+                      Concepto
+                    </Table.ColumnHeader>
+                    <Table.ColumnHeader scope="col" textAlign="end">
                       IRPF
                     </Table.ColumnHeader>
-                    <Table.ColumnHeader textAlign="end">IS</Table.ColumnHeader>
+                    <Table.ColumnHeader scope="col" textAlign="end">
+                      IS
+                    </Table.ColumnHeader>
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
                   {PRIORITARIAS.map((f) => (
                     <Table.Row key={f.concepto}>
-                      <Table.Cell>{f.concepto}</Table.Cell>
+                      <Table.Cell as="th" scope="row" fontWeight="normal">
+                        {f.concepto}
+                      </Table.Cell>
                       <Table.Cell textAlign="end" fontWeight="semibold">
                         {f.irpf}
                       </Table.Cell>

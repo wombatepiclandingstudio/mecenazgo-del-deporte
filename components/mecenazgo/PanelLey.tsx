@@ -413,7 +413,13 @@ export function PanelLey() {
         </Heading>
         <Text color="fg.muted" mb={5}>
           Ademas del donativo, la ley regula tres vias con tratamiento distinto
-          y no acumulable con los incentivos anteriores.
+          y no acumulable con los incentivos anteriores. El simulador no
+          calcula ninguna de las tres: solo aportaciones en dinero.
+        </Text>
+        <Text color="fg.muted" mb={5} maxW="70ch">
+          Tampoco calcula el IRNR, con o sin establecimiento permanente
+          (articulo 21), ni el patrocinio publicitario, que se rige por la Ley
+          34/1988 y no es mecenazgo.
         </Text>
         <Stack gap={4}>
           {MODALIDADES.map((m) => (
