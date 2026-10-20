@@ -41,6 +41,26 @@ describe("contenido legal", () => {
     }
   });
 
+  it("ninguna entrada es una cadena convertida en objeto", () => {
+    for (const [nombre, valor] of arrays) {
+      for (const entrada of entradas(valor)) {
+        const numericas = Object.keys(entrada).filter((k) => /^\d+$/.test(k));
+        expect(numericas, `${nombre}`).toHaveLength(0);
+      }
+    }
+  });
+
+  it("toda entrada tiene contenido, no solo sus metadatos", () => {
+    for (const [nombre, valor] of arrays) {
+      for (const entrada of entradas(valor)) {
+        const contenido = Object.entries(entrada).filter(
+          ([k, v]) => k !== "fuente" && k !== "verificadoEn" && typeof v === "string" && v.length > 0,
+        );
+        expect(contenido.length, `${nombre}`).toBeGreaterThan(0);
+      }
+    }
+  });
+
   it("toda fuente citada existe en docs/fuentes.md", () => {
     for (const [nombre, valor] of arrays) {
       for (const entrada of entradas(valor)) {

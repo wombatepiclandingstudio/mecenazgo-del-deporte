@@ -85,6 +85,16 @@ const legal = <T>(items: T[], fuente: string): (T & ConFuente)[] =>
     };
   });
 
+/** Una entrada suelta, con su fuente y la fecha del ultimo contraste. */
+const legalUno = <T>(item: T, fuente: string): T & ConFuente => {
+  const propia = (item as ConFuenteOpcional).fuente;
+  return {
+    ...item,
+    fuente: propia ?? fuente,
+    verificadoEn: VERIFICADO_EN,
+  };
+};
+
 /* ------------------------------------------------------------------ */
 /* Requisitos del regimen de las entidades sin fines lucrativos        */
 /* ------------------------------------------------------------------ */
@@ -614,6 +624,198 @@ export const NOTAS_PRIORITARIAS = legal(
       fuente: "F6",
     },
   ],
+  "F18",
+);
+
+/**
+ * Cifras de la ley que usa el calculo. Viven aqui, con el articulo que las
+ * fija, para que el calculo y el texto que las explica no puedan separarse.
+ */
+export const FIGURAS = {
+  /** Limite simbolico: porcentaje maximo de lo recibido a cambio (art. 17.2). */
+  limiteSimbolicoPorcentaje: 0.15,
+  /** Limite simbolico en euros (art. 17.2). */
+  limiteSimbolicoEuros: 25000,
+  /** Tramo del 80 % en el IRPF estatal (art. 19.1). */
+  microMecenazgoIrpf: 250,
+  /** Ejercicios de arrastre del exceso no deducido (arts. 19.2 y 20). */
+  aniosArrastre: 10,
+  /** Ejercicios consecutivos para el donativo reiterado (arts. 19.1 y 20.1). */
+  ejerciciosReiteracion: 3,
+  /** Tramo del 30 % en la cuota liquida del foral (art. 31.1.b). */
+  navarraTramo1: 300,
+  /** Tramo del 80 % en el IRPF foral (arts. 30.1 y 43.1). */
+  navarraMicro: 250,
+} as const;
+
+/* ------------------------------------------------------------------ */
+/* Textos que la interfaz muestra y que la ley fija                    */
+/* ------------------------------------------------------------------ */
+
+/** Como se describe cada regimen en la interfaz. */
+export const REGIMENES = legal(
+  [
+    {
+      regimen: "estatal",
+      texto:
+        "Ley 49/2002, de 23 de diciembre, de regimen fiscal de las entidades sin fines lucrativos y de los incentivos fiscales al mecenazgo.",
+    },
+    {
+      regimen: "navarra",
+      texto:
+        "Decreto Foral Legislativo 2/2023, de 24 de mayo. No es el mismo regimen que el estatal: aqui la aportacion es partida deducible en la base, no una deduccion del 40-55% de la cuota.",
+      fuente: "F17",
+    },
+  ],
+  "F1",
+);
+
+/** Regla que aplica al destino foral elegido, para empresa o persona fisica. */
+export const NAVARRA_DESTINOS = legal(
+  [
+    {
+      destino: "cultural",
+      is: "Partida deducible en la base mas el 30% de los primeros 300 euros y el 20% del resto sobre la cuota liquida (art. 31.1.b).",
+      irpf:
+        "80% de los primeros 250 euros y 40% del resto en la cuota (art. 30.1). Las personas fisicas no tienen deduccion adicional sobre la cuota liquida.",
+    },
+    {
+      destino: "social",
+      is: "Partida deducible en la base mas el 20% en plano sobre la cuota liquida (art. 44.1.b).",
+      irpf: "80% de los primeros 250 euros y 40% del resto en la cuota (art. 43.1).",
+    },
+    {
+      destino: "medioambiental",
+      is: "Partida deducible en la base mas el 20% en plano sobre la cuota liquida (art. 44.1.b).",
+      irpf: "80% de los primeros 250 euros y 40% del resto en la cuota (art. 43.1).",
+    },
+    {
+      destino: "deportivo",
+      is: "Partida deducible en la base mas el 20% en plano sobre la cuota liquida (art. 44.1.b).",
+      irpf: "80% de los primeros 250 euros y 40% del resto en la cuota (art. 43.1).",
+    },
+  ],
+  "F17",
+);
+
+/** Tope de la partida deducible en el regimen foral. */
+export const NAVARRA_TOPE = legalUno(
+  {
+    texto:
+      "El tope de la partida deducible es el mayor entre el 30% de la base imponible y el 3 por mil de este importe.",
+  },
+  "F17",
+);
+
+/** El tramo de 250 euros del IRPF es un cubo unico por contribuyente y ejercicio. */
+export const IRPF_CUBO = legalUno(
+  {
+    texto:
+      "Los 250 euros del micro-mecenazgo son un unico cubo por contribuyente y ano: lo que consuman otras aportaciones resta a esta.",
+  },
+  "F1",
+);
+
+/** Limite de la contraprestacion que puede ser simbolica (art. 17.2). */
+export const LIMITE_SIMBOLICO = legalUno(
+  {
+    texto:
+      "Hasta el 15% del valor y 25.000 euros como maximo, o nada a cambio (art. 17.2).",
+  },
+  "F1",
+);
+
+/** Condiciones que la persona donante declara. */
+export const CONDICIONES = legal(
+  [
+    {
+      id: "prioritaria",
+      etiqueta: "Va dirigida a una actividad prioritaria de mecenazgo",
+      ayuda:
+        "Sube el tipo 5 puntos y el limite otros 5 (art. 22 y DA 57a de la Ley 31/2022)",
+      fuente: "F18",
+    },
+    {
+      id: "reiterada",
+      etiqueta:
+        "Hay donativos a esta misma entidad en los 2 periodos anteriores y en este",
+      ayuda:
+        "Por importe igual o superior al de hace dos años, y durante 3 años seguidos",
+    },
+    {
+      id: "certificado",
+      etiqueta:
+        "La entidad ha emitido el certificado con los datos exigidos (art. 24.3)",
+    },
+    {
+      id: "simbolico",
+      etiqueta: "La entidad entrega algo a cambio, de caracter simbolico",
+      ayuda:
+        "Hasta el 15% del valor y 25.000 euros como maximo (art. 17.2)",
+    },
+    {
+      id: "interesSocial",
+      etiqueta: "La actividad esta declarada de interes social",
+      ayuda:
+        "Exigido por los arts. 39.1 y 42 del DFL 2/2023. Las competiciones federadas nunca pueden declararse de interes social (art. 41.3)",
+      fuente: "F17",
+    },
+  ],
+  "F1",
+);
+
+/** El foral navarro no recoge el incremento por actividades prioritarias. */
+export const NAVARRA_PRIORITARIAS = legalUno(
+  {
+    texto:
+      "El Decreto Foral Legislativo 2/2023 fija sus propios porcentajes y no recoge el incremento por actividades prioritarias. No se aplica en este calculo.",
+  },
+  "F17",
+);
+
+/** Rotulo de la tabla de porcentajes aplicables a actividades prioritarias. */
+export const PRIORITARIAS_TITULO = legalUno(
+  {
+    texto:
+      "Con destino a actividad prioritaria de mecenazgo (articulo 22):",
+  },
+  "F1",
+);
+
+/** Tabla de reglas del regimen foral. */
+export const NAVARRA_REGLAS = legal(
+  [
+    { concepto: "Persona fisica, primeros 250 euros", regla: "80%" },
+    { concepto: "Persona fisica, exceso", regla: "40%" },
+    { concepto: "Empresa: base imponible", regla: "Partida deducible" },
+    {
+      concepto: "Tope de esa partida",
+      regla:
+        "Mayor entre el 30% de la base imponible y el 3 por mil del importe neto de la cifra de negocios",
+    },
+    {
+      concepto: "Empresa, mecenazgo cultural: cuota liquida",
+      regla: "30% de los primeros 300 euros y 20% del resto (art. 31.1.b)",
+    },
+    {
+      concepto:
+        "Empresa, mecenazgo social, medioambiental y deportivo: cuota liquida",
+      regla: "20% en plano (art. 44.1.b)",
+    },
+    {
+      concepto: "Persona fisica: deduccion adicional sobre la cuota liquida",
+      regla: "No existe",
+    },
+  ],
+  "F17",
+);
+
+/** Presentacion de la relacion de actividades prioritarias. */
+export const ACTIVIDADES_INTRO = legalUno(
+  {
+    texto:
+      "Esta lista es la que eleva la deduccion en 5 puntos (45% o 55% en el Impuesto sobre Sociedades, 85%, 45% o 50% en el IRPF). No es permanente: la fija la Ley de Presupuestos Generales del Estado de cada ejercicio y, mientras no se aprueben unos nuevos presupuestos, sigue vigente por prorroga. Cada ano se declaran tambien los acontecimientos de excepcional interes publico que entran en el mismo regime prioritario.",
+  },
   "F18",
 );
 

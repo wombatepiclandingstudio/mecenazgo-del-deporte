@@ -28,11 +28,21 @@ import {
 } from "@/lib/mecenazgo";
 import type { EstadoApp } from "@/lib/estado";
 import {
+  CONDICIONES,
   ESCALA_IRPF,
   ESCALA_IS,
   ESCALA_NAVARRA,
+  IRPF_CUBO,
+  LIMITE_SIMBOLICO,
+  NAVARRA_DESTINOS,
+  NAVARRA_PRIORITARIAS,
+  NAVARRA_TOPE,
   PRIORITARIAS,
+  PRIORITARIAS_TITULO,
+  REGIMENES,
 } from "@/lib/legal";
+
+const CONDICION = new Map(CONDICIONES.map((c) => [c.id, c]));
 
 interface Props {
   estado: EstadoApp;
@@ -111,16 +121,15 @@ export function PanelAportante({ estado, onCambiar }: Props) {
   const [ajustesAbiertos, setAjustesAbiertos] = useState(false);
 
   /** Regla que aplica al destino foral elegido, segun el articulo que la fija. */
+  const destinoForal = NAVARRA_DESTINOS.find(
+    (d) => d.destino === p.destinoNavarra,
+  );
   const destinoTexto =
-    p.regimen !== "navarra"
+    p.regimen !== "navarra" || !destinoForal
       ? ""
-      : p.destinoNavarra === "cultural"
-        ? p.perfil === "is"
-          ? "Partida deducible en la base mas el 30% de los primeros 300 euros y el 20% del resto sobre la cuota liquida (art. 31.1.b)."
-          : "80% de los primeros 250 euros y 40% del resto en la cuota (art. 30.1). Las personas fisicas no tienen deduccion adicional sobre la cuota liquida."
-        : p.perfil === "is"
-          ? "Partida deducible en la base mas el 20% en plano sobre la cuota liquida (art. 44.1.b)."
-          : "80% de los primeros 250 euros y 40% del resto en la cuota (art. 43.1).";
+      : p.perfil === "is"
+        ? destinoForal.is
+        : destinoForal.irpf;
   const r = useMemo(() => calcular(p), [p]);
 
   const actualizarNumero = (
@@ -192,9 +201,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                 </Button>
               </HStack>
               <Text fontSize="xs" color="fg.muted" mt={2}>
-                {p.regimen === "estatal"
-                  ? "Ley 49/2002, de 23 de diciembre, de regimen fiscal de las entidades sin fines lucrativos y de los incentivos fiscales al mecenazgo."
-                  : "Decreto Foral Legislativo 2/2023, de 24 de mayo. No es el mismo regimen que el estatal: aqui la aportacion es partida deducible en la base, no una deduccion del 40-55% de la cuota."}
+                {REGIMENES.find((r) => r.regimen === p.regimen)?.texto}
               </Text>
             </Box>
 
@@ -291,11 +298,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                           actualizarNumero("otrasAportaciones", e.target.value)
                         }
                       />
-                      <Field.HelperText>
-                        Los 250 euros del micro-mecenazgo son un unico cubo por
-                        contribuyente y ano: lo que consuman otras aportaciones
-                        resta a esta.
-                      </Field.HelperText>
+                      <Field.HelperText>{IRPF_CUBO.texto}</Field.HelperText>
                     </Field.Root>
                   )}
 
@@ -351,11 +354,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                               actualizarNumero("cifraNegocios", e.target.value)
                             }
                           />
-                          <Field.HelperText>
-                            El tope de la partida deducible es el mayor entre el
-                            30% de la base imponible y el 3 por mil de este
-                            importe.
-                          </Field.HelperText>
+                          <Field.HelperText>{NAVARRA_TOPE.texto}</Field.HelperText>
                         </Field.Root>
                       )}
                     </>
@@ -374,7 +373,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                         <Checkbox.HiddenInput />
                         <Checkbox.Control mt="2px" />
                         <Checkbox.Label>
-                          Va dirigida a una actividad prioritaria de mecenazgo
+                          {CONDICION.get("prioritaria")?.etiqueta}
                           <Text
                             as="span"
                             display="block"
@@ -382,7 +381,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                             color="fg.muted"
                             mt="1px"
                           >
-                            Sube el tipo 5 puntos y el limite otros 5
+                            {CONDICION.get("prioritaria")?.ayuda}
                           </Text>
                         </Checkbox.Label>
                       </Checkbox.Root>
@@ -398,8 +397,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                         <Checkbox.HiddenInput />
                         <Checkbox.Control mt="2px" />
                         <Checkbox.Label>
-                          Hay donativos a esta misma entidad en los 2 periodos
-                          anteriores y en este
+                          {CONDICION.get("reiterada")?.etiqueta}
                           <Text
                             as="span"
                             display="block"
@@ -407,8 +405,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                             color="fg.muted"
                             mt="1px"
                           >
-                            Por importe igual o superior al de hace dos años, y
-                            durante 3 años seguidos
+                            {CONDICION.get("reiterada")?.ayuda}
                           </Text>
                         </Checkbox.Label>
                       </Checkbox.Root>
@@ -460,7 +457,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                     <Checkbox.HiddenInput />
                     <Checkbox.Control mt="2px" />
                     <Checkbox.Label>
-                      La actividad esta declarada de interes social
+                      {CONDICION.get("interesSocial")?.etiqueta}
                       <Text
                         as="span"
                         display="block"
@@ -468,9 +465,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                         color="fg.muted"
                         mt="1px"
                       >
-                        Exigido por los arts. 39.1 y 42 del DFL 2/2023. Las
-                        competiciones federadas nunca pueden declararse de
-                        interes social (art. 41.3)
+                        {CONDICION.get("interesSocial")?.ayuda}
                       </Text>
                     </Checkbox.Label>
                   </Checkbox.Root>
@@ -487,7 +482,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                   <Checkbox.HiddenInput />
                   <Checkbox.Control mt="2px" />
                   <Checkbox.Label>
-                    La entidad ha emitido el certificado con los datos exigidos
+                    {CONDICION.get("certificado")?.etiqueta}
                   </Checkbox.Label>
                 </Checkbox.Root>
 
@@ -502,7 +497,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                   <Checkbox.HiddenInput />
                   <Checkbox.Control mt="2px" />
                   <Checkbox.Label>
-                    La entidad entrega algo a cambio, de caracter simbolico
+                    {CONDICION.get("simbolico")?.etiqueta}
                     <Text
                       as="span"
                       display="block"
@@ -510,7 +505,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                       color="fg.muted"
                       mt="1px"
                     >
-                      Hasta el 15% del valor y 25.000 euros como maximo
+                      {LIMITE_SIMBOLICO.texto}
                     </Text>
                   </Checkbox.Label>
                 </Checkbox.Root>
@@ -761,9 +756,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                   </Grid>
                 ))}
                 <Text fontSize="xs" color="fg.muted" mt={2}>
-                  El Decreto Foral Legislativo 2/2023 fija sus propios
-                  porcentajes y no recoge el incremento por actividades
-                  prioritarias. No se aplica en este cálculo.
+                  {NAVARRA_PRIORITARIAS.texto}
                 </Text>
               </Stack>
             ) : p.perfil === "is" ? (
@@ -796,7 +789,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
             <Text fontSize="xs" color="fg.muted" mt={5}>
               {p.regimen === "navarra"
                 ? "No aplica: los topes del artículo 20 y el incremento del 22 son del régimen estatal."
-                : "Con destino a actividad prioritaria de mecenazgo (articulo 22):"}
+                : PRIORITARIAS_TITULO.texto}
             </Text>
             {p.regimen === "estatal" && (
               <Table.Root size="sm" variant="line" mt={2} interactive={false}>

@@ -8,11 +8,13 @@
  * 20 (Impuesto sobre Sociedades) y 22 (actividades prioritarias).
  */
 
-export const LIMITE_SIMBOLICO_PORCENTAJE = 0.15;
-export const LIMITE_SIMBOLICO_EUROS = 25000;
-export const MICRO_MECENAZGO_IRPF = 250;
-export const ANIOS_ARRASTRE = 10;
-export const EJERCICIOS_REITERACION = 3;
+import { FIGURAS } from "./legal";
+
+export const LIMITE_SIMBOLICO_PORCENTAJE = FIGURAS.limiteSimbolicoPorcentaje;
+export const LIMITE_SIMBOLICO_EUROS = FIGURAS.limiteSimbolicoEuros;
+export const MICRO_MECENAZGO_IRPF = FIGURAS.microMecenazgoIrpf;
+export const ANIOS_ARRASTRE = FIGURAS.aniosArrastre;
+export const EJERCICIOS_REITERACION = FIGURAS.ejerciciosReiteracion;
 
 export type Perfil = "is" | "irpf";
 
@@ -24,8 +26,8 @@ export type DestinoNavarra =
   "deportivo" | "cultural" | "social" | "medioambiental";
 
 /** Tramos de la deduccion en la cuota liquida del regime foral. */
-export const NAVARRA_TRAMO_1 = 300;
-export const NAVARRA_MICRO = 250;
+export const NAVARRA_TRAMO_1 = FIGURAS.navarraTramo1;
+export const NAVARRA_MICRO = FIGURAS.navarraMicro;
 
 export interface Parametros {
   perfil: Perfil;

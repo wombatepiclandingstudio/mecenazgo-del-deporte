@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import {
   ACREEDORAS,
+  ACTIVIDADES_INTRO,
   ACTIVIDADES_PRIORITARIAS,
   ARTICULOS,
   BASE_DEDUCCION,
@@ -24,34 +25,11 @@ import {
   FUENTES,
   MODALIDADES,
   NAVARRA_ARTICULOS,
+  NAVARRA_REGLAS,
   NOTAS,
   NOTAS_PRIORITARIAS,
   VERIFICADO_EN,
 } from "@/lib/legal";
-
-const NAVARRA_RULES = [
-  { concepto: "Persona fisica, primeros 250 euros", regla: "80%" },
-  { concepto: "Persona fisica, exceso", regla: "40%" },
-  { concepto: "Empresa: base imponible", regla: "Partida deducible" },
-  {
-    concepto: "Tope de esa partida",
-    regla:
-      "Mayor entre el 30% de la base imponible y el 3 por mil del importe neto de la cifra de negocios",
-  },
-  {
-    concepto: "Empresa, mecenazgo cultural: cuota liquida",
-    regla: "30% de los primeros 300 euros y 20% del resto (art. 31.1.b)",
-  },
-  {
-    concepto:
-      "Empresa, mecenazgo social, medioambiental y deportivo: cuota liquida",
-    regla: "20% en plano (art. 44.1.b)",
-  },
-  {
-    concepto: "Persona fisica: deduccion adicional sobre la cuota liquida",
-    regla: "No existe",
-  },
-];
 
 /** Fechas de verificacion en formato espanol. */
 const fecha = (iso: string) => iso.split("-").reverse().join("/");
@@ -160,14 +138,7 @@ export function PanelLey() {
           Actividades prioritarias de mecenazgo
         </Heading>
         <Text color="fg.muted" mb={5} maxW="70ch">
-          Esta lista es la que eleva la deduccion en 5 puntos (45% o 55% en el
-          Impuesto sobre Sociedades, 85%, 45% o 50% en el IRPF). No es
-          permanente: la fija la Ley de Presupuestos Generales del Estado de
-          cada ejercicio y, mientras no se aprueben unos nuevos presupuestos,
-          sigue vigente por prorroga. El punto 5.ª tiene un limite de 50.000
-          euros por aportante y ano, y cada ano se declaran tambien los
-          acontecimientos de excepcional interes publico que entran en el
-          mismo regime prioritario.
+          {ACTIVIDADES_INTRO.texto}
         </Text>
         <Stack gap={5}>
           <List.Root as="ol" variant="plain" listStyleType="none" gap={3}>
@@ -337,7 +308,7 @@ export function PanelLey() {
                     Regimen foral de Navarra (Decreto Foral Legislativo 2/2023)
                   </Table.Caption>
                   <Table.Body>
-                    {NAVARRA_RULES.map((r) => (
+                    {NAVARRA_REGLAS.map((r) => (
                       <Table.Row key={r.concepto}>
                         <Table.Cell as="th" scope="row" fontWeight="medium">
                           {r.concepto}
