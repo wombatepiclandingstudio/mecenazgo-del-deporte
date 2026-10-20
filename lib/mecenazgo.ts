@@ -38,6 +38,11 @@ export interface Parametros {
   destinoNavarra: DestinoNavarra;
   /** Importe de la aportacion en euros. */
   importe: number;
+  /**
+   * Tope anual por aportante de un programa (DA 57a, punto 5.o). Lo que exceda
+   * no entra en la base deducible. Si no se indica, no hay tope.
+   */
+  topeAportacion?: number;
   /** Base imponible (IS) o base liquidable (IRPF) del ejercicio. */
   base: number;
   /** Tipo impositivo aplicable, solo para el IS. */
@@ -292,7 +297,11 @@ function calcularNavarra(p: Parametros): Resultado {
 }
 
 function calcularEstatal(p: Parametros): Resultado {
-  const importe = noNegativo(p.importe);
+  const importeBruto = noNegativo(p.importe);
+  const topeAportacion =
+    p.topeAportacion !== undefined ? p.topeAportacion : Infinity;
+  const importe = Math.min(importeBruto, topeAportacion);
+  const excesoTope = importeBruto - importe;
   const base = noNegativo(p.base);
   const otras = p.perfil === "irpf" ? noNegativo(p.otrasAportaciones) : 0;
   const tipoImp = noNegativo(p.tipoImpositivo) || 25;
@@ -310,7 +319,7 @@ function calcularEstatal(p: Parametros): Resultado {
   if (p.perfil === "is") {
     baseDed = Math.min(importe, limite);
     deduccion = (tipo / 100) * baseDed;
-    pendiente = importe - baseDed;
+    pendiente = excesoTope + (importe - baseDed);
   } else {
     // El cubo de 250 euros es unico del contribuyente en todo el ejercicio:
     // lo consumen primero las demas aportaciones.
@@ -320,7 +329,7 @@ function calcularEstatal(p: Parametros): Resultado {
     const total = importe + otras;
     const exceso = Math.max(0, total - limite);
     baseDed = total - exceso;
-    pendiente = exceso;
+    pendiente = exceso + excesoTope;
     const bruta =
       (enCubo * tipoMicromecenazgo(p.prioritaria) + resto * tipo) / 100;
     deduccion = total > 0 ? (bruta * baseDed) / total : 0;
@@ -373,6 +382,18 @@ function calcularEstatal(p: Parametros): Resultado {
         texto:
           "La entrega simbolica esta dentro del limite, asi que la deduccion se mantiene.",
         destacados: [],
+      });
+    }
+
+    if (excesoTope > 0.5) {
+      avisos.push({
+        bloqueante: false,
+        texto: `El tope anual por aportante de este programa es de ${euros(
+          topeAportacion,
+        )}. Los ${euros(
+          excesoTope,
+        )} que exceden no entran en la base deducible de este ejercicio.`,
+        destacados: [euros(topeAportacion), euros(excesoTope)],
       });
     }
 

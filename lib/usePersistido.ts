@@ -32,6 +32,8 @@ export function usePersistido(inicial: () => EstadoApp) {
             ...actual.certificado,
             ...(guardado.certificado ?? {}),
           },
+          programa: { ...actual.programa, ...(guardado.programa ?? {}) },
+          solicitud: { ...actual.solicitud, ...(guardado.solicitud ?? {}) },
         }),
       );
     } catch {

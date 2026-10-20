@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { PanelLey } from "@/components/mecenazgo/PanelLey";
+import { PanelProgramas } from "@/components/mecenazgo/PanelProgramas";
 import { VERIFICADO_EN } from "@/lib/legal";
 
 export const metadata: Metadata = {
@@ -61,6 +62,7 @@ export default function PageLey() {
       </Stack>
 
       <PanelLey />
+      <PanelProgramas />
     </Container>
   );
 }

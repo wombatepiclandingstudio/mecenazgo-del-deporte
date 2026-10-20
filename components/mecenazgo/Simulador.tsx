@@ -58,6 +58,12 @@ export function Simulador() {
   const actualizarCertificado = (parcial: Partial<EstadoApp["certificado"]>) =>
     setEstado((e) => ({ ...e, certificado: { ...e.certificado, ...parcial } }));
 
+  const actualizarPrograma = (parcial: Partial<EstadoApp["programa"]>) =>
+    setEstado((e) => ({ ...e, programa: { ...e.programa, ...parcial } }));
+
+  const actualizarSolicitud = (parcial: Partial<EstadoApp["solicitud"]>) =>
+    setEstado((e) => ({ ...e, solicitud: { ...e.solicitud, ...parcial } }));
+
   const alternarRequisito = (id: string, valor: boolean) =>
     setEstado((e) => ({
       ...e,
@@ -101,12 +107,17 @@ export function Simulador() {
             <PanelEntidad
               estado={estado}
               onAlternar={alternarRequisito}
+              onSolicitud={actualizarSolicitud}
               cumplimiento={cumplimiento}
             />
           </Tabs.Content>
 
           <Tabs.Content value="aportante">
-            <PanelAportante estado={estado} onCambiar={actualizarAportante} />
+            <PanelAportante
+              estado={estado}
+              onCambiar={actualizarAportante}
+              onPrograma={actualizarPrograma}
+            />
           </Tabs.Content>
 
           <Tabs.Content value="certificado">

@@ -26,19 +26,39 @@ const CIFRAS = [
   "20%",
   "15%",
   "10%",
+  "25 %",
+  "90 %",
+  "2,75",
+  "1.000",
   "300 euros",
   "250 euros",
 ];
 
-function tsx(dir: string): string[] {
+function codigo(dir: string): string[] {
   return readdirSync(join(RAIZ, dir), { recursive: true, withFileTypes: true })
-    .filter((d) => d.isFile() && d.name.endsWith(".tsx"))
+    .filter(
+      (d) =>
+        d.isFile() &&
+        (d.name.endsWith(".tsx") || d.name.endsWith(".ts")) &&
+        !d.name.endsWith(".test.ts") &&
+        !d.name.endsWith(".test.tsx"),
+    )
     .map((d) => join(d.parentPath, d.name));
 }
 
-describe("las cifras de la ley no se duplican en la interfaz", () => {
-  const ficheros = [...tsx("components"), ...tsx("app")];
+/**
+ * Ficheros que se revisan: la interfaz y el modulo de programas.
+ *
+ * `lib/mecenazgo.ts` queda fuera por ahora: su texto lleva cifras escritas a
+ * mano desde antes de este trabajo. Es deuda conocida y esta en el ticket 52.
+ */
+const ficheros = [
+  ...codigo("components"),
+  ...codigo("app"),
+  ...codigo("lib").filter((f) => f.endsWith("programas.ts")),
+];
 
+describe("las cifras de la ley no se duplican fuera de lib/legal.ts", () => {
   it("hay ficheros que revisar", () => {
     expect(ficheros.length).toBeGreaterThan(5);
   });
@@ -46,6 +66,7 @@ describe("las cifras de la ley no se duplican en la interfaz", () => {
   it("ninguna cifra de la ley esta escrita a mano fuera de lib/legal.ts", () => {
     const ofensas: string[] = [];
     for (const fichero of ficheros) {
+      if (fichero.endsWith("legal.ts")) continue;
       const contenido = readFileSync(fichero, "utf8");
       contenido.split("\n").forEach((linea, i) => {
         for (const cifra of CIFRAS) {

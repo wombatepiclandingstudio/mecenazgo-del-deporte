@@ -63,6 +63,40 @@ export const FUENTES: Record<string, { titulo: string; url: string }> = {
     titulo: "Ley 34/1988, General de Publicidad (BOE)",
     url: "https://www.boe.es/buscar/act.php?id=BOE-A-1988-16636",
   },
+  F22: {
+    titulo:
+      "Real Decreto-ley 8/2025, de 8 de julio, acontecimientos de excepcional interes publico (BOE)",
+    url: "https://www.boe.es/buscar/doc.php?id=BOE-A-2025-14083",
+  },
+  F23: {
+    titulo:
+      "Real Decreto-ley 12/2026, de 26 de mayo, acontecimientos de excepcional interes publico (BOE)",
+    url: "https://www.boe.es/buscar/doc.php?id=BOE-A-2026-11397",
+  },
+  F24: {
+    titulo:
+      "Fundacion Deporte Joven, Bases 2026 del programa «España Compite: en la Empresa como en el Deporte»",
+    url: "https://deportejoven.es/programas-de-mecenazgo-deportivo-guia-de-consultas/",
+  },
+  F25: {
+    titulo: "Fundacion Deporte Joven, FAQ de mecenatismo deportivo",
+    url: "https://deportejoven.es/programas-de-mecenazgo-deportivo-guia-de-consultas/",
+  },
+  F26: {
+    titulo:
+      "Consejo Superior de Deportes y Fundacion Deporte Joven, Fiscalidad de los programas AEIP 2025",
+    url: "https://deportejoven.es/programas-de-mecenazgo-deportivo-guia-de-consultas/",
+  },
+  F27: {
+    titulo:
+      "Ley 39/2022, de 30 de diciembre, del Deporte, disposicion adicional decimoctava (BOE)",
+    url: "https://www.boe.es/eli/es/l/2022/12/30/39/con",
+  },
+  F28: {
+    titulo:
+      "Ley 7/2012, de 27 de noviembre, de pagos en efectivo (BOE)",
+    url: "https://www.boe.es/eli/es/l/2012/11/27/7/con",
+  },
 };
 
 export interface ConFuente {
@@ -646,6 +680,29 @@ export const FIGURAS = {
   navarraTramo1: 300,
   /** Tramo del 80 % en el IRPF foral (arts. 30.1 y 43.1). */
   navarraMicro: 250,
+  /* --- Programas de mecenazgo de la Fundacion Deporte Joven (2026) --- */
+  /** Canon de gestion plano de España Compite (Bases 2026). */
+  canonEspanaCompite: 0.0275,
+  /** Tope anual por aportante en España Compite (DA 57a, punto 5.o). */
+  topeAnualEspanaCompite: 50000,
+  /** Aportacion minima que acepta el programa España Compite (Bases 2026). */
+  aportacionMinimaEspanaCompite: 150,
+  /** Fraccion minima del calendario de pagos del donante (formulario 2026). */
+  fraccionMinima: 1000,
+  /** Plazo de justificacion en dias tras la conclusion del proyecto. */
+  plazoJustificacionDias: 30,
+  /** Plazo de justificacion en dias si el proyecto termina el 31 de diciembre. */
+  plazoJustificacionDiasCierre31Diciembre: 15,
+  /** Anios de custodia de los justificantes originales (formulario 2026). */
+  aniosCustodia: 2,
+  /** Plazo de justificacion en dias en los programas AEIP. */
+  plazoJustificacionDiasAeip: 60,
+  /** Tipo de la deduccion por publicidad (art. 27.3, punto primero). */
+  tipoDeduccionPublicidad: 0.15,
+  /** Techo de la deduccion publicitaria sobre las donaciones (art. 27.3). */
+  techoDeduccionPublicidad: 0.9,
+  /** Base de la deduccion si la publicidad no es esencial (art. 27.3). */
+  basePublicidadNoEsencial: 0.25,
 } as const;
 
 /* ------------------------------------------------------------------ */
@@ -839,4 +896,546 @@ export const NOTAS = legal(
     },
   ],
   "F1",
+);
+
+/* ------------------------------------------------------------------ */
+/* Programas de mecenazgo de la Fundacion Deporte Joven (2026)        */
+/* ------------------------------------------------------------------ */
+
+/** Identificador de un programa de mecenazgo deportivo de 2026. */
+export type ProgramaId =
+  | "espana-compite"
+  | "universo-mujer-iv"
+  | "adb-2030-ii"
+  | "deporte-inclusivo-iii";
+
+export interface Programa {
+  id: ProgramaId;
+  nombre: string;
+  /**
+   * "prioritaria": actividad prioritaria de mecenazgo del art. 22.
+   * "aeip": acontecimiento de excepcional interes publico del art. 27.
+   */
+  regimen: "prioritaria" | "aeip";
+  /** Tope anual por aportante, en euros. Null cuando el programa no lo tiene. */
+  topeAnual: number | null;
+  /** Tipo de canon de gestion plano. Null cuando el canon es una escala progresiva. */
+  canonPlano: number | null;
+  /** La via publicitaria del art. 27.3 es alternativa a la donacion. */
+  viaPublicitaria: boolean;
+  /** Como se eleva el tratamiento fiscal del programa. */
+  elevacion: string;
+  /** Fuente propia del programa, cuando no es la del grupo. */
+  fuente?: string;
+}
+
+/**
+ * Programas de mecenazgo de la Fundacion Deporte Joven que estan vivos en 2026.
+ *
+ * España Compite es una actividad prioritaria de mecenazgo del art. 22 (DA 57a
+ * de la Ley 31/2022, punto 5.o) y por eso tiene tope anual de 50.000 euros.
+ * Los tres programas AEIP son acontecimientos de excepcional interes publico
+ * del art. 27 y no tienen tope.
+ */
+export const PROGRAMAS_2026 = legal<Programa>(
+  [
+    {
+      id: "espana-compite",
+      nombre: "España Compite: en la Empresa como en el Deporte",
+      regimen: "prioritaria",
+      topeAnual: FIGURAS.topeAnualEspanaCompite,
+      canonPlano: FIGURAS.canonEspanaCompite,
+      viaPublicitaria: false,
+      elevacion:
+        "Actividad prioritaria de mecenazgo (art. 22): tipos y limites elevados en cinco puntos.",
+      fuente: "F24",
+    },
+    {
+      id: "universo-mujer-iv",
+      nombre: "Universo Mujer IV",
+      regimen: "aeip",
+      topeAnual: null,
+      canonPlano: null,
+      viaPublicitaria: true,
+      elevacion:
+        "Acontecimiento de excepcional interes publico (art. 27.3): admite la via publicitaria.",
+      fuente: "F22",
+    },
+    {
+      id: "adb-2030-ii",
+      nombre: "Plan 2030 de Apoyo al Deporte Base II",
+      regimen: "aeip",
+      topeAnual: null,
+      canonPlano: null,
+      viaPublicitaria: true,
+      elevacion:
+        "Acontecimiento de excepcional interes publico (art. 27.3): admite la via publicitaria.",
+      fuente: "F22",
+    },
+    {
+      id: "deporte-inclusivo-iii",
+      nombre: "Deporte Inclusivo III",
+      regimen: "aeip",
+      topeAnual: null,
+      canonPlano: null,
+      viaPublicitaria: true,
+      elevacion:
+        "Acontecimiento de excepcional interes publico (art. 27.3): admite la via publicitaria.",
+      fuente: "F22",
+    },
+  ],
+  "F22",
+);
+
+/** Tramo de la escala de canon de gestion de los programas AEIP. */
+export interface TramoCanon {
+  /** Limite superior del tramo, inclusive. */
+  hasta: number;
+  /** Tipo de canon que se aplica en el tramo. */
+  tipo: number;
+  etiqueta: string;
+  fuente?: string;
+}
+
+/**
+ * Escala de canon de gestion de los programas AEIP.
+ *
+ * El material de la Fundacion no aclara si el tipo de cada tramo se aplica solo
+ * a la parte del importe que cae en el tramo o a toda la aportacion. Se aplica
+ * a toda la aportacion, que es lo que resulta del ejemplo de 20.000 euros del
+ * propio material, y queda pendiente de confirmar con la Fundacion.
+ */
+export const ESCALA_CANON_AEIP = legal<TramoCanon>(
+  [
+    { hasta: 1000, tipo: 0, etiqueta: "Hasta 1.000 €" },
+    { hasta: 50000, tipo: 0.1, etiqueta: "De 1.000,01 € a 50.000 €" },
+    { hasta: 150000, tipo: 0.0795, etiqueta: "De 50.000,01 € a 150.000 €" },
+    { hasta: 500000, tipo: 0.0695, etiqueta: "De 150.000,01 € a 500.000 €" },
+    { hasta: 2000000, tipo: 0.0595, etiqueta: "De 500.000,01 € a 2.000.000 €" },
+    {
+      hasta: Number.POSITIVE_INFINITY,
+      tipo: 0.0395,
+      etiqueta: "A partir de 2.000.000,01 €",
+    },
+  ],
+  "F26",
+);
+
+/** Hito del calendario de los programas de 2026. */
+export interface Hito {
+  hito: string;
+  /** Fecha en formato ISO, cuando el hito tiene dia. */
+  fecha?: string;
+  /** Plazo relativo, cuando el hito se cuenta desde otro hecho. */
+  plazo?: string;
+  nota?: string;
+  fuente?: string;
+}
+
+export const CALENDARIO_2026 = legal<Hito>(
+  [
+    {
+      hito: "Solicitud de ayuda de la entidad promotora",
+      fecha: "2026-12-04",
+      nota: "La entidad presenta el proyecto antes de esa fecha.",
+      fuente: "F24",
+    },
+    {
+      hito: "Solicitud de donacion",
+      fecha: "2026-12-11",
+      nota: "El donante entrega el formulario; la Fundacion valida los proyectos.",
+      fuente: "F24",
+    },
+    {
+      hito: "Donacion cobrada por la Fundacion",
+      fecha: "2026-12-18",
+      nota: "La aprobacion de la ayuda depende de que el dinero ya haya entrado.",
+      fuente: "F24",
+    },
+    {
+      hito: "Justificacion del proyecto",
+      plazo: "30 dias desde la conclusion del proyecto",
+      nota: "15 dias si el proyecto termina el 31 de diciembre de 2026.",
+      fuente: "F24",
+    },
+    {
+      hito: "Custodia de los justificantes originales",
+      plazo: "2 anos desde la conclusion del proyecto validado",
+      fuente: "F24",
+    },
+    {
+      hito: "Justificacion en los programas AEIP",
+      plazo: "60 dias desde la conclusion del proyecto",
+      nota: "Se justifica ante el organo administrativo del programa, no ante la Fundacion.",
+      fuente: "F26",
+    },
+    {
+      hito: "Certificacion de los gastos de publicidad",
+      plazo: "15 dias tras la celebracion del acontecimiento",
+      fuente: "F26",
+    },
+    {
+      hito: "Remision trimestral de certificaciones a la Agencia Tributaria",
+      plazo: "enero, abril, julio y octubre",
+      fuente: "F26",
+    },
+    {
+      hito: "Pagos en efectivo",
+      plazo: "Prohibidos a partir de 1.000 €",
+      nota: "Un talon o un cheque bancario, aunque nominativo, no justifica el pago.",
+      fuente: "F28",
+    },
+  ],
+  "F24",
+);
+
+/** Defecto verificado en el material publicado por la Fundacion. */
+export interface Defecto {
+  documento: string;
+  publicado: string;
+  correcto: string;
+  fuente?: string;
+}
+
+/**
+ * Errores verificados en el material de la Fundacion. Se muestran para que el
+ * donante no calcule con las cifras de la prosa, que en algun caso contradicen
+ * al grafico del mismo documento.
+ */
+export const DEFECTOS_FDJ = legal<Defecto>(
+  [
+    {
+      documento: "Bases 2026 y 2025, apartado I",
+      publicado: "Citan el «artículo 22 de la Ley 9/2002» como norma del mecenatismo.",
+      correcto:
+        "El regimen es el de la Ley 49/2002. La Ley 9/2002 es la de los presupuestos de Cantabria.",
+    },
+    {
+      documento: "«Fiscalidad APM 2025», ejemplo practico",
+      publicado: "Una donacion de 35.000 € genera una deduccion de 15.750 €.",
+      correcto:
+        "Son 13.500 €: el limite del 20 % de la base imponible recorta la base antes de aplicar el 45 %.",
+    },
+    {
+      documento: "FAQ de mecenatismo, ejemplo de deduccion publicitaria",
+      publicado: "El ejemplo muestra «000 €» en los tres importes.",
+      correcto: "El ejemplo publicado no es utilizable tal como esta.",
+    },
+    {
+      documento: "Formulario de donante 2026 y bases, apartado II",
+      publicado: "Remiten a los incentivos del «artículo 16 de la Ley 49/2002».",
+      correcto:
+        "El art. 16 regula las entidades acreedoras; los incentivos estan en los arts. 19 a 22 y la certificacion en el art. 24 del Real Decreto 1270/2003.",
+    },
+    {
+      documento: "Bases 2026, apartado I",
+      publicado: "Fijan el umbral de 150 € junto a la escala del IRPF de 250 €.",
+      correcto:
+        "El umbral del IRPF es de 250 € desde el Real Decreto-ley 6/2023. El minimo de 150 € es una regla del programa.",
+    },
+    {
+      documento: "FAQ, seccion de España Compite",
+      publicado:
+        "Atribuyen la aprobacion del proyecto al certificado del Consejo Superior de Deportes.",
+      correcto:
+        "España Compite no tiene organo administrativo: evalua una Comision de Valoracion de la Fundacion y la aprobacion la comunica la Fundacion.",
+    },
+    {
+      documento: "FAQ, ventajas fiscales para autonomos",
+      publicado: "Presentan el 50 % de fidelidad como si sustituyera a los dos tramos.",
+      correcto:
+        "El 50 % se aplica solo al exceso de 250 €. Con fidelidad, 500 € dan 337,50 € y no 325 €.",
+    },
+    {
+      documento: "Formulario de memoria justificativa 2026",
+      publicado: "Declara el cumplimiento «durante todo el ejercicio 2025».",
+      correcto: "Es un formulario de 2026 que remite al ejercicio anterior.",
+    },
+    {
+      documento: "FAQ, procedimiento de solicitud",
+      publicado: "Indica «hasta el 4 de diciembre» sin año.",
+      correcto: "La fecha es el 4 de diciembre de 2026.",
+    },
+    {
+      documento: "Modelo «Certificado relacion estudiantes - entidad academica»",
+      publicado:
+        "El titulo, el texto y el nombre del archivo apuntan a tres emisarios distintos.",
+      correcto:
+        "Ninguna lectura esta resuelta en la documentacion: hay que confirmar quien firma.",
+    },
+    {
+      documento: "Material grafico de AEIP (díptico)",
+      publicado: "Anuncia «50 % al 55 %» en la primera columna.",
+      correcto:
+        "El primer tramo es el 45 %; el 50 % es el tipo de fidelidad sin elevar.",
+    },
+    {
+      documento: "Bases y material de la Fundacion",
+      publicado: "Presentan el tope de 50.000 € como regla general del mecenatismo.",
+      correcto:
+        "Ese tope solo alcanza a la actividad 5.o de la DA 57a, la de España Compite. Los programas AEIP no lo tienen.",
+    },
+  ],
+  "F25",
+);
+
+/** Pregunta pendiente de respuesta por la Fundacion. */
+export interface Pregunta {
+  pregunta: string;
+  respuesta?: string;
+  fuente?: string;
+}
+
+export const PREGUNTAS_FDJ = legal<Pregunta>(
+  [
+    {
+      pregunta:
+        "El canon de los programas AEIP se aplica por tramos sobre el total de la aportacion o de forma marginal?",
+      fuente: "F26",
+    },
+    {
+      pregunta:
+        "La línea de carrera dual tiene publicado el modelo de acuerdo con el centro educativo, y quien firma el certificado de listado de deportistas?",
+      fuente: "F24",
+    },
+    {
+      pregunta:
+        "Que fecha limite real hay para la solicitud de donacion cuando la aportacion se cierra despues del 11 de diciembre de 2026?",
+      fuente: "F25",
+    },
+    {
+      pregunta:
+        "Se mantiene el limite de 50.000 € por aportante en las ediciones de 2027, y se extiende a los programas AEIP?",
+      fuente: "F24",
+    },
+    {
+      pregunta:
+        "Que relacion de actividades prioritarias se aplicara si se aprueban los presupuestos de 2026 antes de la convocatoria?",
+      fuente: "F6",
+    },
+    {
+      pregunta:
+        "Que pasa con un proyecto ejecutado en el primer trimestre de 2026 cuya ayuda se aprueba en diciembre: solo podra justificar gastos de diciembre?",
+      fuente: "F24",
+    },
+  ],
+  "F24",
+);
+
+/** Nota sobre los programas de 2026 que la interfaz debe mostrar. */
+export const NOTAS_PROGRAMAS = legal(
+  [
+    {
+      titulo: "El canon de los programas AEIP esta pendiente de confirmar",
+      texto:
+        "El material de la Fundacion usa dos lecturas de la escala de canon y divergen a partir de 50.000 €. Se aplica el tipo del tramo sobre toda la aportacion, que es lo que resulta del ejemplo de 20.000 € del propio material, y la duda queda planteada a la Fundacion.",
+      fuente: "F26",
+    },
+    {
+      titulo: "Reto De ya no esta en vigor",
+      texto:
+        "El programa «RETO DE» fue declarado acontecimiento de excepcional interes publico desde el 1 de enero de 2023 hasta el 31 de diciembre de 2025. Su vigencia termino y no aparece en la relacion de 2026, aunque la pagina web de la Fundacion lo siga mostrando como abierto.",
+      fuente: "F27",
+    },
+    {
+      titulo: "España Compite no tiene via publicitaria",
+      texto:
+        "La deduccion del art. 27.3 sobre propaganda y publicidad es una via alternativa y excluyente: solo existe para los acontecimientos de excepcional interes publico. En España Compite la aportacion es siempre donacion.",
+      fuente: "F1",
+    },
+    {
+      titulo: "El tope de 50.000 € recorta antes del tipo",
+      texto:
+        "La base deducible es la menor de la aportacion, del 20 % de la base imponible y del tope de 50.000 € por aportante. El tipo se aplica despues sobre esa base.",
+      fuente: "F18",
+    },
+    {
+      titulo: "El canon no reduce el beneficio fiscal del donante",
+      texto:
+        "El canon de gestion se descuenta de lo que llega al proyecto, pero la deduccion del donante se calcula sobre el importe total aportado.",
+      fuente: "F24",
+    },
+  ],
+  "F24",
+);
+
+/** Aviso de la dependencia del regimen con los presupuestos prorrogados. */
+export const AVISO_PRESUPUESTO = legalUno(
+  {
+    texto:
+      "Los porcentajes y los limites de 2026 (45 % y 55 % en el Impuesto sobre Sociedades, 85 %, 45 % y 50 % en el IRPF, el 20 % y el 15 % de tope y los 50.000 €) no vienen de un articulo estable: vienen de la relacion de actividades prioritarias de la DA 57a de la Ley 31/2022, que sigue vigente porque los presupuestos de 2026 no se han aprobado y los de 2023 estan prorrogados. Si se aprueban presupuestos nuevos con otra relacion, las cifras cambian.",
+  },
+  "F6",
+);
+
+/* ------------------------------------------------------------------ */
+/* Solicitud de ayuda en los programas de 2026                         */
+/* ------------------------------------------------------------------ */
+
+/** Linea de actuacion de España Compite 2026. */
+export interface LineaActuacion {
+  id: "competiciones" | "preparacion" | "actividades" | "carrera-dual";
+  nombre: string;
+  detalle: string;
+  fuente?: string;
+}
+
+export const LINEAS_2026 = legal<LineaActuacion>(
+  [
+    {
+      id: "competiciones",
+      nombre: "Entidades en competiciones de ligas no profesionales",
+      detalle:
+        "La entidad participa en competiciones de ligas que no sean profesionales.",
+    },
+    {
+      id: "preparacion",
+      nombre: "Preparacion y participacion de deportistas",
+      detalle:
+        "El deportista prepara y compite, con licencia federativa en vigor.",
+    },
+    {
+      id: "actividades",
+      nombre: "Organizacion de actividades deportivas",
+      detalle:
+        "El proyecto organiza actividades deportivas dePromocion y formacion.",
+    },
+    {
+      id: "carrera-dual",
+      nombre: "Carrera dual academico-deportiva",
+      detalle:
+        "La nueva linea de 2026: el entrainamiento compatible con los estudios. Admite gastos del curso academico del ejercicio.",
+      fuente: "F24",
+    },
+  ],
+  "F24",
+);
+
+/** Requisito de acceso a un programa de 2026. */
+export interface RequisitoSolicitud {
+  id: string;
+  /** A quien se aplica. */
+  rol: "entidad" | "deportista" | "promotor" | "todos";
+  texto: string;
+  ayuda?: string;
+  /** Requisito propio de la linea de carrera dual. */
+  soloCarreraDual?: boolean;
+  fuente?: string;
+}
+
+/**
+ * Requisitos de acceso a los programas de 2026. Son reglas del programa, no
+ * del regimen fiscal: por eso su fuente es el documento del programa.
+ */
+export const REQUISITOS_SOLICITUD = legal<RequisitoSolicitud>(
+  [
+    {
+      id: "sol-objetivo",
+      rol: "todos",
+      texto: "Presentar un proyecto que cumpla los objetivos del programa",
+    },
+    {
+      id: "sol-dopaje",
+      rol: "todos",
+      texto: "No estar sancionado en firme por dopaje",
+    },
+    {
+      id: "sol-sancion",
+      rol: "todos",
+      texto:
+        "No tener sancion disciplinaria o administrativa en materia deportiva de caracter grave o muy grave",
+    },
+    {
+      id: "sol-competicion",
+      rol: "todos",
+      texto:
+        "Haber participado en alguna competicion oficial en el ano anterior o en el presente",
+    },
+    {
+      id: "sol-aeat",
+      rol: "todos",
+      texto:
+        "Certificado positivo vigente de estar al corriente con la Agencia Estatal de Administracion Tributaria",
+    },
+    {
+      id: "sol-tgss",
+      rol: "todos",
+      texto:
+        "Certificado positivo vigente de estar al corriente con la Tesoreria General de la Seguridad Social",
+    },
+    {
+      id: "sol-blanqueo",
+      rol: "todos",
+      texto:
+        "Cuestionario de identificacion y documentacion de prevencion del blanqueo de capitales y financiacion del terrorismo",
+    },
+    {
+      id: "sol-cuenta",
+      rol: "todos",
+      texto: "Certificado de titularidad de la cuenta bancaria de abono",
+    },
+    {
+      id: "sol-inscripcion",
+      rol: "entidad",
+      texto:
+        "Inscripcion en la federacion deportiva o en el Registro de Entidades Deportivas",
+    },
+    {
+      id: "sol-licencia-entidad",
+      rol: "entidad",
+      texto: "Licencia federativa en vigor o documento de vinculacion",
+    },
+    {
+      id: "sol-presupuesto",
+      rol: "entidad",
+      texto: "Presupuesto desglosado del proyecto en el formulario de solicitante",
+    },
+    {
+      id: "sol-licencia-deportista",
+      rol: "deportista",
+      texto: "Licencia federativa en vigor",
+    },
+    {
+      id: "sol-matricula",
+      rol: "deportista",
+      texto:
+        "Matricula en un centro educativo con el que exista un acuerdo de colaboracion",
+    },
+    {
+      id: "sol-acuerdo-dual",
+      rol: "entidad",
+      soloCarreraDual: true,
+      texto:
+        "Acuerdo de colaboracion con un centro educativo, con el modelo que publica la Fundacion",
+    },
+    {
+      id: "sol-listado-dual",
+      rol: "entidad",
+      soloCarreraDual: true,
+      texto:
+        "Listado de deportistas incluidos en el proyecto, con licencia federativa en vigor",
+      ayuda:
+        "El modelo que ofrece la Fundacion se titula «Certificado relacion estudiantes - entidad academica»: no queda claro si lo firma la entidad, el centro o ambos.",
+    },
+    {
+      id: "sol-acuerdo-dual-deportista",
+      rol: "deportista",
+      soloCarreraDual: true,
+      texto:
+        "Acuerdo de colaboracion con un centro educativo para la linea de carrera dual",
+    },
+    {
+      id: "sol-anexo",
+      rol: "promotor",
+      texto:
+        "Modelo de solicitud (Anexo 2) del programa, con el proyecto y el plan de difusion",
+    },
+    {
+      id: "sol-validacion",
+      rol: "promotor",
+      texto:
+        "Certificado de validacion del organo administrativo: el proyecto se entiende aprobado al recibirlo, sin garantia de financiacion",
+    },
+  ],
+  "F24",
 );

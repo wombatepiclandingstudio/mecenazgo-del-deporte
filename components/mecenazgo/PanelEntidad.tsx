@@ -3,26 +3,52 @@
 import {
   Badge,
   Box,
+  Button,
   Card,
   Checkbox,
+  Field,
   Grid,
   Heading,
   HStack,
+  NativeSelect,
   Progress,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import { type EstadoApp } from "@/lib/estado";
-import { GRUPOS, REQUISITOS } from "@/lib/legal";
+import {
+  GRUPOS,
+  LINEAS_2026,
+  REQUISITOS,
+  REQUISITOS_SOLICITUD,
+} from "@/lib/legal";
 
 interface Props {
   estado: EstadoApp;
   onAlternar: (id: string, valor: boolean) => void;
+  onSolicitud: (parcial: Partial<EstadoApp["solicitud"]>) => void;
   cumplimiento: { hechos: number; total: number; pct: number };
 }
 
-export function PanelEntidad({ estado, onAlternar, cumplimiento }: Props) {
+export function PanelEntidad({
+  estado,
+  onAlternar,
+  onSolicitud,
+  cumplimiento,
+}: Props) {
   const { hechos, total, pct } = cumplimiento;
+  const rol = estado.solicitud.rol;
+  const linea = estado.solicitud.linea;
+
+  /** Requisitos de acceso que aplican al rol y a la linea elegidos. */
+  const requisitos = REQUISITOS_SOLICITUD.filter(
+    (r) =>
+      (r.rol === rol || r.rol === "todos") &&
+      (!r.soloCarreraDual || linea === "carrera-dual"),
+  );
+  const hechosSolicitud = requisitos.filter(
+    (r) => estado.cumplimiento[`sol-${r.id}`],
+  ).length;
 
   const mensaje =
     pct === 100
@@ -86,6 +112,119 @@ export function PanelEntidad({ estado, onAlternar, cumplimiento }: Props) {
       </Card.Root>
 
       <Stack gap={5}>
+        <Card.Root>
+          <Card.Header>
+            <Card.Title>Solicitud de ayuda</Card.Title>
+            <Card.Description>
+              Quien pide la ayuda y en que linea de actuacion de la convocatoria
+              2026
+            </Card.Description>
+          </Card.Header>
+          <Card.Body>
+            <Stack gap={4}>
+              <Box>
+                <Text
+                  fontSize="xs"
+                  fontWeight="bold"
+                  letterSpacing="0.1em"
+                  textTransform="uppercase"
+                  color="brand.fg"
+                  mb={2}
+                >
+                  Quien solicita la ayuda
+                </Text>
+                <HStack gap={2} flexWrap="wrap">
+                  {(
+                    [
+                      ["entidad", "Entidad deportiva"],
+                      ["deportista", "Deportista individual"],
+                      ["promotor", "Promotor AEIP"],
+                    ] as const
+                  ).map(([id, etiqueta]) => (
+                    <Button
+                      key={id}
+                      size="sm"
+                      variant={rol === id ? "subtle" : "ghost"}
+                      colorPalette="brand"
+                      onClick={() => onSolicitud({ rol: id })}
+                    >
+                      {etiqueta}
+                    </Button>
+                  ))}
+                </HStack>
+              </Box>
+
+              <Field.Root>
+                <Field.Label htmlFor="linea">Linea de actuacion</Field.Label>
+                <NativeSelect.Root>
+                  <NativeSelect.Field
+                    id="linea"
+                    value={linea}
+                    onChange={(e) =>
+                      onSolicitud({
+                        linea: e.target.value as EstadoApp["solicitud"]["linea"],
+                      })
+                    }
+                  >
+                    {LINEAS_2026.map((l) => (
+                      <option key={l.id} value={l.id}>
+                        {l.nombre}
+                      </option>
+                    ))}
+                  </NativeSelect.Field>
+                  <NativeSelect.Indicator />
+                </NativeSelect.Root>
+                <Field.HelperText>
+                  {LINEAS_2026.find((l) => l.id === linea)?.detalle}
+                </Field.HelperText>
+              </Field.Root>
+
+              <Box>
+                <Text
+                  fontSize="xs"
+                  fontWeight="bold"
+                  letterSpacing="0.1em"
+                  textTransform="uppercase"
+                  color="brand.fg"
+                  mb={2}
+                >
+                  Requisitos de acceso ({hechosSolicitud} de {requisitos.length})
+                </Text>
+                <Stack gap={1}>
+                  {requisitos.map((r) => (
+                    <Checkbox.Root
+                      key={r.id}
+                      checked={!!estado.cumplimiento[`sol-${r.id}`]}
+                      onCheckedChange={(e) =>
+                        onAlternar(`sol-${r.id}`, !!e.checked)
+                      }
+                      colorPalette="accent"
+                      alignItems="flex-start"
+                    >
+                      <Checkbox.HiddenInput />
+                      <Checkbox.Control mt="2px" />
+                      <Checkbox.Label>
+                        {r.texto}
+                        {r.ayuda && (
+                          <Text
+                            as="span"
+                            display="block"
+                            fontSize="xs"
+                            color="fg.muted"
+                            mt="1px"
+                          >
+                            {r.ayuda}
+                          </Text>
+                        )}
+                      </Checkbox.Label>
+                    </Checkbox.Root>
+                  ))}
+                </Stack>
+              </Box>
+            </Stack>
+          </Card.Body>
+        </Card.Root>
+
         <Card.Root>
           <Card.Header>
             <Card.Title>Estado</Card.Title>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Box,
   Button,
@@ -26,11 +26,22 @@ import {
   type DestinoNavarra,
 } from "@/lib/mecenazgo";
 import type { EstadoApp } from "@/lib/estado";
+import { hoyISO } from "@/lib/estado";
 import {
+  diasHasta,
+  formatoTipo,
+  programa as programaDe,
+  repartoDe,
+  resultadoPrograma,
+} from "@/lib/programas";
+import {
+  AVISO_PRESUPUESTO,
+  CALENDARIO_2026,
   CONDICIONES,
   ESCALA_IRPF,
   ESCALA_IS,
   ESCALA_NAVARRA,
+  FIGURAS,
   IRPF_CUBO,
   LIMITE_SIMBOLICO,
   NAVARRA_DESTINOS,
@@ -38,6 +49,7 @@ import {
   NAVARRA_TOPE,
   PRIORITARIAS,
   PRIORITARIAS_TITULO,
+  PROGRAMAS_2026,
   REGIMENES,
 } from "@/lib/legal";
 
@@ -46,6 +58,7 @@ const CONDICION = new Map(CONDICIONES.map((c) => [c.id, c]));
 interface Props {
   estado: EstadoApp;
   onCambiar: (parcial: Partial<EstadoApp["aportante"]>) => void;
+  onPrograma: (parcial: Partial<EstadoApp["programa"]>) => void;
 }
 
 /**
@@ -115,9 +128,19 @@ function Barras() {
   );
 }
 
-export function PanelAportante({ estado, onCambiar }: Props) {
+export function PanelAportante({ estado, onCambiar, onPrograma }: Props) {
   const p = estado.aportante;
   const [ajustesAbiertos, setAjustesAbiertos] = useState(false);
+  // La fecha de hoy solo existe en el navegador: se calcula al montar para no
+  // congelar en el HTML un plazo que dependa del dia de la visita.
+  const [hoy, setHoy] = useState("");
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- la fecha de hoy solo existe en el navegador: leerla durante el render romperia la hidratacion.
+    setHoy(hoyISO());
+  }, []);
+
+  /** Programa elegido, si la aportacion va a uno. */
+  const prog = estado.programa.id ? programaDe(estado.programa.id) : null;
 
   /** Regla que aplica al destino foral elegido, segun el articulo que la fija. */
   const destinoForal = NAVARRA_DESTINOS.find(
@@ -129,7 +152,47 @@ export function PanelAportante({ estado, onCambiar }: Props) {
       : p.perfil === "is"
         ? destinoForal.is
         : destinoForal.irpf;
-  const r = useMemo(() => calcular(p), [p]);
+
+  /**
+   * Los programas de la Fundacion son actividades prioritarias y, en el caso
+   * de España Compite, tienen tope anual por aportante. El tope entra en el
+   * calculo general para no tener dos motores de deduccion.
+   */
+  const parametros = useMemo(
+    () =>
+      prog && p.regimen === "estatal"
+        ? {
+            ...p,
+            prioritaria: true,
+            topeAportacion: prog.topeAnual ?? undefined,
+          }
+        : p,
+    [p, prog],
+  );
+  const r = useMemo(() => calcular(parametros), [parametros]);
+
+  /** Resultado propio del programa: canon, tope y via publicitaria. */
+  const rp = useMemo(
+    () =>
+      prog
+        ? resultadoPrograma({
+            programa: prog.id,
+            via: estado.programa.via,
+            importe: p.importe,
+            gastoPublicidad: estado.programa.gastoPublicidad,
+            publicidadEsencial: estado.programa.publicidadEsencial,
+            donacion: p.importe,
+            hoy,
+          })
+        : null,
+    [prog, estado.programa, p.importe, hoy],
+  );
+
+  /** Reparto posible en el calendario de pagos y dias que faltan. */
+  const reparto = hoy ? repartoDe(hoy) : null;
+
+  /** Avisos del calculo general y del programa, juntos. */
+  const avisos = rp ? [...r.avisos, ...rp.avisos] : r.avisos;
 
   const actualizarNumero = (
     campo:
@@ -203,6 +266,155 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                 {REGIMENES.find((r) => r.regimen === p.regimen)?.texto}
               </Text>
             </Box>
+
+            <Field.Root>
+              <Field.Label htmlFor="programa">
+                Programa de mecenazgo
+              </Field.Label>
+              <NativeSelect.Root>
+                <NativeSelect.Field
+                  id="programa"
+                  value={estado.programa.id}
+                  onChange={(e) => {
+                    const id = e.target.value as EstadoApp["programa"]["id"];
+                    onPrograma({ id, via: "donacion" });
+                    if (id) onCambiar({ prioritaria: true });
+                  }}
+                >
+                  <option value="">
+                    Sin programa: mecenazgo general de la Ley 49/2002
+                  </option>
+                  {PROGRAMAS_2026.map((pr) => (
+                    <option key={pr.id} value={pr.id}>
+                      {pr.nombre}
+                    </option>
+                  ))}
+                </NativeSelect.Field>
+                <NativeSelect.Indicator />
+              </NativeSelect.Root>
+              <Field.HelperText>
+                Los cuatro programas son actividades prioritarias de mecenazgo:
+                suben el tipo cinco puntos.
+              </Field.HelperText>
+            </Field.Root>
+
+            {prog && (
+              <Box
+                p={3}
+                borderRadius="md"
+                bg="accent.muted"
+                borderWidth="1px"
+                borderColor="accent.300"
+              >
+                <Stack gap={3}>
+                  <Text fontSize="sm">{prog.elevacion}</Text>
+
+                  {prog.viaPublicitaria && (
+                    <>
+                      <Text
+                        fontSize="xs"
+                        fontWeight="bold"
+                        letterSpacing="0.1em"
+                        textTransform="uppercase"
+                        color="brand.fg"
+                      >
+                        Via de la aportacion
+                      </Text>
+                      <HStack gap={2}>
+                        <Button
+                          size="sm"
+                          flex="1"
+                          variant={
+                            estado.programa.via === "donacion" ? "subtle" : "ghost"
+                          }
+                          colorPalette="brand"
+                          onClick={() => onPrograma({ via: "donacion" })}
+                        >
+                          Donacion
+                        </Button>
+                        <Button
+                          size="sm"
+                          flex="1"
+                          variant={
+                            estado.programa.via === "publicidad"
+                              ? "subtle"
+                              : "ghost"
+                          }
+                          colorPalette="brand"
+                          onClick={() => onPrograma({ via: "publicidad" })}
+                        >
+                          Publicidad
+                        </Button>
+                      </HStack>
+                      <Text fontSize="xs" color="fg.muted">
+                        Son vias excluyentes: si se aplica la deduccion por
+                        publicidad, la donacion no puede acogerse a los demas
+                        incentivos de la ley.
+                      </Text>
+                    </>
+                  )}
+
+                  {estado.programa.via === "publicidad" && (
+                    <>
+                      <Field.Root>
+                        <Field.Label htmlFor="gasto-publicidad">
+                          Gasto en propaganda y publicidad
+                        </Field.Label>
+                        <Input
+                          id="gasto-publicidad"
+                          type="number"
+                          min={0}
+                          step={500}
+                          inputMode="numeric"
+                          value={estado.programa.gastoPublicidad}
+                          onChange={(e) =>
+                            onPrograma({
+                              gastoPublicidad: Math.max(
+                                0,
+                                Number(e.target.value) || 0,
+                              ),
+                            })
+                          }
+                        />
+                      </Field.Root>
+                      <Checkbox.Root
+                        checked={estado.programa.publicidadEsencial}
+                        onCheckedChange={(e) =>
+                          onPrograma({ publicidadEsencial: !!e.checked })
+                        }
+                        colorPalette="accent"
+                        alignItems="flex-start"
+                      >
+                        <Checkbox.HiddenInput />
+                        <Checkbox.Control mt="2px" />
+                        <Checkbox.Label>
+                          El soporte publicitario se refiere de modo esencial
+                          a la divulgacion del acontecimiento
+                          <Text
+                            as="span"
+                            display="block"
+                            fontSize="xs"
+                            color="fg.muted"
+                            mt="1px"
+                          >
+                            Si no es esencial, la base de la deduccion es el{" "}
+                            {formatoTipo(FIGURAS.basePublicidadNoEsencial)} del
+                            gasto.
+                          </Text>
+                        </Checkbox.Label>
+                      </Checkbox.Root>
+                    </>
+                  )}
+
+                  {prog.topeAnual !== null && (
+                    <Text fontSize="xs" color="fg.muted">
+                      Tope anual por aportante: {euros(prog.topeAnual)}. El
+                      exceso no entra en la base deducible.
+                    </Text>
+                  )}
+                </Stack>
+              </Box>
+            )}
 
             <Field.Root>
               <Field.Label htmlFor="importe">
@@ -359,7 +571,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                     </>
                   )}
 
-                  {p.regimen === "estatal" && (
+                  {p.regimen === "estatal" && !prog && (
                     <>
                       <Checkbox.Root
                         checked={p.prioritaria}
@@ -584,6 +796,45 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                     </Table.Row>
                   ))
                 )}
+                {rp && (
+                  <>
+                    <Table.Row>
+                      <Table.Cell as="th" scope="row" fontWeight="normal">
+                        Canon de gestion del programa
+                        <Text fontSize="xs" color="fg.muted">
+                          {rp.canon.tramo}
+                        </Text>
+                      </Table.Cell>
+                      <Table.Cell textAlign="end" fontWeight="bold">
+                        {euros(rp.canon.importe)}
+                      </Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                      <Table.Cell as="th" scope="row" fontWeight="normal">
+                        Neto al proyecto tras el canon
+                      </Table.Cell>
+                      <Table.Cell textAlign="end" fontWeight="bold">
+                        {euros(rp.canon.neto)}
+                      </Table.Cell>
+                    </Table.Row>
+                    {rp.tope.limite !== null && (
+                      <Table.Row>
+                        <Table.Cell as="th" scope="row" fontWeight="normal">
+                          Tope anual por aportante
+                          {rp.tope.exceso > 0 && (
+                            <Text fontSize="xs" color="fg.muted">
+                              Quedan {euros(rp.tope.exceso)} fuera de la base
+                              deducible.
+                            </Text>
+                          )}
+                        </Table.Cell>
+                        <Table.Cell textAlign="end" fontWeight="bold">
+                          {euros(rp.tope.limite)}
+                        </Table.Cell>
+                      </Table.Row>
+                    )}
+                  </>
+                )}
                 <Table.Row>
                   <Table.Cell as="th" scope="row" bg="brand.subtle">
                     <Text fontWeight="semibold" color="brand.fg">
@@ -668,28 +919,28 @@ export function PanelAportante({ estado, onCambiar }: Props) {
               </HStack>
             </Box>
 
-            {r.avisos.length > 0 && (
+            {avisos.length > 0 && (
               <Box
                 mt={5}
                 p={4}
                 borderRadius="md"
                 bg={
-                  r.avisos.some((a) => a.bloqueante)
+                  avisos.some((a) => a.bloqueante)
                     ? "red.subtle"
                     : "accent.muted"
                 }
                 borderWidth="1px"
                 borderColor={
-                  r.avisos.some((a) => a.bloqueante) ? "red.300" : "accent.300"
+                  avisos.some((a) => a.bloqueante) ? "red.300" : "accent.300"
                 }
               >
                 <Heading as="h3" size="xs" mb={2}>
-                  {r.avisos.some((a) => a.bloqueante)
+                  {avisos.some((a) => a.bloqueante)
                     ? "Revisa antes de continuar"
                     : "Notas"}
                 </Heading>
                 <List.Root gap={2} m={0} p={0} listStyle="none">
-                  {r.avisos.map((a, i) => (
+                  {avisos.map((a, i) => (
                     <List.Item
                       key={i}
                       display="flex"
@@ -715,6 +966,82 @@ export function PanelAportante({ estado, onCambiar }: Props) {
             )}
           </Card.Body>
         </Card.Root>
+
+        {prog && (
+          <Card.Root>
+            <Card.Header>
+              <Card.Title>Calendario del programa</Card.Title>
+              <Card.Description>
+                Los plazos no corren en el orden que se leen: primero la
+                solicitud de ayuda, despues la donacion y al final el dinero.
+              </Card.Description>
+            </Card.Header>
+            <Card.Body>
+              <Table.Root size="sm" variant="line" interactive={false}>
+                <Table.Caption captionSide="top">
+                  Hitos de la convocatoria 2026
+                </Table.Caption>
+                <Table.Body>
+                  {CALENDARIO_2026.map((h) => (
+                    <Table.Row key={h.hito}>
+                      <Table.Cell as="th" scope="row" fontWeight="normal">
+                        {h.hito}
+                        {h.nota && (
+                          <Text fontSize="xs" color="fg.muted">
+                            {h.nota}
+                          </Text>
+                        )}
+                      </Table.Cell>
+                      <Table.Cell textAlign="end" fontWeight="semibold">
+                        {h.fecha ? (
+                          <>
+                            <Text>{h.fecha.split("-").reverse().join("/")}</Text>
+                            {hoy && (
+                              <Text fontSize="xs" color="fg.muted">
+                                {diasHasta(hoy, h.fecha) >= 0
+                                  ? `quedan ${diasHasta(hoy, h.fecha)} dias`
+                                  : "plazo vencido"}
+                              </Text>
+                            )}
+                          </>
+                        ) : (
+                          <Text fontWeight="normal" fontSize="xs">
+                            {h.plazo}
+                          </Text>
+                        )}
+                      </Table.Cell>
+                    </Table.Row>
+                  ))}
+                </Table.Body>
+              </Table.Root>
+
+              {reparto && (
+                <Box
+                  mt={5}
+                  p={3}
+                  borderRadius="md"
+                  bg="bg.subtle"
+                  borderWidth="1px"
+                  borderColor="border"
+                >
+                  <Text fontSize="sm">
+                    {reparto.meses.length === 0
+                      ? "El calendario de pagos de 2026 esta cerrado: no queda ningun mes para repartir la aportacion."
+                      : `Quedan ${reparto.meses.length} meses de calendario de pagos: ${reparto.meses.join(
+                          ", ",
+                        )}. Cada fraccion debe ser de al menos ${euros(
+                          reparto.fraccionMinima,
+                        )}.`}
+                  </Text>
+                </Box>
+              )}
+
+              <Text fontSize="xs" color="fg.muted" mt={4}>
+                {AVISO_PRESUPUESTO.texto}
+              </Text>
+            </Card.Body>
+          </Card.Root>
+        )}
 
         <Card.Root>
           <Card.Header>

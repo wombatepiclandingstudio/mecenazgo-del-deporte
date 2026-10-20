@@ -4,6 +4,8 @@ Catálogo de fuentes del proyecto. Cada entrada de `lib/legal.ts` referencia un 
 
 Regla: una afirmación sobre lo que dice la ley se apoya siempre en una fuente **primaria** (BOE, AEAT, normativa foral). Las fuentes secundarias sirven para entender el contexto o el riesgo, nunca para declarar qué dice la norma.
 
+Excepción con nombre propio: las reglas de un programa (canon de gestión, calendario, aportación mínima) no las fija una norma, las fija la Fundación en sus bases. Para esas afirmaciones la fuente primaria es el propio documento del programa, F24 a F26.
+
 ## Primarias
 
 | Id | Qué respalda | Título | URL |
@@ -29,6 +31,13 @@ Regla: una afirmación sobre lo que dice la ley se apoya siempre en una fuente *
 | F19 | Límite del 10 % de la base liquidable en el IRPF (art. 69.1) | Ley 35/2006, de 28 de noviembre, del IRPF, texto consolidado | https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764 |
 | F20 | Reparto de normativa entre territorio común y foral (arts. 18-21) | Ley 28/1990, de 26 de diciembre, del Convenio Económico entre el Estado y la Comunidad Foral de Navarra | https://www.boe.es/buscar/act.php?id=BOE-A-1990-31117 |
 | F21 | Patrocinio publicitario | Ley 34/1988, de 11 de noviembre, General de Publicidad | https://www.boe.es/buscar/act.php?id=BOE-A-1988-16636 |
+| F22 | Programas de mecenazgo declarados acontecimientos de excepcional interés público en 2025 (Universo Mujer IV, Plan 2030 de Apoyo al Deporte Base II, Deporte Inclusivo III) y su duración | Real Decreto-ley 8/2025, de 8 de julio | https://www.boe.es/buscar/doc.php?id=BOE-A-2025-14083 |
+| F23 | Acontecimientos de excepcional interés público declarados en 2026 | Real Decreto-ley 12/2026, de 26 de mayo | https://www.boe.es/buscar/doc.php?id=BOE-A-2026-11397 |
+| F24 | Reglas del programa «España Compite» de 2026: canon de gestión, calendario, aportación mínima y requisitos de solicitud | Fundación Deporte Joven, Bases 2026 «España Compite: en la Empresa como en el Deporte» | https://deportejoven.es/programas-de-mecenazgo-deportivo-guia-de-consultas/ |
+| F25 | Preguntas frecuentes de mecenatismo de la Fundación, y errores publicados en sus bases | Fundación Deporte Joven, FAQ de mecenatismo deportivo | https://deportejoven.es/programas-de-mecenazgo-deportivo-guia-de-consultas/ |
+| F26 | Escala de canon de gestión, plazos de justificación y remisión de certificaciones de los programas AEIP | Fundación Deporte Joven y Consejo Superior de Deportes, Fiscalidad AEIP 2025 | https://deportejoven.es/programas-de-mecenazgo-deportivo-guia-de-consultas/ |
+| F27 | Programa «RETO DE» como acontecimiento de excepcional interés público, desde el 1 de enero de 2023 hasta el 31 de diciembre de 2025 | Ley 39/2022, de 30 de diciembre, del Deporte, disposición adicional decimoctava | https://www.boe.es/eli/es/l/2022/12/30/39/con |
+| F28 | Prohibición de los pagos en efectivo a partir de 1.000 euros | Ley 7/2012, de 27 de noviembre, de pagos en efectivo, artículo 7 | https://www.boe.es/eli/es/l/2012/11/27/7/con |
 
 ## secundarias y de contexto
 
