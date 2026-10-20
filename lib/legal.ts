@@ -313,7 +313,7 @@ export const ARTICULOS = legal(
     },
     { art: "Arts. 25-27", que: "Convenios, gastos y acontecimientos" },
     {
-      art: "DA 12a",
+      art: "DA 12.ª",
       que: "Federaciones deportivas, Comite Olimpico y Comite Paralimpico",
     },
   ],
@@ -431,13 +431,13 @@ export const DEPORTE_LEY = legal(
         "El articulo 2 incluye a las federaciones deportivas espanolas, las territoriales integradas en aquellas, el Comite Olimpico Espanol y el Comite Paralimpico Espanol. Quien este en ese articulo puede acogerse voluntariamente al regimen fiscal especial del Titulo II.",
     },
     {
-      art: "DA 12a.1",
+      art: "DA 12.ª.1",
       titulo: "Los ingresos de espectáculos deportivos no cuentan para el 40%",
       texto:
         "Los ingresos de los espectáculos deportivos obtenidos por las entidades relacionadas en el parrafo e) del articulo 2 no se incluyen en el computo del 40% de ingresos de explotaciones economicas no exentas del articulo 3.3. Para una federacion, en la practica, esto relaja el requisito mas duro de los tres.",
     },
     {
-      art: "DA 12a.2",
+      art: "DA 12.ª.2",
       titulo: "Exentas las rentas de selecciones nacionales o autonomicas",
       texto:
         "Estan exentas del Impuesto sobre Sociedades las rentas obtenidas por esas entidades que procedan de la celebracion, retransmision o difusion de competiciones amistosas u oficiales en las que participen las selecciones nacionales o autonomicas, siempre que la organizacion de esas competiciones sea de su exclusiva competencia.",

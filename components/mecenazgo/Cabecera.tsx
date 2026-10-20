@@ -5,8 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const ENLACES = [
-  { href: "/", etiqueta: "La ley" },
+  { href: "/", etiqueta: "Portada" },
   { href: "/simulador", etiqueta: "Simulador" },
+  { href: "/ley", etiqueta: "La ley" },
 ];
 
 /**

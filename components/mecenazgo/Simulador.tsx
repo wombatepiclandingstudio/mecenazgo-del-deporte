@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Badge,
   Box,
@@ -21,13 +21,26 @@ import { PanelCertificado } from "./PanelCertificado";
 
 const inicial = estadoInicial;
 
+const PESTANAS = ["entidad", "aportante", "certificado"] as const;
+
 /**
  * Herramienta interactiva. Va en su propia ruta (/simulador) para que la
- * pagina de inicio sea la ley, y no una mezcla de las dos cosas.
+ * portada sea la puerta de entrada y la ley quede aparte.
  */
 export function Simulador() {
   const { estado, setEstado, listo, borrar } = usePersistido(inicial);
-  const [pestana, setPestana] = useState("entidad");
+  const [pestana, setPestana] = useState<string>("entidad");
+
+  // La portada enlaza a una puerta concreta: #aportante o #entidad.
+  useEffect(() => {
+    const h = window.location.hash.replace("#", "");
+    if ((PESTANAS as readonly string[]).includes(h)) setPestana(h);
+  }, []);
+
+  const cambiarPestana = (valor: string) => {
+    setPestana(valor);
+    window.history.replaceState(null, "", `#${valor}`);
+  };
 
   const cumplimiento = useMemo(() => {
     const hechos = REQUISITOS.filter((r) => estado.cumplimiento[r.id]).length;
@@ -65,20 +78,20 @@ export function Simulador() {
 
       <Tabs.Root
         value={pestana}
-        onValueChange={(e) => setPestana(e.value)}
+        onValueChange={(e) => cambiarPestana(e.value)}
         variant="enclosed"
         colorPalette="brand"
       >
         <Tabs.List flexWrap="wrap" gap={1}>
           <Tabs.Trigger value="entidad">
-            Entidad receptora
+            Entidad acreedora
             {cumplimiento.pct === 100 && (
               <Badge ml={2} colorPalette="green" variant="solid" size="xs">
                 lista
               </Badge>
             )}
           </Tabs.Trigger>
-          <Tabs.Trigger value="aportante">Quien aporta</Tabs.Trigger>
+          <Tabs.Trigger value="aportante">Donante</Tabs.Trigger>
           <Tabs.Trigger value="certificado">Certificado</Tabs.Trigger>
         </Tabs.List>
 

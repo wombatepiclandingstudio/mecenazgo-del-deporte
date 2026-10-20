@@ -48,17 +48,9 @@ export function PanelEntidad({ estado, onAlternar, cumplimiento }: Props) {
           <Stack gap={0}>
             {GRUPOS.map((grupo) => (
               <Box key={grupo}>
-                <Text
-                  fontSize="xs"
-                  fontWeight="bold"
-                  letterSpacing="0.1em"
-                  textTransform="uppercase"
-                  color="brand.fg"
-                  mt={6}
-                  mb={2}
-                >
+                <Heading as="h3" size="xs" color="brand.fg" mt={6} mb={2}>
                   {grupo}
-                </Text>
+                </Heading>
                 <Stack gap={1}>
                   {REQUISITOS.filter((r) => r.grupo === grupo).map((r) => (
                     <Checkbox.Root
@@ -134,7 +126,7 @@ export function PanelEntidad({ estado, onAlternar, cumplimiento }: Props) {
           <Card.Body>
             <Stack gap={3} fontSize="sm" color="fg.muted">
               <Text>
-                El aportante necesita un certificado de la entidad con los seis
+                El donante necesita un certificado de la entidad con los seis
                 extremos del articulo 24.3. Se genera en la pestana{" "}
                 <Text as="span" color="fg" fontWeight="semibold">
                   Certificado

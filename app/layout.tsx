@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
-import { Box, Container, Text } from '@chakra-ui/react';
+import { Box, Container, Link, Text } from '@chakra-ui/react';
 import { Provider } from '@/components/ui/provider';
 import { Cabecera } from '@/components/mecenazgo/Cabecera';
 import './globals.css';
@@ -22,8 +22,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es" suppressHydrationWarning>
       <body className={sans.variable}>
         <Provider>
+          <Link
+            href="#contenido"
+            position="fixed"
+            top={2}
+            left={2}
+            zIndex={20}
+            px={3}
+            py={2}
+            borderRadius="md"
+            bg="brand.solid"
+            color="brand.contrast"
+            transform="translateY(-300%)"
+            _focus={{ transform: "translateY(0)" }}
+            fontSize="sm"
+            fontWeight="semibold"
+          >
+            Ir al contenido
+          </Link>
           <Cabecera />
-          {children}
+          <Box as="main" id="contenido">
+            {children}
+          </Box>
           <Box as="footer" borderTopWidth="1px" mt={16} bg="bg.muted">
             <Container maxW="6xl" px={{ base: 4, md: 6 }} py={8}>
               <Text fontSize="sm" color="fg.muted" maxW="90ch">

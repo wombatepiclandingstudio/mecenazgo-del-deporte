@@ -14,8 +14,3 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-
-/* La vista previa del PDF usa sus propios estilos: nada debe heredarse de la pagina. */
-#cert-pdf-root {
-  display: none;
-}

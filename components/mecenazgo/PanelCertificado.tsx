@@ -305,7 +305,7 @@ export function PanelCertificado({ estado, onCambiar }: Props) {
             Donde va el certificado
           </Heading>
           <Text fontSize="sm" color="fg.muted">
-            El aportante lo necesita para aplicar la deduccion en su
+            El donante lo necesita para aplicar la deduccion en su
             declaracion. Sin el, la aportacion no se deduce por muy correcta que
             sea la intencion.
           </Text>

@@ -33,8 +33,12 @@ Aportación sin contraprestación: la entidad acreedora no entrega nada a cambio
 _Avoid_: aportación (son cosas distintas), patrocinio.
 
 **Aportación**:
-Aportación con contraprestación: la entidad acreedora entrega algo a cambio (entradas, servicios, presencia de marca). El importe deducible es el exceso sobre el valor de mercado de lo recibido.
+Aportación con contraprestación: la entidad acreedora entrega algo a cambio (entradas, servicios, presencia de marca). Solo deduce si lo recibido es simbólico, es decir, si no supera el 15 % del valor de la aportación ni los 25.000 euros (art. 17.2). Si lo supera, deja de ser mecenazgo.
 _Avoid_: donativo (son cosas distintas), colaboración.
+
+**Certificación**:
+Documento que emite la entidad acreedora para justificar la deducción del donante. Su contenido lo fija el art. 24.3 y tiene seis extremos.
+_Avoid_: certificado (ambiguo: el de la entidad es la certificación), recibo.
 
 ## Cálculo
 
