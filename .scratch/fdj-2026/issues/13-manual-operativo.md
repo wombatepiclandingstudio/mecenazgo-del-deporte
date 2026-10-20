@@ -1,6 +1,6 @@
 # MANUAL-OPERATIVO.md generado desde lib/legal.ts
 
-Status: ready-for-agent
+Status: resolved
 Type: task
 
 - `scripts/generate-playbook.mjs` y `npm run playbook`.

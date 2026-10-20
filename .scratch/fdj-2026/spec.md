@@ -17,6 +17,17 @@ App Router, Chakra v3, `lib/legal.ts` como fuente única del texto legal,
    borran `@react-pdf/renderer` y `pdf-lib`.
 5. Al worker solo viaja JSON, nunca elementos React.
 
+## Estado (2026-10-21)
+
+Hecho: P0 (verificacion primaria, fuentes F22 a F29, `docs/verificacion-legal.md` 11),
+P1 (`lib/programas.ts` y sus tests), P2 (selector de programa en el donante, solicitud por
+rol en la entidad, referencia de programas en `/ley`), P3.0 a P3.2 y P3.5 a medias
+(pdfcn vendorizado, worker de Takumi, informe de calculo en PDF con test de Node),
+P4 (`MANUAL-OPERATIVO.md` generado) y P5 (GLOSSARY, README, CODING_STANDARDS).
+
+Abierto: ticket 10 (documentos PDF adicionales), 11 (migrar el certificado a Takumi),
+12 y 54 (prueba en navegador), 30 (canon AEIP marginal o plano, pendiente de la
+Fundacion), 52 (cifras escritas a mano en `lib/mecenazgo.ts`).
 ## Fases
 
 | Fase | Alcance | Tickets |
