@@ -50,9 +50,21 @@ npx vercel        # primer despliegue (pregunta por el login)
 npx vercel --prod # despliegue de produccion
 ```
 
-O por consola: subir la carpeta a un repositorio de GitHub y en Vercel elegir **Add New → Project** e
-importar el repositorio. No hay variables de entorno ni servicios externos que configurar: Next.js se
-detecta solo.
+O por consola: importar el repositorio `github.com/wombatepiclandingstudio/mecenazgo-del-deporte`
+en Vercel (**Add New → Project**) y asociarlo a la rama `main`. No hay variables de entorno ni
+servicios externos que configurar: Next.js se detecta solo.
+
+## Repositorio
+
+```
+git remote -v
+origin  https://github.com/wombatepiclandingstudio/mecenazgo-del-deporte.git
+
+git push origin main
+```
+
+El repositorio es privado. Los `issues` son el sitio natural para las dudas sobre la ley: cada
+informe de error que llega con su cita del BOE acaba convertido en una entrada de `lib/legal.ts`.
 
 ## Estructura
 
