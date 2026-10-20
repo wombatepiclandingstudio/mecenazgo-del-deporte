@@ -12,7 +12,8 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import { estadoInicial, REQUISITOS, type EstadoApp } from "@/lib/estado";
+import { estadoInicial, type EstadoApp } from "@/lib/estado";
+import { REQUISITOS } from "@/lib/legal";
 import { usePersistido } from "@/lib/usePersistido";
 import { PanelEntidad } from "./PanelEntidad";
 import { PanelAportante } from "./PanelAportante";

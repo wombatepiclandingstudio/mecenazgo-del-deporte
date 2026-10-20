@@ -77,7 +77,7 @@ export function PanelCertificado({ estado, onCambiar }: Props) {
         <Card.Header>
           <Card.Title>Datos de la certificacion</Card.Title>
           <Card.Description>
-            Los siete datos que exige el articulo 17 de la Ley 49/2002
+            Los seis extremos que exige el articulo 24.3 de la Ley 49/2002
           </Card.Description>
         </Card.Header>
         <Card.Body>
@@ -272,11 +272,16 @@ export function PanelCertificado({ estado, onCambiar }: Props) {
                   ha recibido {euros(d.importe || 0)} en concepto de aportacion.
                 </Text>
                 <Text>
-                  <b>4.</b> Que el destino es:{" "}
+                  <b>4.</b> Que la aportacion es en dinero y, por tanto, no
+                  procede el documento que acredite la entrega de un bien donado
+                  (apartado d) del articulo 24.3).
+                </Text>
+                <Text>
+                  <b>5.</b> Que el destino es:{" "}
                   {d.destino || "[DESTINO DE LA APORTACION]"}.
                 </Text>
                 <Text>
-                  <b>5.</b> Que la aportacion tiene caracter irrevocable y se
+                  <b>6.</b> Que la aportacion tiene caracter irrevocable y se
                   realiza a favor de los fines de interes general.
                 </Text>
               </Stack>

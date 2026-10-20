@@ -106,9 +106,14 @@ function DocumentoCertificado({ datos }: { datos: DatosCertificado }) {
           'Que el dia',
           `${fecha} ha recibido del donante la cantidad de ${euros(datos.importe || 0)}, en concepto de aportacion.`
         )}
-        {linea('4.', 'Que el destino que se dara a dicha aportacion es', `${o(datos.destino, '[DESTINO DE LA APORTACION]')}.`)}
         {linea(
-          '5.',
+          '4.',
+          'Que la aportacion es en dinero y, por tanto, no procede el documento publico u otro documento autentico que acredite la entrega de un bien donado',
+          '(apartado d) del articulo 24.3 de la Ley 49/2002).'
+        )}
+        {linea('5.', 'Que el destino que se dara a dicha aportacion es', `${o(datos.destino, '[DESTINO DE LA APORTACION]')}.`)}
+        {linea(
+          '6.',
           'Que la aportacion tiene caracter irrevocable',
           'y se realiza a favor de los fines de interes general de la entidad, sin condicionantes ni supuestos de revocacion.'
         )}
@@ -137,7 +142,7 @@ function DocumentoCertificado({ datos }: { datos: DatosCertificado }) {
         <Text
           style={estilos.pie}
           render={({ pageNumber, totalPages }) =>
-            `Ley 49/2002, articulo 17 - pagina ${pageNumber} de ${totalPages}`
+            `Ley 49/2002, articulo 24.3 - pagina ${pageNumber} de ${totalPages}`
           }
           fixed
         />

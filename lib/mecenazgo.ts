@@ -21,7 +21,7 @@ export type Regimen = "estatal" | "navarra";
 
 /** Destino de la aportacion dentro del regimen foral navarro. */
 export type DestinoNavarra =
-  "deportivo" | "cultural" | "social" | "investigacion";
+  "deportivo" | "cultural" | "social" | "medioambiental";
 
 /** Tramos de la deduccion en la cuota liquida del regime foral. */
 export const NAVARRA_TRAMO_1 = 300;
@@ -46,12 +46,17 @@ export interface Parametros {
   prioritaria: boolean;
   /** Donativos a la misma entidad en periodos anteriores, por importe igual o superior. */
   reiterada: boolean;
-  /** La entidad ha emitido la certificacion exigida por el articulo 17. */
+  /** La entidad ha emitido la certificacion exigida por el articulo 24.3. */
   certificado: boolean;
   /** La entidad entrega algo a cambio, de caracter simbolico. */
   entregaSimbolica: boolean;
   /** Valor de lo recibido a cambio, en euros. */
   valorSimbolico: number;
+  /**
+   * Solo Navarra, destino deportivo: la actividad esta declarada de interes
+   * social por la Administracion Deportiva (arts. 39.1 y 42 del DFL 2/2023).
+   */
+  interesSocial: boolean;
 }
 
 export interface Aviso {
@@ -73,6 +78,8 @@ export interface Resultado {
   /** Lineas que componen el ahorro, cuando el regimen las separa. */
   lineas: Linea[];
   tipoEtiqueta: string;
+  /** Articulo que fija el tratamiento aplicado. */
+  articulo: string;
   topePorcentaje: number;
   limite: number;
   base: number;
@@ -140,45 +147,41 @@ function calcularNavarra(p: Parametros): Resultado {
   const enTramo1 = Math.min(importe, NAVARRA_TRAMO_1);
   const exceso = importe - enTramo1;
 
+  const cultural = p.destinoNavarra === "cultural";
+
   if (p.perfil === "is") {
-    if (p.destinoNavarra === "investigacion") {
-      lineas.push({
-        concepto: "Deduccion del 40% en la cuota integra",
-        detalle:
-          "Donaciones a entidades sin fines lucrativos con actividades similares a las de los organismos publicos de investigacion o a las de los centros tecnologicos.",
-        importe: 0.4 * importe,
-      });
-    } else {
-      const limite = limitePartidaDeducible(base, p.cifraNegocios);
-      const partida = Math.min(importe, limite);
-      lineas.push({
-        concepto: "Partida deducible en la base imponible",
-        detalle:
-          "Tope: el mayor entre el 30% de la base imponible y el 3 por mil de la cifra de negocios, que son " +
-          euros(limite) +
-          ". Ahorro estimado al " +
-          tipoImp +
-          "%.",
-        importe: partida * (tipoImp / 100),
-      });
-      lineas.push({
-        concepto: "Deduccion del 30% / 20% en la cuota liquida",
-        detalle:
-          "30% de los primeros " +
+    const limite = limitePartidaDeducible(base, p.cifraNegocios);
+    const partida = Math.min(importe, limite);
+    lineas.push({
+      concepto: "Partida deducible en la base imponible",
+      detalle:
+        "Tope: el mayor entre el 30% de la base imponible y el 3 por mil del importe neto de la cifra de negocios, que resulta en " +
+        euros(limite) +
+        ". Ahorro estimado al " +
+        tipoImp +
+        "%.",
+      importe: partida * (tipoImp / 100),
+    });
+    lineas.push({
+      concepto: cultural
+        ? "Deduccion del 30% / 20% en la cuota liquida (art. 31.1.b)"
+        : "Deduccion del 20% en la cuota liquida (art. 44.1.b)",
+      detalle: cultural
+        ? "30% de los primeros " +
           NAVARRA_TRAMO_1 +
-          " euros y 20% de los siguientes.",
-        importe: 0.3 * enTramo1 + 0.2 * exceso,
+          " euros y 20% de los siguientes, en el mecenazgo cultural."
+        : "20% en plano del importe en que se valoran las modalidades, en el mecenazgo social, medioambiental y deportivo.",
+      importe: cultural ? 0.3 * enTramo1 + 0.2 * exceso : 0.2 * importe,
+    });
+    if (importe > limite) {
+      avisos.push({
+        bloqueante: false,
+        texto:
+          "El importe que se activa como partida deducible se corta en " +
+          euros(limite) +
+          ". Lo que exceda no genera esa deducción, aunque sí computa para la del 30% / 20% de la cuota líquida.",
+        destacados: [euros(limite)],
       });
-      if (importe > limite) {
-        avisos.push({
-          bloqueante: false,
-          texto:
-            "El importe que se activa como partida deducible se corta en " +
-            euros(limite) +
-            ". Lo que exceda no genera esa deducción, aunque sí computa para la del 30% / 20% de la cuota líquida.",
-          destacados: [euros(limite)],
-        });
-      }
     }
   } else {
     const micro = Math.min(importe, NAVARRA_MICRO);
@@ -187,19 +190,18 @@ function calcularNavarra(p: Parametros): Resultado {
       detalle:
         "80% de los primeros " +
         NAVARRA_MICRO +
-        " euros y 40% de los siguientes.",
+        " euros y 40% de los siguientes. Las personas físicas no tienen deducción adicional sobre la cuota líquida.",
       importe: 0.8 * micro + 0.4 * (importe - micro),
     });
-    if (p.destinoNavarra === "cultural") {
-      lineas.push({
-        concepto: "Deduccion adicional en la cuota liquida",
-        detalle:
-          "30% de los primeros " +
-          NAVARRA_TRAMO_1 +
-          " euros y 20% de los siguientes, exclusiva del mecenazgo cultural.",
-        importe: 0.3 * enTramo1 + 0.2 * exceso,
-      });
-    }
+  }
+
+  if (p.destinoNavarra === "deportivo" && !p.interesSocial) {
+    avisos.push({
+      bloqueante: true,
+      texto:
+        "El mecenazgo deportivo exige que la actividad esté declarada de interés social por la Administración Deportiva de Navarra (arts. 39.1 y 42 del DFL 2/2023). Además, nunca pueden declararse de interés social las actividades que consisten en la participación en competiciones federadas (art. 41.3).",
+      destacados: ["interés social", "41.3"],
+    });
   }
 
   const ahorroBruto = lineas.reduce((suma, l) => suma + l.importe, 0);
@@ -267,6 +269,14 @@ function calcularNavarra(p: Parametros): Resultado {
     tipo: 0,
     tipoEtiqueta:
       p.perfil === "is" ? "Partida deducible + cuota" : "80% / 40% en cuota",
+    articulo:
+      p.perfil === "is"
+        ? cultural
+          ? "Art. 31.1 DFL 2/2023"
+          : "Art. 44.1 DFL 2/2023"
+        : cultural
+          ? "Art. 30.1 DFL 2/2023"
+          : "Art. 43.1 DFL 2/2023",
     lineas,
     topePorcentaje: 0,
     limite: limitePartidaDeducible(base, p.cifraNegocios),
@@ -402,17 +412,25 @@ function calcularEstatal(p: Parametros): Resultado {
     if (traslado > 0.5) {
       avisos.push({
         bloqueante: false,
-        texto: `La deduccion calculada (${euros(deduccion)}) supera tu cuota integra del ejercicio (${euros(
+        texto: `La deduccion calculada (${euros(deduccion)}) supera tu cuota íntegra estimada del ejercicio (${euros(
           cuota,
-        )}): ahora aplicas ${euros(aplicada)} y el resto se traslada.`,
+        )}): ahora aplicas ${euros(aplicada)} y el resto se traslada durante diez ejercicios (art. 20.1). La cuota íntegra real es la que queda tras las demás deducciones y bonificaciones, así que el traslado real puede ser mayor.`,
         destacados: [euros(deduccion), euros(cuota), euros(aplicada)],
       });
     }
+
+    avisos.push({
+      bloqueante: false,
+      texto:
+        "Cifra estimada. La deduccion se practica de la cuota íntegra, que es la que queda tras las demas deducciones y bonificaciones, asi que el ahorro real puede ser menor. Confirmalo con un asesor.",
+      destacados: ["estimada"],
+    });
   }
 
   return {
     tipo,
     tipoEtiqueta,
+    articulo: p.perfil === "is" ? "Art. 20 Ley 49/2002" : "Art. 19 Ley 49/2002",
     lineas: [],
     topePorcentaje: tope,
     limite,

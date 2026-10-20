@@ -12,7 +12,8 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { GRUPOS, REQUISITOS, type EstadoApp } from "@/lib/estado";
+import { type EstadoApp } from "@/lib/estado";
+import { GRUPOS, REQUISITOS } from "@/lib/legal";
 
 interface Props {
   estado: EstadoApp;
@@ -133,8 +134,8 @@ export function PanelEntidad({ estado, onAlternar, cumplimiento }: Props) {
           <Card.Body>
             <Stack gap={3} fontSize="sm" color="fg.muted">
               <Text>
-                El aportante necesita un certificado de la entidad con los siete
-                datos del articulo 17. Se genera en la pestana{" "}
+                El aportante necesita un certificado de la entidad con los seis
+                extremos del articulo 24.3. Se genera en la pestana{" "}
                 <Text as="span" color="fg" fontWeight="semibold">
                   Certificado
                 </Text>

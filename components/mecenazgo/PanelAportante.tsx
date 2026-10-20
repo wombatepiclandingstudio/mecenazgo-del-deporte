@@ -30,7 +30,7 @@ import {
   ESCALA_IS,
   ESCALA_NAVARRA,
   PRIORITARIAS,
-} from "@/lib/estado";
+} from "@/lib/legal";
 
 interface Props {
   estado: EstadoApp;
@@ -106,6 +106,18 @@ function Barras() {
 
 export function PanelAportante({ estado, onCambiar }: Props) {
   const p = estado.aportante;
+
+  /** Regla que aplica al destino foral elegido, segun el articulo que la fija. */
+  const destinoTexto =
+    p.regimen !== "navarra"
+      ? ""
+      : p.destinoNavarra === "cultural"
+        ? p.perfil === "is"
+          ? "Partida deducible en la base mas el 30% de los primeros 300 euros y el 20% del resto sobre la cuota liquida (art. 31.1.b)."
+          : "80% de los primeros 250 euros y 40% del resto en la cuota (art. 30.1). Las personas fisicas no tienen deduccion adicional sobre la cuota liquida."
+        : p.perfil === "is"
+          ? "Partida deducible en la base mas el 20% en plano sobre la cuota liquida (art. 44.1.b)."
+          : "80% de los primeros 250 euros y 40% del resto en la cuota (art. 43.1).";
   const r = useMemo(() => calcular(p), [p]);
 
   const actualizarNumero = (
@@ -165,8 +177,8 @@ export function PanelAportante({ estado, onCambiar }: Props) {
             </HStack>
             <Text fontSize="xs" color="fg.muted" mt={2}>
               {p.regimen === "estatal"
-                ? "Ley 49/2002, de 27 de diciembre, de Mecenazgo y deducciones fiscales por donativos a entidades sin fines lucrativos."
-                : "Decreto Foral Legislativo 2/2023. No es el mismo regimen que el estatal: aqui la aportacion es partida deducible en la base, no una deduccion del 40-55% de la cuota."}
+                ? "Ley 49/2002, de 23 de diciembre, de regimen fiscal de las entidades sin fines lucrativos y de los incentivos fiscales al mecenazgo."
+                : "Decreto Foral Legislativo 2/2023, de 24 de mayo. No es el mismo regimen que el estatal: aqui la aportacion es partida deducible en la base, no una deduccion del 40-55% de la cuota."}
             </Text>
           </Box>
 
@@ -234,7 +246,7 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                     >
                       <option value="deportivo">
                         Deportivo - actividad declarada de interes social (arts.
-                        39 a 43)
+                        39 a 42)
                       </option>
                       <option value="cultural">
                         Cultural - proyecto declarado de interes social
@@ -242,24 +254,42 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                       <option value="social">
                         Social - entidad reconocida por el Gobierno de Navarra
                       </option>
-                      <option value="investigacion">
-                        Investigacion o tecnologia - entidad con actividad
-                        similar (solo empresas)
+                      <option value="medioambiental">
+                        Medioambiental - entidad con reconocimiento previo
                       </option>
                     </NativeSelect.Field>
                     <NativeSelect.Indicator />
                   </NativeSelect.Root>
-                  <Field.HelperText>
-                    {p.destinoNavarra === "cultural" &&
-                      "Da derecho a la deduccion del 80% / 40% y, en el caso de las empresas, a la partida deducible mas el 30% / 20% de la cuota liquida."}
-                    {p.destinoNavarra === "deportivo" &&
-                      "Mismas reglas que el mecenazgo social: 80% de los primeros 250 euros y 40% del resto en la cuota. Ojo: en Navarra no pueden declararse de interes social las actividades que consisten en la participacion en competiciones federadas."}
-                    {p.destinoNavarra === "social" &&
-                      "Mismo 80% / 40% en cuota, pero sin la deduccion adicional sobre la cuota liquida del 30% / 20%."}
-                    {p.destinoNavarra === "investigacion" &&
-                      "Para empresas: deduccion del 40% en la cuota integra por donaciones a entidades con actividad similar a la de los organismos publicos de investigacion o a los centros tecnologicos."}
-                  </Field.HelperText>
+                  <Field.HelperText>{destinoTexto}</Field.HelperText>
                 </Field.Root>
+
+                {p.destinoNavarra === "deportivo" && (
+                  <Checkbox.Root
+                    checked={p.interesSocial}
+                    onCheckedChange={(e) =>
+                      onCambiar({ interesSocial: !!e.checked })
+                    }
+                    colorPalette="accent"
+                    alignItems="flex-start"
+                  >
+                    <Checkbox.HiddenInput />
+                    <Checkbox.Control mt="2px" />
+                    <Checkbox.Label>
+                      La actividad esta declarada de interes social
+                      <Text
+                        as="span"
+                        display="block"
+                        fontSize="xs"
+                        color="fg.muted"
+                        mt="1px"
+                      >
+                        Exigido por los arts. 39.1 y 42 del DFL 2/2023. Las
+                        competiciones federadas nunca pueden declararse de
+                        interes social (art. 41.3)
+                      </Text>
+                    </Checkbox.Label>
+                  </Checkbox.Root>
+                )}
 
                 {p.perfil === "is" && (
                   <Field.Root>
@@ -352,11 +382,10 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                   >
                     <Text fontSize="sm">
                       En el regimen foral no se aplican los topes del articulo
-                      20 ni el incremento por donativos reiterados. La ley foral
-                      si permite que un Acuerdo de Gobierno eleve hasta 5 puntos
-                      los porcentajes de las actividades prioritarias, pero se
-                      aplica por relacion y no se puede calcular con estos
-                      datos.
+                      20 ni el incremento por donativos reiterados. El
+                      Decreto Foral Legislativo 2/2023 fija su propio regimen:
+                      una partida deducible en la base mas una deduccion sobre
+                      la cuota liquida, que cambia segun el destino.
                     </Text>
                   </Box>
                 )}
@@ -398,8 +427,8 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                       <Checkbox.HiddenInput />
                       <Checkbox.Control mt="2px" />
                       <Checkbox.Label>
-                        Hay donativos a esta misma entidad en los 2 anos
-                        anteriores
+                        Hay donativos a esta misma entidad en los 2 periodos
+                        anteriores y en este
                         <Text
                           as="span"
                           display="block"
@@ -407,7 +436,8 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                           color="fg.muted"
                           mt="1px"
                         >
-                          Por importe igual o superior, durante 3 anos seguidos
+                          Por importe igual o superior al de hace dos años, y
+                          durante 3 años seguidos
                         </Text>
                       </Checkbox.Label>
                     </Checkbox.Root>
@@ -489,6 +519,12 @@ export function PanelAportante({ estado, onCambiar }: Props) {
                   <Table.Cell>Tipo de deduccion aplicable</Table.Cell>
                   <Table.Cell textAlign="end" fontWeight="bold">
                     {r.tipoEtiqueta}
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>Articulo que lo fija</Table.Cell>
+                  <Table.Cell textAlign="end" fontWeight="bold">
+                    {r.articulo}
                   </Table.Cell>
                 </Table.Row>
                 {p.regimen === "estatal" ? (
