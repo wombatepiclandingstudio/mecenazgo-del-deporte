@@ -34,17 +34,10 @@ jobs:
       - run: npm run typecheck
       - run: npm test
 
-      # Configura Pages antes del build: de aqui sale la ruta base, que es
-      # distinta en un sitio de usuario y en uno de proyecto.
-      - id: paginas
-        uses: actions/configure-pages@v5
-        with:
-          static_site_generator: next
-
+      # La ruta base la calcula el propio script: un sitio de usuario vive en
+      # la raiz del dominio y uno de proyecto bajo /<repositorio>.
       - name: Build estatico
         run: npm run build:pages
-        env:
-          BASE_PATH: ${{ steps.paginas.outputs.base_path }}
 
       - uses: actions/upload-pages-artifact@v4
         with:

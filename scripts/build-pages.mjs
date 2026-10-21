@@ -29,7 +29,11 @@ const desdeEntorno =
 const repositorio = process.env.REPO ?? process.env.GITHUB_REPOSITORY ?? "";
 const nombre = repositorio.split("/").pop() ?? "";
 const basePath =
-  desdeEntorno !== null ? desdeEntorno : nombre ? `/${nombre}` : "";
+  desdeEntorno !== null
+    ? desdeEntorno
+    : nombre && !nombre.endsWith(".github.io")
+      ? `/${nombre}`
+      : "";
 
 console.log(`Build estatico con ruta base "${basePath || "/"}"`);
 
