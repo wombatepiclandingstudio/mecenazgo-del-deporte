@@ -1,4 +1,4 @@
-node_modules
+﻿node_modules
 .next
 out
 build
@@ -10,3 +10,4 @@ npm-debug.log*
 next-env.d.ts
 tsconfig.tsbuildinfo
 .husky/_
+public/takumi_pdf.wasm

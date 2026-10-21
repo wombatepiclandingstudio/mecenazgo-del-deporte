@@ -11,6 +11,8 @@ import type { InformeCalculoModel } from "./informe";
 export interface PdfRenderRequest {
   kind: "informe-calculo";
   model: InformeCalculoModel;
+  /** Ruta del binario, resuelta por el hilo principal. */
+  wasmUrl: string;
 }
 
 export interface PdfRenderResponse {
@@ -19,15 +21,12 @@ export interface PdfRenderResponse {
   error?: string;
 }
 
-/** Binario publicado en `public/` por `scripts/copiar-wasm.mjs`. */
-const WASM = "/takumi_pdf.wasm";
-
 self.onmessage = async (event: MessageEvent<PdfRenderRequest>) => {
   try {
-    const respuesta = await fetch(WASM);
+    const respuesta = await fetch(event.data.wasmUrl);
     if (!respuesta.ok) {
       throw new Error(
-        `no se encuentra el binario del PDF en ${WASM} (${respuesta.status})`,
+        `no se encuentra el binario del PDF en ${event.data.wasmUrl} (${respuesta.status})`,
       );
     }
     const bytes = await renderDocumento(

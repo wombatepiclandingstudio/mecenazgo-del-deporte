@@ -1,0 +1,54 @@
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+
+      # Configura Pages antes del build: de aqui sale la ruta base, que es
+      # distinta en un sitio de usuario y en uno de proyecto.
+      - id: paginas
+        uses: actions/configure-pages@v5
+        with:
+          static_site_generator: next
+
+      - name: Build estatico
+        run: npm run build:pages
+        env:
+          BASE_PATH: ${{ steps.paginas.outputs.base_path }}
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: out
+
+      - id: despliegue
+        uses: actions/deploy-pages@v4

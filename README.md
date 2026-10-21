@@ -53,7 +53,13 @@ Cada commit pasa por el hook de Husky (`.husky/pre-commit`), que corre el linter
 ficheros modificados, los tipos y los tests. GitHub Actions corre lo mismo en cada push y pull
 request (`.github/workflows/ci.yml`).
 
-## Despliegue en Vercel
+## Despliegue
+
+La aplicación es estática: no hay backend, ni variables de entorno, ni servicios externos. En
+Vercel se detecta sola; en GitHub Pages y en cualquier hosting de estáticos se sube la carpeta
+`out/`.
+
+### Vercel
 
 Desde la carpeta del proyecto:
 
@@ -63,8 +69,33 @@ npx vercel --prod # despliegue de produccion
 ```
 
 O por consola: importar el repositorio `github.com/wombatepiclandingstudio/mecenazgo-del-deporte`
-en Vercel (**Add New → Project**) y asociarlo a la rama `main`. No hay variables de entorno ni
-servicios externos que configurar: Next.js se detecta solo.
+en Vercel (**Add New → Project**) y asociarlo a la rama `main`.
+
+### GitHub Pages
+
+El workflow `.github/workflows/pages.yml` publica en cada `push` a `main`. Para que funcione, en
+**Settings → Pages** hay que poner la fuente en **GitHub Actions**.
+
+En local, el build estático se hace con:
+
+```bash
+npm run build:pages
+```
+
+Genera la carpeta `out/`, con la ruta base que necesita un sitio de proyecto (`/mecenazgo-del-deporte`).
+Para un sitio de usuario, que vive en la raíz del dominio, la ruta base es vacía:
+
+```bash
+BASE_PATH= npm run build:pages
+```
+
+### Cualquier hosting de estáticos
+
+`npm run build:pages` y subir el contenido de `out/`. Si el sitio vive bajo un subdirectorio,
+indicarlo con `BASE_PATH`.
+
+**El binario del PDF no se versiona**: `scripts/copiar-wasm.mjs` lo copia a `public/` en cada build
+(`prebuild` y `predev` lo ejecutan solos). Sin él, el informe de cálculo no se genera.
 
 ## Repositorio
 

@@ -62,9 +62,16 @@ export function usePdfRenderer(): PdfRendererState {
       setIsRendering(true);
       const worker = obtenerWorker();
       const id = contador.current++;
+      // La ruta del binario la resuelve el hilo principal: el worker no ve la
+      // ruta base del despliegue.
+      const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
       return new Promise<Uint8Array>((resolve, reject) => {
         pendientes.current.set(id, { resolve, reject });
-        worker.postMessage({ kind: "informe-calculo", model });
+        worker.postMessage({
+          kind: "informe-calculo",
+          model,
+          wasmUrl: `${base}/takumi_pdf.wasm`,
+        });
       });
     },
     [obtenerWorker],

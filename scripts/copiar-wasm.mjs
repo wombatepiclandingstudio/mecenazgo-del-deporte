@@ -20,5 +20,5 @@ const destino = resolve(raiz, "public/takumi_pdf.wasm");
 await mkdir(dirname(destino), { recursive: true });
 await copyFile(origen, destino);
 
-const { size } = await readFile(destino);
-console.log(`PDF: binario copiado a public/takumi_pdf.wasm (${size} bytes)`);
+const { length } = await readFile(destino);
+console.log(`PDF: binario copiado a public/takumi_pdf.wasm (${length} bytes)`);
