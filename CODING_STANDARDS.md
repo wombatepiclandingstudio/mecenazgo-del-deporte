@@ -17,8 +17,19 @@ en `npm run check`: linter, tipos y tests. Aquí van los que dependen de criteri
   `lib/legal.ts`, con la fuente que los respalda (F24 a F26), y `lib/programas.ts` solo los combina.
 - **Una cifra del programa no se deduce de otra**: si el tope limita la base, el aviso tiene que
   decir que lo que excede no se traslada, porque es regla del programa y no límite de deducción.
-- **Vocabulario**: la interfaz usa las palabras de la ley —entidad acreedora, donante, donativo,
-  aportación, mecenazgo prioritario— y `GLOSSARY.md` manda sobre cualquier sinónimo.
+- **Lenguaje claro**: la interfaz usa palabras corrientes. El término legal va entre paréntesis
+  con su artículo la primera vez que aparece, y no desaparece: vive en la cita literal de la norma (en
+  cursiva) y en el modal. `GLOSSARY.md` manda sobre cualquier sinónimo y dice, para cada término, la
+  palabra que se usa en pantalla.
+- **Texto llano junto al texto legal**: el texto llano (`plano`), la cita literal (`extracto`), la
+  confianza (`confianza`) y el ancla (`ancla`) viven en `lib/legal.ts`, en la misma entrada que el
+  texto legal. Nunca en los componentes: así el texto llano no puede separarse de su fuente, y las
+  cifras de la ley no se duplican.
+- **Procedencia**: el color marca de dónde sale el contenido (azul: la ley; rojo: deportejoven.es;
+  violeta: los dos) y lo decide el helper `origen()`, nunca a mano. El color nunca es el único canal:
+  la cursiva de la cita literal y la etiqueta de procedencia acompañan siempre.
+- **Confianza**: toda reescritura declara si es de confianza alta, media o baja, y la interfaz la
+  muestra junto a la fuente.
 
 ## Interfaz
 
@@ -26,6 +37,11 @@ en `npm run check`: linter, tipos y tests. Aquí van los que dependen de criteri
   vista. Si el aviso salta y el control está escondido, el usuario no puede salir del bloqueo.
 - **Progressive disclosure**: lo que hace falta para la primera respuesta a la vista; lo que la afina,
   a un clic. Nunca al revés: la primera respuesta no puede depender de abrir nada.
+- **Enlace a la norma**: el enlace a la ley abre un modal (a pantalla completa en móvil) con el texto
+  llano, la cita literal en cursiva, la etiqueta de procedencia y la de confianza, y el enlace fuera a
+  la norma. No hay iframes: el BOE manda `X-Frame-Options: SAMEORIGIN`. El enlace apunta siempre a la
+  norma; el artículo es un ancla dentro de esa página, comprobada contra el HTML del BOE (`ANCLAS` en
+  `lib/legal.ts`).
 - **Estado guardado**: al cambiar la forma del estado se sube `CLAVE_ALMACEN` y se avisa en el
   README. El navegador descarta lo guardado y hay que decirlo.
 

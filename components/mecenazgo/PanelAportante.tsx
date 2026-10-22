@@ -53,7 +53,9 @@ import {
   PRIORITARIAS_TITULO,
   PROGRAMAS_2026,
   REGIMENES,
+  origen,
 } from "@/lib/legal";
+import { EnlaceLey } from "@/components/mecenazgo/EnlaceLey";
 
 const CONDICION = new Map(CONDICIONES.map((c) => [c.id, c]));
 
@@ -527,7 +529,9 @@ export function PanelAportante({ estado, onCambiar, onPrograma }: Props) {
                           actualizarNumero("otrasAportaciones", e.target.value)
                         }
                       />
-                      <Field.HelperText>{IRPF_CUBO.texto}</Field.HelperText>
+                      <Field.HelperText>
+                {IRPF_CUBO.plano ?? IRPF_CUBO.texto}
+              </Field.HelperText>
                     </Field.Root>
                   )}
 
@@ -655,6 +659,19 @@ export function PanelAportante({ estado, onCambiar, onPrograma }: Props) {
               >
                 Condiciones
               </Text>
+              <Box mb={2}>
+                <EnlaceLey
+                  fuente={CONDICION.get("reiterada")?.fuente ?? "F1"}
+                  art="Arts. 19 y 20"
+                  ancla={CONDICION.get("reiterada")?.ancla}
+                  plano={CONDICION.get("reiterada")?.plano}
+                  extracto={CONDICION.get("reiterada")?.extracto}
+                  origen={origen(CONDICION.get("reiterada") ?? { fuente: "F1" })}
+                  confianza={CONDICION.get("reiterada")?.confianza}
+                >
+                  Ver la ley
+                </EnlaceLey>
+              </Box>
               <Stack gap={2}>
                 {p.regimen === "navarra" && (
                   <Box
@@ -694,7 +711,8 @@ export function PanelAportante({ estado, onCambiar, onPrograma }: Props) {
                         color="fg.muted"
                         mt="1px"
                       >
-                        {CONDICION.get("interesSocial")?.ayuda}
+                        {CONDICION.get("interesSocial")?.plano ??
+                          CONDICION.get("interesSocial")?.ayuda}
                       </Text>
                     </Checkbox.Label>
                   </Checkbox.Root>
@@ -734,7 +752,7 @@ export function PanelAportante({ estado, onCambiar, onPrograma }: Props) {
                       color="fg.muted"
                       mt="1px"
                     >
-                      {LIMITE_SIMBOLICO.texto}
+                      {LIMITE_SIMBOLICO.plano ?? LIMITE_SIMBOLICO.texto}
                     </Text>
                   </Checkbox.Label>
                 </Checkbox.Root>
@@ -1108,7 +1126,7 @@ export function PanelAportante({ estado, onCambiar, onPrograma }: Props) {
                   >
                     <Box>
                       <Text fontSize="sm" fontWeight="semibold">
-                        {f.titulo}
+                        {f.plano ?? f.titulo}
                       </Text>
                       <Text fontSize="xs" color="fg.muted">
                         {f.detalle}
@@ -1120,7 +1138,7 @@ export function PanelAportante({ estado, onCambiar, onPrograma }: Props) {
                   </Grid>
                 ))}
                 <Text fontSize="xs" color="fg.muted" mt={2}>
-                  {NAVARRA_PRIORITARIAS.texto}
+                  {NAVARRA_PRIORITARIAS.plano ?? NAVARRA_PRIORITARIAS.texto}
                 </Text>
               </Stack>
             ) : p.perfil === "is" ? (
@@ -1136,7 +1154,7 @@ export function PanelAportante({ estado, onCambiar, onPrograma }: Props) {
                   >
                     <Box>
                       <Text fontSize="sm" fontWeight="semibold">
-                        {f.titulo}
+                        {f.plano ?? f.titulo}
                       </Text>
                       <Text fontSize="xs" color="fg.muted">
                         {f.detalle}
@@ -1153,8 +1171,29 @@ export function PanelAportante({ estado, onCambiar, onPrograma }: Props) {
             <Text fontSize="xs" color="fg.muted" mt={5}>
               {p.regimen === "navarra"
                 ? "No aplica: los topes del artículo 20 y el incremento del 22 son del régimen estatal."
-                : PRIORITARIAS_TITULO.texto}
+                : (PRIORITARIAS_TITULO.plano ?? PRIORITARIAS_TITULO.texto)}
             </Text>
+            <Box mt={3}>
+              <EnlaceLey
+                fuente={ESCALA_IS[0].fuente}
+                art={p.perfil === "is" ? "Art. 20" : "Art. 19"}
+                ancla={p.perfil === "is" ? ESCALA_IS[0].ancla : ESCALA_IRPF[0].ancla}
+                plano={
+                  p.perfil === "is"
+                    ? ESCALA_IS[0].plano
+                    : ESCALA_IRPF[0].plano
+                }
+                extracto={
+                  p.perfil === "is"
+                    ? ESCALA_IS[0].extracto
+                    : ESCALA_IRPF[0].extracto
+                }
+                origen={origen(ESCALA_IS[0])}
+                confianza={ESCALA_IS[0].confianza}
+              >
+                Ver la ley
+              </EnlaceLey>
+            </Box>
             {p.regimen === "estatal" && (
               <Table.Root size="sm" variant="line" mt={2} interactive={false}>
                 <Table.Caption captionSide="top">
@@ -1177,7 +1216,7 @@ export function PanelAportante({ estado, onCambiar, onPrograma }: Props) {
                   {PRIORITARIAS.map((f) => (
                     <Table.Row key={f.concepto}>
                       <Table.Cell as="th" scope="row" fontWeight="normal">
-                        {f.concepto}
+                        {f.plano ?? f.concepto}
                       </Table.Cell>
                       <Table.Cell textAlign="end" fontWeight="semibold">
                         {f.irpf}

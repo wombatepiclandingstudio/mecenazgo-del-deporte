@@ -17,6 +17,8 @@ import {
 import type { EstadoApp } from "@/lib/estado";
 import { euros } from "@/lib/mecenazgo";
 import type { EstadoDescarga } from "@/lib/certificado";
+import { CERTIFICACION_DATOS, origen } from "@/lib/legal";
+import { EnlaceLey } from "@/components/mecenazgo/EnlaceLey";
 
 interface Props {
   estado: EstadoApp;
@@ -75,20 +77,31 @@ export function PanelCertificado({ estado, onCambiar }: Props) {
     >
       <Card.Root>
         <Card.Header>
-          <Card.Title>Datos de la certificacion</Card.Title>
+          <Card.Title>Datos del certificado</Card.Title>
           <Card.Description>
-            Los seis extremos que exige el articulo 24.3 de la Ley 49/2002
+            Los seis datos que pide la ley en el artículo 24.3
           </Card.Description>
         </Card.Header>
         <Card.Body>
           <Stack gap={4}>
+            <EnlaceLey
+              fuente={CERTIFICACION_DATOS[0].fuente}
+              art="Art. 24.3"
+              ancla={CERTIFICACION_DATOS[0].ancla}
+              plano="La ley dice qué datos tiene que llevar el certificado que te da la entidad."
+              extracto={CERTIFICACION_DATOS[0].extracto}
+              origen={origen(CERTIFICACION_DATOS[0])}
+              confianza={CERTIFICACION_DATOS[0].confianza}
+            >
+              Ver la ley
+            </EnlaceLey>
             <Field.Root>
               <Field.Label htmlFor="entidad">
-                Denominacion de la entidad
+                Nombre de la entidad
               </Field.Label>
               <Input
                 id="entidad"
-                placeholder="Asociacion, fundacion o entidad que recibe"
+                placeholder="Asociación, fundación o entidad que recibe"
                 value={d.entidad}
                 onChange={(e) => onCambiar({ entidad: e.target.value })}
               />
@@ -106,10 +119,10 @@ export function PanelCertificado({ estado, onCambiar }: Props) {
 
             <Grid templateColumns={{ base: "1fr", sm: "1fr 1fr" }} gap={4}>
               <Field.Root>
-                <Field.Label htmlFor="donante">Donante</Field.Label>
+                <Field.Label htmlFor="donante">Quién aporta</Field.Label>
                 <Input
                   id="donante"
-                  placeholder="Nombre o razon social"
+                  placeholder="Nombre o razón social"
                   value={d.donante}
                   onChange={(e) => onCambiar({ donante: e.target.value })}
                 />
@@ -144,7 +157,7 @@ export function PanelCertificado({ estado, onCambiar }: Props) {
               </Field.Root>
               <Field.Root>
                 <Field.Label htmlFor="fecha">
-                  Fecha de la aportacion
+                  Fecha de la aportación
                 </Field.Label>
                 <Input
                   id="fecha"
@@ -157,7 +170,7 @@ export function PanelCertificado({ estado, onCambiar }: Props) {
 
             <Field.Root>
               <Field.Label htmlFor="destino">
-                Destino de la aportacion
+                Para qué se usa la aportación
               </Field.Label>
               <Input
                 id="destino"
@@ -166,13 +179,12 @@ export function PanelCertificado({ estado, onCambiar }: Props) {
                 onChange={(e) => onCambiar({ destino: e.target.value })}
               />
               <Field.HelperText>
-                El destino es uno de los datos que la certificacion debe recoger
-                de forma expresa.
+                La ley pide decir para qué se usa la aportación. Pon el programa o el proyecto.
               </Field.HelperText>
             </Field.Root>
 
             <Field.Root>
-              <Field.Label htmlFor="cargo">Cargo que firma</Field.Label>
+              <Field.Label htmlFor="cargo">Cargo de quien firma</Field.Label>
               <Input
                 id="cargo"
                 value={d.cargo}
@@ -206,8 +218,7 @@ export function PanelCertificado({ estado, onCambiar }: Props) {
                   Faltan datos: {faltan.join(", ")}
                 </Text>
                 <Text fontSize="xs" color="fg.muted">
-                  El PDF se genera igualmente, pero con esos campos marcados
-                  entre corchetes.
+                  El PDF se genera igual, pero con esos huecos marcados entre corchetes.
                 </Text>
               </Box>
             )}
@@ -221,8 +232,8 @@ export function PanelCertificado({ estado, onCambiar }: Props) {
                 borderColor="red.300"
               >
                 <Text fontSize="sm">
-                  No se ha podido generar el PDF en este navegador. Prueba con
-                  otro o actualiza la pagina.
+                  No hemos podido generar el PDF en este navegador. Prueba con otro
+                  o actualiza la página.
                 </Text>
               </Box>
             )}
@@ -233,7 +244,7 @@ export function PanelCertificado({ estado, onCambiar }: Props) {
       <Stack gap={5}>
         <Card.Root variant="outline">
           <Card.Header>
-            <Card.Title>Como queda el documento</Card.Title>
+            <Card.Title>Cómo queda el documento</Card.Title>
             <Card.Description>
               A4, una pagina, texto seleccionable
             </Card.Description>
@@ -302,12 +313,12 @@ export function PanelCertificado({ estado, onCambiar }: Props) {
 
         <Box>
           <Heading as="h3" size="sm" mb={3}>
-            Donde va el certificado
+            Para qué sirve el certificado
           </Heading>
           <Text fontSize="sm" color="fg.muted">
-            El donante lo necesita para aplicar la deduccion en su
-            declaracion. Sin el, la aportacion no se deduce por muy correcta que
-            sea la intencion.
+            Quien aporta lo necesita para aplicar la deducción en su
+            declaración. Sin ese papel, la aportación no deduce aunque la
+            intención sea buena.
           </Text>
         </Box>
       </Stack>

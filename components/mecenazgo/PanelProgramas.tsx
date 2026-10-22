@@ -20,10 +20,12 @@ import {
   NOTAS_PROGRAMAS,
   PREGUNTAS_FDJ,
   PROGRAMAS_2026,
+  origen,
 } from "@/lib/legal";
+import { EnlaceLey } from "@/components/mecenazgo/EnlaceLey";
 
 /**
- * Referencia de los programas de mecenazgo de la Fundacion Deporte Joven en
+ * Referencia de los programas de mecenazgo deportivo de la Fundacion en
  * 2026: que ofrece cada uno, que errores trae el material publicado y que
  * queda por preguntar a la Fundacion.
  */
@@ -32,12 +34,12 @@ export function PanelProgramas() {
     <Stack gap={6} mt={10}>
       <Box>
         <Heading as="h2" size="xl" letterSpacing="-0.02em">
-          Los programas de 2026
+          Los programas de mecenazgo deportivo de 2026
         </Heading>
         <Text mt={3} color="fg.muted" maxW="70ch">
           La Fundacion gestiona cuatro programas de mecenazgo deportivo. Todos
           son actividades prioritarias: suben el tipo cinco puntos. No todos se
-          tratan igual: España Compite es una actividad prioritaria de la ley de
+          tratan igual: Espana Compite es una actividad prioritaria de la ley de
           presupuestos y tiene tope anual; los otros tres son acontecimientos
           de excepcional interes publico y admiten la via publicitaria.
         </Text>
@@ -45,7 +47,7 @@ export function PanelProgramas() {
 
       <Card.Root>
         <Card.Header>
-          <Card.Title>Comparativa</Card.Title>
+          <Card.Title>Las reglas de cada programa</Card.Title>
         </Card.Header>
         <Card.Body>
           <Table.Root size="sm" variant="line" interactive={false}>
@@ -66,8 +68,19 @@ export function PanelProgramas() {
                   <Table.Cell as="th" scope="row" fontWeight="normal">
                     {p.nombre}
                     <Text fontSize="xs" color="fg.muted">
-                      {p.elevacion}
+                      {p.plano ?? p.elevacion}
                     </Text>
+                    <Box mt={1}>
+                      <EnlaceLey
+                        fuente={p.fuente}
+                        plano={p.plano}
+                        extracto={p.extracto}
+                        origen={origen(p)}
+                        confianza={p.confianza}
+                      >
+                        Ver el documento
+                      </EnlaceLey>
+                    </Box>
                   </Table.Cell>
                   <Table.Cell textAlign="end" fontWeight="semibold">
                     {p.topeAnual === null
@@ -87,15 +100,28 @@ export function PanelProgramas() {
             </Table.Body>
           </Table.Root>
 
-          <Text fontSize="xs" color="fg.muted" mt={4}>
-            {AVISO_PRESUPUESTO.texto}
-          </Text>
+          <Box mt={4}>
+            <Text fontSize="xs" color="fg.muted">
+              {AVISO_PRESUPUESTO.plano ?? AVISO_PRESUPUESTO.texto}
+            </Text>
+            <Box mt={2}>
+              <EnlaceLey
+                fuente={AVISO_PRESUPUESTO.fuente}
+                plano={AVISO_PRESUPUESTO.plano}
+                extracto={AVISO_PRESUPUESTO.extracto}
+                origen={origen(AVISO_PRESUPUESTO)}
+                confianza={AVISO_PRESUPUESTO.confianza}
+              >
+                Ver la ley
+              </EnlaceLey>
+            </Box>
+          </Box>
         </Card.Body>
       </Card.Root>
 
       <Card.Root>
         <Card.Header>
-          <Card.Title>Calendario</Card.Title>
+          <Card.Title>Los plazos</Card.Title>
           <Card.Description>
             El orden de los plazos no es el que se lee: la aprobacion de la
             ayuda depende de que el dinero del donante ya haya entrado.
@@ -110,12 +136,23 @@ export function PanelProgramas() {
               {CALENDARIO_2026.map((h) => (
                 <Table.Row key={h.hito}>
                   <Table.Cell as="th" scope="row" fontWeight="normal">
-                    {h.hito}
+                    {h.plano ?? h.hito}
                     {h.nota && (
                       <Text fontSize="xs" color="fg.muted">
                         {h.nota}
                       </Text>
                     )}
+                    <Box mt={1}>
+                      <EnlaceLey
+                        fuente={h.fuente}
+                        plano={h.plano}
+                        extracto={h.extracto}
+                        origen={origen(h)}
+                        confianza={h.confianza}
+                      >
+                        Ver el documento
+                      </EnlaceLey>
+                    </Box>
                   </Table.Cell>
                   <Table.Cell textAlign="end" fontWeight="semibold">
                     {h.fecha ? h.fecha.split("-").reverse().join("/") : h.plazo}
@@ -156,7 +193,25 @@ export function PanelProgramas() {
                   <Table.Cell fontSize="xs" color="fg.muted">
                     {d.publicado}
                   </Table.Cell>
-                  <Table.Cell fontSize="xs">{d.correcto}</Table.Cell>
+                  <Table.Cell fontSize="xs">
+                    {d.correcto}
+                    {d.plano && (
+                      <Text fontSize="xs" color="fg.muted" mt={1}>
+                        {d.plano}
+                      </Text>
+                    )}
+                    <Box mt={1}>
+                      <EnlaceLey
+                        fuente={d.fuente}
+                        plano={d.plano}
+                        extracto={d.extracto}
+                        origen={origen(d)}
+                        confianza={d.confianza}
+                      >
+                        Ver el documento
+                      </EnlaceLey>
+                    </Box>
+                  </Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>
@@ -172,17 +227,37 @@ export function PanelProgramas() {
           <Stack gap={5}>
             {NOTAS_PROGRAMAS.map((n) => (
               <Box key={n.titulo}>
-                <HStack gap={2} mb={1}>
-                  <Badge colorPalette="accent" variant="subtle" size="xs">
+                <HStack gap={2} mb={1} flexWrap="wrap">
+                  <Badge colorPalette="fdj" variant="subtle" size="xs">
                     nota
                   </Badge>
                   <Heading as="h3" size="sm">
                     {n.titulo}
                   </Heading>
+                  {n.confianza && (
+                    <Badge
+                      colorPalette={origen(n)}
+                      variant="outline"
+                      size="xs"
+                    >
+                      confianza {n.confianza}
+                    </Badge>
+                  )}
                 </HStack>
                 <Text fontSize="sm" color="fg.muted">
-                  {n.texto}
+                  {n.plano ?? n.texto}
                 </Text>
+                <Box mt={2}>
+                  <EnlaceLey
+                    fuente={n.fuente}
+                    plano={n.plano}
+                    extracto={n.extracto}
+                    origen={origen(n)}
+                    confianza={n.confianza}
+                  >
+                    Ver el documento
+                  </EnlaceLey>
+                </Box>
               </Box>
             ))}
 
@@ -196,7 +271,25 @@ export function PanelProgramas() {
                     <Text fontSize="sm" color="fg.muted" minW="1.5em">
                       {i + 1}.
                     </Text>
-                    <Text fontSize="sm">{p.pregunta}</Text>
+                    <Box>
+                      <Text fontSize="sm">{p.pregunta}</Text>
+                      {p.plano && (
+                        <Text fontSize="xs" color="fg.muted">
+                          {p.plano}
+                        </Text>
+                      )}
+                      <Box mt={1}>
+                        <EnlaceLey
+                          fuente={p.fuente}
+                          plano={p.plano}
+                          extracto={p.extracto}
+                          origen={origen(p)}
+                          confianza={p.confianza}
+                        >
+                          Ver el documento
+                        </EnlaceLey>
+                      </Box>
+                    </Box>
                   </List.Item>
                 ))}
               </List.Root>

@@ -7,7 +7,6 @@ import {
   Grid,
   Heading,
   HStack,
-  Link,
   List,
   SimpleGrid,
   Stack,
@@ -29,30 +28,34 @@ import {
   NOTAS,
   NOTAS_PRIORITARIAS,
   VERIFICADO_EN,
+  origen,
+  type Confianza,
 } from "@/lib/legal";
+import { EnlaceLey } from "@/components/mecenazgo/EnlaceLey";
 
 /** Fechas de verificacion en formato espanol. */
 const fecha = (iso: string) => iso.split("-").reverse().join("/");
 
-/** Texto de cada actividad prioritaria, con independencia de como llegue. */
-const ACTIVIDADES = ACTIVIDADES_PRIORITARIAS.map((a) => a.texto);
+/**
+ * De donde sale cada cosa: azul la ley, rojo la Fundacion, violeta los dos.
+ * El color nunca va solo: la etiqueta lo dice con palabras.
+ */
+const PROCEDENCIA = [
+  { color: "ley", texto: "Lo que dice la ley (BOE)" },
+  { color: "fdj", texto: "Lo que dice deportejoven.es" },
+  { color: "mixto", texto: "Lo que dicen los dos" },
+] as const;
 
-/** Fuentes citadas por el contenido que esta pagina muestra. */
-const FUENTES_DE_ESTA_PAGINA = [
-  ...new Set(
-    [
-      ...DEPORTE_LEY,
-      ...ARTICULOS,
-      ...NAVARRA_ARTICULOS,
-      ...ACTIVIDADES_PRIORITARIAS,
-      ...NOTAS_PRIORITARIAS,
-      ...NOTAS,
-    ].map((e) => e.fuente),
-  ),
-].flatMap((id) => {
-  const f = FUENTES[id];
-  return f ? [{ id, titulo: f.titulo, url: f.url }] : [];
-});
+/** Fuentes agrupadas por donde estan publicadas. */
+const FUENTES_LEY = Object.entries(FUENTES).filter(([, f]) =>
+  f.url.includes("boe.es"),
+);
+const FUENTES_AEAT = Object.entries(FUENTES).filter(([, f]) =>
+  f.url.includes("agenciatributaria.gob.es"),
+);
+const FUENTES_FDJ = Object.entries(FUENTES).filter(([, f]) =>
+  f.url.includes("deportejoven.es"),
+);
 
 export function PanelLey() {
   return (
@@ -60,42 +63,42 @@ export function PanelLey() {
       <Card.Root>
         <Card.Header>
           <Heading as="h2" size="lg">
-            De donde sale este texto
+            De dónde sale este texto
           </Heading>
           <Card.Description>
             Contraste con fuentes primarias el {fecha(VERIFICADO_EN)}
           </Card.Description>
         </Card.Header>
         <Card.Body>
-          <Stack gap={4}>
+          <Stack gap={5}>
             <Text fontSize="sm" color="fg.muted" maxW="70ch">
               Todo el contenido de esta pagina se ha contrastado con las fuentes
               primarias (BOE, Agencia Tributaria y normativa foral de Navarra)
               el {fecha(VERIFICADO_EN)}. Si la aplicacion y la ley discrepan,
               manda la ley.
             </Text>
-            <Stack gap={1}>
-              <Text
-                fontSize="xs"
-                fontWeight="bold"
-                color="brand.fg"
-                letterSpacing="0.06em"
-              >
-                FUENTES
-              </Text>
-              {FUENTES_DE_ESTA_PAGINA.map((f) => (
-                <Text key={f.id} fontSize="sm">
-                  <Link
-                    href={f.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    color="brand.fg"
-                    textDecoration="underline"
-                  >
-                    {f.titulo}
-                  </Link>
-                </Text>
+            <HStack gap={3} flexWrap="wrap">
+              {PROCEDENCIA.map((p) => (
+                <Badge
+                  key={p.color}
+                  colorPalette={p.color}
+                  variant="subtle"
+                  size="sm"
+                >
+                  {p.texto}
+                </Badge>
               ))}
+            </HStack>
+            <Stack gap={4}>
+              <ListaFuentes titulo="Leyes y normas" fuentes={FUENTES_LEY} />
+              <ListaFuentes
+                titulo="Manuales de la Agencia Tributaria"
+                fuentes={FUENTES_AEAT}
+              />
+              <ListaFuentes
+                titulo="Documentos de la Fundación"
+                fuentes={FUENTES_FDJ}
+              />
             </Stack>
           </Stack>
         </Card.Body>
@@ -106,27 +109,37 @@ export function PanelLey() {
           Lo que la ley dice del deporte
         </Heading>
         <Text color="fg.muted" mb={5} maxW="70ch">
-          El mecenazgo es un regimen pensado para entidades sin fines
-          lucrativos, no para el deporte en general. Estas son las normas que
-          hacen mencion expresa a las federaciones, y las que separan mecenazgo
-          de patrocinio.
+          El mecenazgo es un régimen pensado para entidades sin fines lucrativos,
+          no para el deporte en general. Estas son las normas que hacen mención
+          expresa a las federaciones, y las que separan mecenazgo de patrocinio.
         </Text>
         <Stack gap={4}>
           {DEPORTE_LEY.map((d) => (
             <Card.Root key={d.art} variant="outline">
               <Card.Body>
                 <HStack gap={3} mb={2} flexWrap="wrap">
-                  <Badge colorPalette="brand" variant="solid">
+                  <Badge colorPalette="ley" variant="solid">
                     {d.art}
                   </Badge>
                   <Heading as="h3" size="sm">
                     {d.titulo}
                   </Heading>
                 </HStack>
-                <Text fontSize="sm" color="fg.muted">
-                  {d.texto}
-                </Text>
-                <FuenteLine id={d.fuente} fecha={d.verificadoEn} />
+                <Text fontSize="sm">{d.plano ?? d.texto}</Text>
+                <HStack gap={3} mt={3} flexWrap="wrap" alignItems="center">
+                  <EnlaceLey
+                    fuente={d.fuente}
+                    art={d.art}
+                    ancla={d.ancla}
+                    plano={d.plano}
+                    extracto={d.extracto}
+                    origen={origen(d)}
+                    confianza={d.confianza}
+                  >
+                    Ver la ley
+                  </EnlaceLey>
+                  <FuenteLine entrada={d} />
+                </HStack>
               </Card.Body>
             </Card.Root>
           ))}
@@ -137,12 +150,25 @@ export function PanelLey() {
         <Heading as="h2" size="lg" mb={2}>
           Actividades prioritarias de mecenazgo
         </Heading>
-        <Text color="fg.muted" mb={5} maxW="70ch">
-          {ACTIVIDADES_INTRO.texto}
+        <Text color="fg.muted" mb={3} maxW="70ch">
+          {ACTIVIDADES_INTRO.plano ?? ACTIVIDADES_INTRO.texto}
         </Text>
+        <Box mb={5}>
+          <EnlaceLey
+            fuente={ACTIVIDADES_INTRO.fuente}
+            art="DA 57.ª"
+            ancla={ACTIVIDADES_INTRO.ancla}
+            plano={ACTIVIDADES_INTRO.plano}
+            extracto={ACTIVIDADES_INTRO.extracto}
+            origen={origen(ACTIVIDADES_INTRO)}
+            confianza={ACTIVIDADES_INTRO.confianza}
+          >
+            Ver la lista en el BOE
+          </EnlaceLey>
+        </Box>
         <Stack gap={5}>
           <List.Root as="ol" variant="plain" listStyleType="none" gap={3}>
-            {ACTIVIDADES.map((a, i) => (
+            {ACTIVIDADES_PRIORITARIAS.map((a, i) => (
               <List.Item key={i}>
                 <List.Indicator
                   fontSize="sm"
@@ -154,18 +180,29 @@ export function PanelLey() {
                 >
                   {i + 1}.
                 </List.Indicator>
-                <Text fontSize="sm" color="fg.muted">
-                  {a}
-                </Text>
+                <Text fontSize="sm">{a.plano ?? a.texto}</Text>
               </List.Item>
             ))}
           </List.Root>
           {NOTAS_PRIORITARIAS.map((n) => (
-            <Box key={n.titulo} p={3} borderRadius="md" bg="accent.muted">
+            <Box key={n.titulo} p={3} borderRadius="md" bg="ley.muted">
               <Text fontSize="sm" fontWeight="semibold" mb={1}>
                 {n.titulo}
               </Text>
-              <Text fontSize="sm">{n.texto}</Text>
+              <Text fontSize="sm">{n.plano ?? n.texto}</Text>
+              <HStack gap={3} mt={2} flexWrap="wrap" alignItems="center">
+                <EnlaceLey
+                  fuente={n.fuente}
+                  ancla={n.ancla}
+                  plano={n.plano}
+                  extracto={n.extracto}
+                  origen={origen(n)}
+                  confianza={n.confianza}
+                >
+                  Ver la ley
+                </EnlaceLey>
+                <FuenteLine entrada={n} />
+              </HStack>
             </Box>
           ))}
         </Stack>
@@ -173,27 +210,40 @@ export function PanelLey() {
 
       <Box>
         <Heading as="h2" size="lg" mb={2}>
-          Mapa de los articulos
+          Qué dice cada artículo
         </Heading>
         <Text color="fg.muted" mb={5}>
-          El Titulo II regula el regimen de la entidad beneficiaria; el Titulo
-          III, los incentivos del aportante.
+          El Título II regula el régimen de la entidad que recibe; el Titulo
+          III, los incentivos de quien aporta.
         </Text>
-        <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} gap={3}>
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={3}>
           {ARTICULOS.map((a) => (
             <Card.Root key={a.art} variant="outline" size="sm">
               <Card.Body>
                 <Text
                   fontSize="xs"
                   fontWeight="bold"
-                  color="brand.fg"
+                  color="ley.fg"
                   letterSpacing="0.06em"
                 >
                   {a.art.toUpperCase()}
                 </Text>
-                <Text fontSize="sm" color="fg.muted" mt={1}>
-                  {a.que}
+                <Text fontSize="sm" mt={1}>
+                  {a.plano ?? a.que}
                 </Text>
+                <Box mt={2}>
+                  <EnlaceLey
+                    fuente={a.fuente}
+                    art={a.art}
+                    ancla={a.ancla}
+                    plano={a.plano}
+                    extracto={a.extracto}
+                    origen={origen(a)}
+                    confianza={a.confianza}
+                  >
+                    Ver la ley
+                  </EnlaceLey>
+                </Box>
               </Card.Body>
             </Card.Root>
           ))}
@@ -202,24 +252,25 @@ export function PanelLey() {
 
       <Box>
         <Heading as="h2" size="lg" mb={2}>
-          Quien puede recibir una aportacion con incentivo
+          Quién puede recibir tu aportación con ventaja fiscal
         </Heading>
         <Text color="fg.muted" mb={5} maxW="70ch">
-          Relacion de entidades acreedoras del mecenazgo, con el articulo 16 y
-          las disposiciones adicionales que anaden supuestos. Las marcadas con
-          la etiqueta «deporte» son las que tocan al ambito deportivo.
+          Es la relación del artículo 16 y de las disposiciones adicionales que
+          añaden supuestos. Las marcadas con la etiqueta «deporte» son las que
+          tocan al ambito deportivo.
         </Text>
-        <SimpleGrid as="ul" columns={{ base: 1, md: 2 }} gap={3}>
+        <Stack as="ul" gap={3}>
           {ACREEDORAS.map((a, i) => (
             <Box as="li" key={a.texto}>
               <HStackLine
                 n={i + 1}
-                texto={a.texto}
+                texto={a.plano ?? a.texto}
                 deporte={!!a.deporte}
+                entrada={a}
               />
             </Box>
           ))}
-        </SimpleGrid>
+        </Stack>
       </Box>
 
       <Grid
@@ -229,7 +280,7 @@ export function PanelLey() {
       >
         <Card.Root>
           <Card.Header>
-            <Card.Title>Base de la deduccion</Card.Title>
+            <Card.Title>Sobre qué cantidad se calcula la deducción</Card.Title>
             <Card.Description>Articulo 18</Card.Description>
           </Card.Header>
           <Card.Body>
@@ -241,9 +292,24 @@ export function PanelLey() {
                 {BASE_DEDUCCION.map((b) => (
                   <Table.Row key={b.tipo}>
                     <Table.Cell as="th" scope="row" fontWeight="medium">
-                      {b.tipo}
+                      {b.plano ?? b.tipo}
                     </Table.Cell>
-                    <Table.Cell color="fg.muted">{b.base}</Table.Cell>
+                    <Table.Cell color="fg.muted">
+                      {b.base}
+                      <Box mt={1}>
+                        <EnlaceLey
+                          fuente={b.fuente}
+                          art="Art. 18"
+                          ancla={b.ancla}
+                          plano={b.plano}
+                          extracto={b.extracto}
+                          origen={origen(b)}
+                          confianza={b.confianza}
+                        >
+                          Ver la ley
+                        </EnlaceLey>
+                      </Box>
+                    </Table.Cell>
                   </Table.Row>
                 ))}
               </Table.Body>
@@ -253,16 +319,20 @@ export function PanelLey() {
 
         <Card.Root>
           <Card.Header>
-            <Card.Title>La certificacion</Card.Title>
+            <Card.Title>El papel que te da la entidad</Card.Title>
             <Card.Description>
-              Articulo 24.3: los seis extremos que debe recoger
+              Los seis datos que debe llevar el certificado (articulo 24.3)
             </Card.Description>
           </Card.Header>
           <Card.Body>
             <Stack as="ul" gap={3}>
               {CERTIFICACION_DATOS.map((c) => (
                 <Box as="li" key={c.letra}>
-                  <HStackLine n={c.letra} texto={c.texto} />
+                  <HStackLine
+                    n={c.letra}
+                    texto={c.plano ?? c.texto}
+                    entrada={c}
+                  />
                 </Box>
               ))}
             </Stack>
@@ -276,7 +346,7 @@ export function PanelLey() {
         </Heading>
         <Text color="fg.muted" mb={5} maxW="70ch">
           La Ley 49/2002 es la norma estatal, pero no la unica aplicable.
-          Navarra tiene regimen foral con reglas propias, y desde 2023 incluye
+          Navarra tiene régimen foral con reglas propias, y desde 2023 incluye
           tambien el mecenazgo deportivo.
         </Text>
         <Grid
@@ -284,11 +354,11 @@ export function PanelLey() {
           gap={5}
           alignItems="start"
         >
-          <Card.Root borderColor="brand.focusRing" borderWidth="1px">
+          <Card.Root borderColor="ley.focusRing" borderWidth="1px">
             <Card.Header>
               <HStack gap={2} flexWrap="wrap">
-                <Card.Title>Regimen foral</Card.Title>
-                <Badge colorPalette="brand" variant="solid">
+                <Card.Title>El régimen de Navarra</Card.Title>
+                <Badge colorPalette="ley" variant="solid">
                   En vigor
                 </Badge>
               </HStack>
@@ -299,8 +369,8 @@ export function PanelLey() {
             <Card.Body>
               <Stack gap={3}>
                 <Text fontSize="sm">
-                  No aplica la Ley 49/2002 a quien tribute por el regimen foral,
-                  y los numeros son distintos, no una version mas alta de los
+                  No aplica la Ley 49/2002 a quien tribute por el régimen foral,
+                  y los números son distintos, no una versión más alta de los
                   mismos:
                 </Text>
                 <Table.Root size="sm" variant="line" interactive={false}>
@@ -311,7 +381,7 @@ export function PanelLey() {
                     {NAVARRA_REGLAS.map((r) => (
                       <Table.Row key={r.concepto}>
                         <Table.Cell as="th" scope="row" fontWeight="medium">
-                          {r.concepto}
+                          {r.plano ?? r.concepto}
                         </Table.Cell>
                         <Table.Cell color="fg.muted" textAlign="end">
                           {r.regla}
@@ -345,7 +415,7 @@ export function PanelLey() {
                   determinadas declaradas de interes social por la
                   Administracion deportiva foral.
                 </Text>
-                <Box p={3} borderRadius="md" bg="accent.muted">
+                <Box p={3} borderRadius="md" bg="ley.muted">
                   <Text fontSize="sm" fontWeight="semibold" mb={1}>
                     El limite que conviene saber
                   </Text>
@@ -357,6 +427,29 @@ export function PanelLey() {
                     fomento deportivo.
                   </Text>
                 </Box>
+                <Stack gap={2}>
+                  {NAVARRA_ARTICULOS.map((a) => (
+                    <Box key={a.art}>
+                      <Text fontSize="sm" fontWeight="medium">
+                        {a.plano ?? a.que}
+                      </Text>
+                      <HStack gap={2} mt={1} flexWrap="wrap" alignItems="center">
+                        <EnlaceLey
+                          fuente={a.fuente}
+                          art={a.art}
+                          ancla={a.ancla}
+                          plano={a.plano}
+                          extracto={a.extracto}
+                          origen={origen(a)}
+                          confianza={a.confianza}
+                        >
+                          Ver la ley
+                        </EnlaceLey>
+                        <FuenteLine entrada={a} />
+                      </HStack>
+                    </Box>
+                  ))}
+                </Stack>
                 <Text fontSize="xs" color="fg.muted">
                   Un patrocinio con contraprestacion publicitaria no entra aqui:
                   es patrocinio a los efectos de los articulos 25 a 27 de la ley
@@ -368,11 +461,24 @@ export function PanelLey() {
         </Grid>
         <Stack gap={4} mt={5}>
           {NOTAS.map((n) => (
-            <Box key={n.titulo} p={3} borderRadius="md" bg="accent.muted">
+            <Box key={n.titulo} p={3} borderRadius="md" bg="ley.muted">
               <Text fontSize="sm" fontWeight="semibold" mb={1}>
                 {n.titulo}
               </Text>
-              <Text fontSize="sm">{n.texto}</Text>
+              <Text fontSize="sm">{n.plano ?? n.texto}</Text>
+              <HStack gap={3} mt={2} flexWrap="wrap" alignItems="center">
+                <EnlaceLey
+                  fuente={n.fuente}
+                  ancla={n.ancla}
+                  plano={n.plano}
+                  extracto={n.extracto}
+                  origen={origen(n)}
+                  confianza={n.confianza}
+                >
+                  Ver la ley
+                </EnlaceLey>
+                <FuenteLine entrada={n} />
+              </HStack>
             </Box>
           ))}
         </Stack>
@@ -380,7 +486,7 @@ export function PanelLey() {
 
       <Box>
         <Heading as="h2" size="lg" mb={2}>
-          Otras modalidades de colaboracion
+          Las otras formas de colaborar
         </Heading>
         <Text color="fg.muted" mb={5}>
           Ademas del donativo, la ley regula tres vias con tratamiento distinto
@@ -397,7 +503,7 @@ export function PanelLey() {
             <Card.Root key={m.art} variant="outline">
               <Card.Body>
                 <HStack gap={3} mb={2} flexWrap="wrap">
-                  <Badge colorPalette="brand" variant="subtle">
+                  <Badge colorPalette="ley" variant="subtle">
                     {m.art}
                   </Badge>
                   <Heading as="h3" size="sm">
@@ -407,9 +513,21 @@ export function PanelLey() {
                     {m.tratamiento}
                   </Badge>
                 </HStack>
-                <Text fontSize="sm" color="fg.muted">
-                  {m.texto}
-                </Text>
+                <Text fontSize="sm">{m.plano ?? m.texto}</Text>
+                <HStack gap={3} mt={3} flexWrap="wrap" alignItems="center">
+                  <EnlaceLey
+                    fuente={m.fuente}
+                    art={m.art}
+                    ancla={m.ancla}
+                    plano={m.plano}
+                    extracto={m.extracto}
+                    origen={origen(m)}
+                    confianza={m.confianza}
+                  >
+                    Ver la ley
+                  </EnlaceLey>
+                  <FuenteLine entrada={m} />
+                </HStack>
               </Card.Body>
             </Card.Root>
           ))}
@@ -419,20 +537,63 @@ export function PanelLey() {
   );
 }
 
+/** Lista de fuentes con su enlace. */
+function ListaFuentes({
+  titulo,
+  fuentes,
+}: {
+  titulo: string;
+  fuentes: [string, { titulo: string; url: string }][];
+}) {
+  if (fuentes.length === 0) return null;
+  return (
+    <Box>
+      <Text
+        fontSize="xs"
+        fontWeight="bold"
+        color="ley.fg"
+        letterSpacing="0.06em"
+        mb={1}
+      >
+        {titulo.toUpperCase()}
+      </Text>
+      <Stack gap={1}>
+        {fuentes.map(([id, f]) => (
+          <Text key={id} fontSize="sm">
+            <a href={f.url} target="_blank" rel="noreferrer">
+              {f.titulo}
+            </a>
+          </Text>
+        ))}
+      </Stack>
+    </Box>
+  );
+}
+
 function HStackLine({
   n,
   texto,
   deporte,
+  entrada,
 }: {
   n: number | string;
   texto: string;
   deporte?: boolean;
+  entrada: {
+    fuente: string;
+    verificadoEn: string;
+    ancla?: string;
+    plano?: string;
+    extracto?: string;
+    confianza?: Confianza;
+    fuentes?: string[];
+  };
 }) {
   return (
-    <HStackLike>
+    <Stack direction="row" gap={3} alignItems="flex-start">
       <Badge
         variant="surface"
-        colorPalette="brand"
+        colorPalette="ley"
         size="sm"
         fontVariantNumeric="tabular-nums"
         minW="1.75rem"
@@ -452,35 +613,55 @@ function HStackLine({
           deporte
         </Badge>
       )}
-    </HStackLike>
-  );
-}
-
-function HStackLike({ children }: { children: React.ReactNode }) {
-  return (
-    <Stack direction="row" gap={3} alignItems="flex-start">
-      {children}
+      <Box flexShrink={0}>
+        <EnlaceLey
+          fuente={entrada.fuente}
+          ancla={entrada.ancla}
+          plano={entrada.plano}
+          extracto={entrada.extracto}
+          origen={origen(entrada)}
+          confianza={entrada.confianza}
+        >
+          Ver la ley
+        </EnlaceLey>
+      </Box>
     </Stack>
   );
 }
 
-function FuenteLine({ id, fecha }: { id: string; fecha: string }) {
-  const f = FUENTES[id];
+/** De donde sale el dato, cuando se compruebo, y con que confianza. */
+function FuenteLine({
+  entrada,
+}: {
+  entrada: {
+    fuente: string;
+    verificadoEn: string;
+    confianza?: Confianza;
+    fuentes?: string[];
+  };
+}) {
+  const f = FUENTES[entrada.fuente];
   if (!f) return null;
-  const dia = fecha.split("-").reverse().join("/");
+  const dia = fecha(entrada.verificadoEn);
+  const paleta = origen(entrada);
   return (
-    <Text fontSize="xs" color="fg.muted" mt={2}>
+    <Text fontSize="xs" color="fg.muted">
       Fuente:{" "}
-      <Link
-        href={f.url}
-        target="_blank"
-        rel="noreferrer"
-        color="brand.fg"
-        textDecoration="underline"
-      >
+      <a href={f.url} target="_blank" rel="noreferrer">
         {f.titulo}
-      </Link>{" "}
+      </a>{" "}
       · verificado el {dia}
+      {entrada.confianza && (
+        <Badge
+          colorPalette={paleta}
+          variant="outline"
+          size="xs"
+          ml={2}
+          verticalAlign="middle"
+        >
+          confianza {entrada.confianza}
+        </Badge>
+      )}
     </Text>
   );
 }

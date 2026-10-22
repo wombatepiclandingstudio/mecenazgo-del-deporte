@@ -17,7 +17,7 @@ import { VERIFICADO_EN } from "@/lib/legal";
 export const metadata: Metadata = {
   title: "La ley | Mecenazgo del deporte",
   description:
-    "Lo que la Ley 49/2002 dice de una federacion, un club o cualquier entidad deportiva: quien puede aportar, cuando la aportacion es mecenazgo y cuando es solo patrocinio.",
+    "Qué dice la ley del mecenazgo en el deporte, en palabras claras: quién puede aportar, cuándo es mecenazgo y cuándo es solo patrocinio. Cada dato enlaza con la norma que lo respalda.",
 };
 
 const fecha = (iso: string) =>
@@ -47,9 +47,10 @@ export default function PageLey() {
           Mecenazgo del deporte
         </Heading>
         <Text mt={5} color="fg.muted" fontSize="lg" maxW="66ch">
-          Lo que la Ley 49/2002 dice de una federacion, un club o cualquier
-          entidad deportiva: quien puede aportar, cuando la aportacion se
-          considera mecenazgo y cuando es solo patrocinio.
+          Qué dice la Ley 49/2002 sobre una federación, un club o cualquier
+          entidad deportiva: quién puede aportar, cuándo la aportación se
+          considera mecenazgo y cuándo es solo patrocinio. Cada dato de esta
+          página enlaza con la norma que lo respalda.
         </Text>
 
         <Box mt={7}>

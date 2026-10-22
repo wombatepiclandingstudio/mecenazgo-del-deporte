@@ -55,7 +55,7 @@ export function PanelEntidad({
       ? "Todos los puntos marcados. La entidad puede emitir la certificacion con los datos que exige la ley."
       : pct >= 70
         ? "Casi lista. Lo que falte puede dejar sin efecto la deduccion de quien aporta, asi que conviene cerrarlo antes de emitir el certificado."
-        : `Faltan ${total - hechos} requisitos por confirmar. Mientras no esten todos, la aportacion puede no deducir.`;
+        : `Faltan ${total - hechos} requisitos por confirmar. Mientras no estén todos, la aportación puede no deducir.`;
 
   return (
     <Grid
@@ -65,9 +65,9 @@ export function PanelEntidad({
     >
       <Card.Root>
         <Card.Header>
-          <Card.Title>Checklist de cumplimiento</Card.Title>
+          <Card.Title>Lo que tienes que cumplir</Card.Title>
           <Card.Description>
-            Requisitos de los articulos 2, 3 y 16 de la Ley 49/2002
+            Requisitos de los artículos 2, 3 y 16 de la Ley 49/2002
           </Card.Description>
         </Card.Header>
         <Card.Body>
@@ -89,7 +89,7 @@ export function PanelEntidad({
                       <Checkbox.HiddenInput />
                       <Checkbox.Control mt="2px" />
                       <Checkbox.Label>
-                        {r.texto}
+                        {r.plano ?? r.texto}
                         {r.ayuda && (
                           <Text
                             as="span"
@@ -116,8 +116,8 @@ export function PanelEntidad({
           <Card.Header>
             <Card.Title>Solicitud de ayuda</Card.Title>
             <Card.Description>
-              Quien pide la ayuda y en que linea de actuacion de la convocatoria
-              2026
+              Quién pide la ayuda y en qué línea de actuación de la convocatoria
+              de 2026
             </Card.Description>
           </Card.Header>
           <Card.Body>
@@ -131,7 +131,7 @@ export function PanelEntidad({
                   color="brand.fg"
                   mb={2}
                 >
-                  Quien solicita la ayuda
+                  Quién solicita la ayuda
                 </Text>
                 <HStack gap={2} flexWrap="wrap">
                   {(
@@ -155,7 +155,7 @@ export function PanelEntidad({
               </Box>
 
               <Field.Root>
-                <Field.Label htmlFor="linea">Linea de actuacion</Field.Label>
+                <Field.Label htmlFor="linea">Línea de actuación</Field.Label>
                 <NativeSelect.Root>
                   <NativeSelect.Field
                     id="linea"
@@ -168,7 +168,7 @@ export function PanelEntidad({
                   >
                     {LINEAS_2026.map((l) => (
                       <option key={l.id} value={l.id}>
-                        {l.nombre}
+                        {l.plano ?? l.nombre}
                       </option>
                     ))}
                   </NativeSelect.Field>
@@ -204,7 +204,7 @@ export function PanelEntidad({
                       <Checkbox.HiddenInput />
                       <Checkbox.Control mt="2px" />
                       <Checkbox.Label>
-                        {r.texto}
+                        {r.plano ?? r.texto}
                         {r.ayuda && (
                           <Text
                             as="span"
@@ -260,22 +260,22 @@ export function PanelEntidad({
 
         <Card.Root>
           <Card.Header>
-            <Card.Title>Que implica para quien aporta</Card.Title>
+            <Card.Title>Qué implica para quien aporta</Card.Title>
           </Card.Header>
           <Card.Body>
             <Stack gap={3} fontSize="sm" color="fg.muted">
               <Text>
-                El donante necesita un certificado de la entidad con los seis
-                extremos del articulo 24.3. Se genera en la pestana{" "}
+                Quien aporta necesita un certificado de la entidad con los
+                seis datos del artículo 24.3. Se genera en la pestaña{" "}
                 <Text as="span" color="fg" fontWeight="semibold">
                   Certificado
                 </Text>
                 , en descarga como PDF.
               </Text>
               <Text>
-                Si la entidad pierde el regimen fiscal especial, se cae tambien
-                la deduccion de las aportaciones ya realizadas. El art. 3 obliga
-                ademas a elaborar la memoria economica anual.
+                Si la entidad pierde el régimen fiscal especial, se cae también
+                la deducción de las aportaciones ya realizadas. El artículo 3
+                obliga además a elaborar la memoria económica anual.
               </Text>
             </Stack>
           </Card.Body>
@@ -286,9 +286,9 @@ export function PanelEntidad({
             Nota sobre la declaracion de utilidad publica
           </Heading>
           <Text fontSize="sm" color="fg.muted">
-            Es un filtro de entrada, no una llave. El articulo 2 incluye a las
-            fundaciones sin exigir la declaracion, y el articulo 16 abre
-            dieciseis supuestos mas. Para una asociacion si es imprescindible.
+            Es un filtro de entrada, no una llave. El artículo 2 incluye a las
+            fundaciones sin exigir la declaración, y el artículo 16 abre
+            dieciséis supuestos más. Para una asociación sí es imprescindible.
           </Text>
         </Box>
       </Stack>

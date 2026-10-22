@@ -802,3 +802,93 @@ desmentido por las fuentes primarias.
   31/2022. Los manuales de la AEAT consultados (páginas de marzo y junio de 2026) confirman
   la prórroga de los PGE 2023, pero la fuente primaria concreta (Real Decreto-ley 3/2026)
   no se ha descargado en esta verificación.
+
+
+---
+
+## Verificación del 21/10/2026: citas literales, anclas y el término «entidad acreedora»
+
+**Alcance.** Contraste de las citas literales (`extracto`) y de las anclas que la
+aplicación usa para enlazar con el BOE, tras el paso del contenido a lenguaje claro.
+
+### A. El término «entidad acreedora» no es el de la Ley
+
+**Reclamación.** `GLOSSARY.md` decía que «entidad acreedora» es «el término que usa la
+ley», y la aplicación lo pintaba como tal.
+
+**Veredicto: WRONG.**
+
+**Comprobación.** Búsqueda literal de la cadena «acreedora» en el texto consolidado de
+la Ley 49/2002 (BOE-A-2002-25039) y del DFL 2/2023 (BOE-A-2023-16401): **cero
+apariciones** en ambos. La Ley llama a esas entidades *entidades beneficiarias del
+mecenazgo*.
+
+> Artículo 16. Entidades beneficiarias del mecenazgo.
+> BOE-A-2002-25039.
+
+**Valor correcto.** La Ley 49/2002 dice «entidad beneficiaria del mecenazgo». La palabra
+«acreedora» viene del Reglamento que desarrolla la Ley (Real Decreto 1270/2003), no del
+texto legal. Consecuencia: el glosario y la interfaz usan ahora «entidad que puede
+recibir tu aportación», con el término legal entre paréntesis.
+
+### B. De dónde salen las entidades que pueden recibir aportación
+
+La relación de la aplicación ya no se apoya solo en el artículo 16: el artículo 16 tiene
+las letras a) a e), y el resto llega por disposiciones adicionales.
+
+| Entidades | Norma |
+|---|---|
+| Fundaciones, asociaciones de utilidad pública, ONGD | Art. 16 a) y art. 2 c) |
+| Federaciones, Comité Olímpico y Comité Paralímpico | Art. 2 d) y DA 12.ª |
+| Federaciones y asociaciones de esas entidades | Art. 2 e) |
+| No residentes con establecimiento permanente | Art. 2 f) |
+| Residentes en la UE o el EEE | Art. 2 g) |
+| Estado, comunidades autónomas y entidades locales | Art. 16 b) |
+| Universidades públicas | Art. 16 c) |
+| Instituto Cervantes, Institut Ramon Llull | Art. 16 d) |
+| Organismos Públicos de Investigación | Art. 16 e) |
+| Cruz Roja Española y ONCE | DA 5.ª |
+| Obra Pía de los Santos Lugares | DA 6.ª |
+| Consorcios Casa de América, Casa de Asia, Institut Europeu de la Casa de la Mediterrània y Museo Nacional de Arte de Cataluña | DA 7.ª |
+| Fundaciones propias de entidades religiosas | DA 8.ª |
+| Iglesia Católica y otras confesiones | DA 9.ª |
+| Instituto de España y Reales Academias | DA 10.ª |
+| Museo Nacional del Prado | DA 18.ª |
+| Museo Nacional Centro de Arte Reina Sofía | DA 19.ª |
+
+Esto confirma la atribución que hace la Agencia Tributaria en su manual (F11): «arts. 2 y
+16 y disposiciones adicionales quinta, sexta, séptima, octava, novena, décima,
+decimoctava y decimonovena».
+
+### C. Citas literales
+
+**Método.** Cada `extracto` de `lib/legal.ts` cuya fuente es una norma del BOE se ha
+comparado, sin distinguir mayúsculas ni espacios, con el HTML de la página consolidada de
+esa norma.
+
+**Resultado.** 109 citas comprobadas, **0 discrepancias**. Donde el BOE emplea una
+expresión distinta de la que se resumía (por ejemplo, «siempre que la organización de
+dichas competiciones» en la DA 12.ª.2, o «Disposición adicional decimosegunda» en su
+título), la cita se ha corregido por la literal.
+
+### D. Anclas
+
+El enlace apunta siempre a la norma; el artículo es un ancla dentro de su página. Las
+anclas se comprobaron contra el `id` real del HTML.
+
+| Norma | Anclas de artículo | Anclas de disposición adicional |
+|---|---|---|
+| Ley 49/2002 (BOE-A-2002-25039) | `#a2` … `#a27` | `#daquinta` … `#dadecimonovena` |
+| DFL 2/2023 (BOE-A-2023-16401) | `#a1-7`, `#a3-2`, `#a3-3`, `#a3-11`, `#a4-3`, `#a4-5`, `#a4-6` | `#da-2` |
+| Ley 31/2022 (BOE-A-2022-22128) | — | `#da-57` |
+| Ley 39/2022 (eli/es/l/2022/12/30/39/con) | — | `#da-18` |
+| Ley 28/1990 (BOE-A-1990-31117) | `#a1-21` (art. 18), `#a1-22` (art. 19) | — |
+
+El registro vive en `ANCLAS`, en `lib/legal.ts`.
+
+### E. Material de la Fundación
+
+`F24`, `F25` y `F26` apuntaban las tres a la misma página de entrada. Cada una apunta
+ahora al documento que dice respaldar (Bases 2026, guía de consultas, díptico de
+fiscalidad AEIP), y se han añadido `F30` a `F37` para los documentos que se citaban sin
+entrada propia. Los diez enlaces se comprobaron el 21/10/2026: todos responden.

@@ -6,7 +6,10 @@ Aplicación web con tres rutas:
 
 - `/` **Portada**: dos puertas, según lo que quieras hacer. «Quiero aportar» y «Quiero recibir
   mecenazgo». Cada puerta lleva a su tarea dentro del simulador.
-- `/ley` **La ley**: qué dice la Ley 49/2002 de una federación, un club o cualquier entidad deportiva.
+- `/ley` **La ley**: qué dice la Ley 49/2002 de una federación, un club o cualquier entidad
+  deportiva, en lenguaje claro: la misma idea en palabras corrientes, con el término legal entre
+  paréntesis la primera vez. Cada dato enlaza a la norma que lo respalda, y el color dice de dónde
+  viene: azul, la ley; rojo, la Fundación; violeta, los dos.
   Entidades acreedoras, base de deducción, datos del certificado, y las reglas que mencionan
   expresamente al deporte (artículo 2 y disposición adicional decimosegunda). Incluye el régimen
   foral de Navarra y su mecenazgo deportivo, y la relación vigente de actividades prioritarias.
@@ -119,7 +122,7 @@ app/
   layout.tsx           Metadata, cabecera con la navegacion, salto al contenido y pie
   globals.css          Solo resets: el resto del estilo vive en Chakra
 components/
-  ui/theme.ts             Sistema de temas: escalas brand y accent + tokens semanticos
+  ui/theme.ts             Sistema de temas: escalas brand, accent, ley, fdj y mixto + tokens semanticos
   ui/provider.tsx         ChakraProvider + ThemeProvider
   mecenazgo/
     Cabecera.tsx          Nombre del sitio y navegacion entre las tres rutas
@@ -128,12 +131,13 @@ components/
     PanelAportante.tsx    Simulador IS / IRPF
     PanelCertificado.tsx  Formulario del certificado y descarga del PDF
     PanelLey.tsx          Referencia de la ley, ordenada por el angulo deportivo
+    EnlaceLey.tsx         Modal con la cita literal y el enlace a la norma
 lib/
   mecenazgo.ts            Calculo fiscal, funcion pura y sin dependencias
   mecenazgo.test.ts       Tests del calculo fiscal
   programas.ts            Reglas de los programas de la Fundacion: canon, tope, publicidad, calendario
   programas.test.ts       Tests de esas reglas
-  legal.ts                Contenido legal de la Ley 49/2002, con su fuente
+  legal.ts                Contenido legal de la Ley 49/2002, con su fuente, su texto llano y su cita literal
   legal.test.ts           Tests de la disciplina de verificacion
   cifras.test.ts          Guard: ninguna cifra de la ley fuera de lib/legal.ts
   estado.ts               Estado de la aplicacion
@@ -146,6 +150,9 @@ scripts/copiar-wasm.mjs  Copia el binario de Takumi a public/
 MANUAL-OPERATIVO.md       Manual operativo para asistentes de IA, generado desde lib/legal.ts
 .scratch/fdj-2026/       Spec y tickets del trabajo de los programas de 2026
 docs/
+  adr/
+    0001-nada-sale-del-dispositivo.md
+    0002-lenguaje-plano-y-procedencia.md
   fuentes.md              Catalogo de fuentes primarias y secundarias
   verificacion-legal.md   Contraste de cada afirmacion con la fuente primaria
   actividades-prioritarias.md  Relacion vigente de actividades prioritarias
@@ -160,9 +167,13 @@ cada vez que cambie la norma o se detecte un error:
    foral) y dejar constancia en `docs/verificacion-legal.md`, con la cita literal y la fecha.
 2. Actualizar la entrada correspondiente en `lib/legal.ts`, con su `fuente` y su `verificadoEn`. El
    test de `lib/legal.test.ts` falla si a alguna entrada le falta la fuente o la fecha.
-3. Revisar la lista de actividades prioritarias: la fija la ley de presupuestos de cada ejercicio y,
+3. Reescribir en lenguaje claro lo que se muestre al público y dejarlo en la misma entrada, con los
+   campos `plano` (texto llano), `extracto` (cita literal), `ancla` (artículo dentro de la norma) y
+   `confianza` (alta, media o baja). El texto llano no cambia ninguna cifra y la cita literal se
+   copia del texto consolidado: no se redacta. Si no se puede comprobar, el extracto se deja vacío.
+4. Revisar la lista de actividades prioritarias: la fija la ley de presupuestos de cada ejercicio y,
    mientras no se aprueben, se renueva con su prórroga (`docs/actividades-prioritarias.md`).
-4. Actualizar `VERIFICADO_EN` en `lib/legal.ts` y el número de la interfaz.
+5. Actualizar `VERIFICADO_EN` en `lib/legal.ts` y el número de la interfaz.
 
 Cuando el texto de la aplicación y la fuente primaria discrepen, **manda la fuente primaria**.
 
@@ -171,6 +182,11 @@ Cuando el texto de la aplicación y la fuente primaria discrepen, **manda la fue
 Todo el color sale de `components/ui/theme.ts`. Las escalas `brand` (principal) y `accent` (cifras
 destacadas) tienen tokens semánticos asociados, de modo que cambiar un solo valor repinta botones,
 enlaces, estados y resultados a la vez.
+
+Las paletas de procedencia van aparte: `ley` (azul, lo que dice la ley), `fdj` (rojo `#DB291E`, lo
+que dice deportejoven.es) y `mixto` (violeta, lo que dicen los dos). Pintan las etiquetas y los
+bordes de las citas, y nunca son el único canal: el texto llano y la cita literal en cursiva dicen
+lo mismo sin color.
 
 ## Nota sobre el alcance
 

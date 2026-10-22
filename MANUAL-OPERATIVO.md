@@ -197,9 +197,17 @@ ser inferior a 1000,00 €. Los pagos en efectivo de
 - F21: Ley 34/1988, General de Publicidad (BOE) — https://www.boe.es/buscar/act.php?id=BOE-A-1988-16636
 - F22: Real Decreto-ley 8/2025, de 8 de julio, acontecimientos de excepcional interes publico (BOE) — https://www.boe.es/buscar/doc.php?id=BOE-A-2025-14083
 - F23: Real Decreto-ley 12/2026, de 26 de mayo, acontecimientos de excepcional interes publico (BOE) — https://www.boe.es/buscar/doc.php?id=BOE-A-2026-11397
-- F24: Fundacion Deporte Joven, Bases 2026 del programa «España Compite: en la Empresa como en el Deporte» — https://deportejoven.es/programas-de-mecenazgo-deportivo-guia-de-consultas/
-- F25: Fundacion Deporte Joven, FAQ de mecenatismo deportivo — https://deportejoven.es/programas-de-mecenazgo-deportivo-guia-de-consultas/
-- F26: Consejo Superior de Deportes y Fundacion Deporte Joven, Fiscalidad de los programas AEIP 2025 — https://deportejoven.es/programas-de-mecenazgo-deportivo-guia-de-consultas/
+- F24: Fundacion Deporte Joven, Bases 2026 del programa «España Compite: en la Empresa como en el Deporte» — https://deportejoven.es/wp-content/uploads/2026/02/Bases-2026-Espa%C3%B1a-Compite.pdf
+- F25: Fundacion Deporte Joven, Guia de consultas (FAQ) de los programas de mecenazgo deportivo — https://deportejoven.es/programas-de-mecenazgo-deportivo-guia-de-consultas/
+- F26: Consejo Superior de Deportes y Fundacion Deporte Joven, Fiscalidad de los programas AEIP (díptico) — https://deportejoven.es/wp-content/uploads/2024/05/diptico_AEIP_21x21.pdf
+- F30: Fundacion Deporte Joven, Formulario del solicitante de «España Compite» 2026 — https://deportejoven.es/wp-content/uploads/2026/02/Formulario-Solicitante-Espa%C3%B1a-Compite-2026-2.pdf
+- F31: Fundacion Deporte Joven, Formulario del donante de «España Compite» 2026 — https://deportejoven.es/wp-content/uploads/2026/03/Formulario-Donante-Espa%C3%B1a-Compite-2026.pdf
+- F32: Fundacion Deporte Joven, Fiscalidad APM 2025 («España Compite») — https://deportejoven.es/wp-content/uploads/2026/06/Fiscalidad-APM-2025.pdf
+- F33: Fundacion Deporte Joven, Lineas de actuacion de ADB 2030 II (tríptico) — https://deportejoven.es/wp-content/uploads/2026/06/ADB-2030-II-Tr%C3%ADptico.pdf
+- F34: Fundacion Deporte Joven, Manual de identidad corporativa de Universo Mujer IV — https://deportejoven.es/wp-content/uploads/2025/12/UNIVERSO-MUJER-IV-Manual-de-identidad-corporativa-1.pdf
+- F35: Fundacion Deporte Joven, Anexo 2, modelo de solicitud de Universo Mujer IV — https://deportejoven.es/wp-content/uploads/2025/12/Modelo-de-SOLICITUD-Programa-Universo-Mujer-IV-3-1.docx
+- F36: Fundacion Deporte Joven, Anexo 2, modelo de solicitud de ADB 2030 II — https://deportejoven.es/wp-content/uploads/2025/12/Modelo-de-SOLICITUD-Programa-ADB2030-II-2-1.docx
+- F37: Fundacion Deporte Joven, Pagina del programa «España Compite» (modelos y avisos) — https://deportejoven.es/linea-actuacion/espana-compite/
 - F27: Ley 39/2022, de 30 de diciembre, del Deporte, disposicion adicional decimoctava (BOE) — https://www.boe.es/eli/es/l/2022/12/30/39/con
 - F28: Ley 7/2012, de 29 de octubre, limite a los pagos en efectivo, art. 7 (BOE) — https://www.boe.es/buscar/act.php?id=BOE-A-2012-13416
 - F29: Ley 11/2021, de 9 de julio, que baja el limite de pagos en efectivo a 1.000 euros (BOE) — https://www.boe.es/buscar/act.php?id=BOE-A-2021-11473

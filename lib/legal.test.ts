@@ -98,3 +98,63 @@ describe("contenido legal", () => {
     }
   });
 });
+
+describe("lenguaje claro y trazabilidad", () => {
+  it("toda entrada con texto llano declara su confianza", () => {
+    for (const [nombre, valor] of arrays) {
+      for (const entrada of entradas(valor)) {
+        if (!entrada.plano) continue;
+        expect(
+          ["alta", "media", "baja"].includes(String(entrada.confianza)),
+          `${nombre}: ${String(entrada.confianza)}`,
+        ).toBe(true);
+      }
+    }
+  });
+
+  it("ningun extracto es un texto vacio", () => {
+    for (const [nombre, valor] of arrays) {
+      for (const entrada of entradas(valor)) {
+        if (entrada.extracto === undefined) continue;
+        expect(typeof entrada.extracto, `${nombre}`).toBe("string");
+        expect(String(entrada.extracto).length, `${nombre}`).toBeGreaterThan(19);
+      }
+    }
+  });
+
+  it("toda ancla es un ancla dentro de la pagina de la norma", () => {
+    for (const [nombre, valor] of arrays) {
+      for (const entrada of entradas(valor)) {
+        if (entrada.ancla === undefined) continue;
+        expect(String(entrada.ancla), `${nombre}`).toMatch(/^#[a-z0-9-]+$/);
+      }
+    }
+  });
+
+  it("toda fuente adicional existe en FUENTES", () => {
+    for (const [nombre, valor] of arrays) {
+      for (const entrada of entradas(valor)) {
+        const extra = entrada.fuentes as string[] | undefined;
+        if (!extra) continue;
+        for (const id of extra) {
+          expect(legal.FUENTES[id], `${nombre}`).toBeDefined();
+        }
+      }
+    }
+  });
+
+  it("el origen se deriva de las fuentes: la ley, la Fundacion o los dos", () => {
+    expect(legal.origen({ fuente: "F1" })).toBe("ley");
+    expect(legal.origen({ fuente: "F24" })).toBe("fdj");
+    expect(legal.origen({ fuente: "F1", fuentes: ["F1", "F24"] })).toBe("mixto");
+    expect(legal.origenDe(["F17", "F22"])).toBe("ley");
+  });
+
+  it("las anclas del BOE apuntan a una fuente que existe", () => {
+    for (const clave of Object.keys(legal.ANCLAS)) {
+      const [fuente] = clave.split("#");
+      expect(legal.FUENTES[fuente], clave).toBeDefined();
+      expect(legal.ANCLAS[clave], clave).toMatch(/^#[a-z0-9-]+$/);
+    }
+  });
+});
